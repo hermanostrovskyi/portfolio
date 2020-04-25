@@ -109,12 +109,15 @@
 <script lang="ts">
     import Vue from 'vue';
     import Component from "vue-class-component";
-    // import HelloWorld from './components/HelloWorld.vue';
+    import {IAdminMenuItem} from "@/interfaces/interfaces";
 
     @Component
-    export default class APP extends Vue {
+    export default class Admin extends Vue {
         drawer: boolean = false;
-
+        menuItems: IAdminMenuItem[] = [
+            {title: 'Home', icon: 'dashboard'},
+            {title: 'Work Experience', icon: 'mdi-briefcase'},
+        ];
     }
 </script>
 
