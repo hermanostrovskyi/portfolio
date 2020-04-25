@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-container fluid>
         <v-navigation-drawer v-model="drawer" app>
             <v-list-item>
                 <v-list-item-avatar>
@@ -11,44 +11,18 @@
             </v-list-item>
             <v-divider></v-divider>
             <v-list dense>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-home</v-icon>
-                    </v-list-item-action>
+                <v-list-item
+                        v-for="menuItem in menuItems"
+                        :key="menuItem.title"
+                        @click="currentItem = menuItem.title"
+                        link
+                >
+                    <v-list-item-icon>
+                        <v-icon>{{ menuItem.icon }}</v-icon>
+                    </v-list-item-icon>
+
                     <v-list-item-content>
-                        <v-list-item-title>Home</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-briefcase</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Work Experience</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-grid</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Portfolio</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-dumbbell</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Skills</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-certificate</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Certificates</v-list-item-title>
+                        <v-list-item-title>{{ menuItem.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>
@@ -67,42 +41,12 @@
             <v-toolbar-title>Admin Panel</v-toolbar-title>
         </v-app-bar>
 
-        <!--      <div class="d-flex align-center">-->
-        <!--        <v-img-->
-        <!--          alt="Vuetify Logo"-->
-        <!--          class="shrink mr-2"-->
-        <!--          contain-->
-        <!--          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"-->
-        <!--          transition="scale-transition"-->
-        <!--          width="40"-->
-        <!--        />-->
+        <keep-alive>
+            <component :is="componentName"></component>
+        </keep-alive>
 
-        <!--        <v-img-->
-        <!--          alt="Vuetify Name"-->
-        <!--          class="shrink mt-1 hidden-sm-and-down"-->
-        <!--          contain-->
-        <!--          min-width="100"-->
-        <!--          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"-->
-        <!--          width="100"-->
-        <!--        />-->
-        <!--      </div>-->
+    </v-container>
 
-        <!--      <v-spacer></v-spacer>-->
-
-        <!--      <v-btn-->
-        <!--        href="https://github.com/vuetifyjs/vuetify/releases/latest"-->
-        <!--        target="_blank"-->
-        <!--        text-->
-        <!--      >-->
-        <!--        <span class="mr-2">Latest Release</span>-->
-        <!--        <v-icon>mdi-open-in-new</v-icon>-->
-        <!--      </v-btn>-->
-        <!--    </v-app-bar>-->
-
-        <!--    <v-content>-->
-        <!--      <HelloWorld/>-->
-        <!--    </v-content>-->
-    </v-app>
 </template>
 
 // TODO Create a single component for Admin
@@ -110,14 +54,35 @@
     import Vue from 'vue';
     import Component from "vue-class-component";
     import {IAdminMenuItem} from "@/interfaces/interfaces";
+    import AdminSkills from '@/components/AdminSkills.vue';
+    import AdminCertificates from '@/components/AdminCertificates.vue';
+    import AdminPortfolio from '@/components/AdminPortfolio.vue';
+    import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
 
-    @Component
+
+    @Component({
+        components: {
+            AdminSkills,
+            AdminCertificates,
+            AdminPortfolio,
+            AdminWorkExperience
+        }
+    })
     export default class Admin extends Vue {
         drawer: boolean = false;
+        currentItem: string = 'Skills';
         menuItems: IAdminMenuItem[] = [
-            {title: 'Home', icon: 'dashboard'},
+            {title: 'Home', icon: 'mdi-home'},
             {title: 'Work Experience', icon: 'mdi-briefcase'},
+            {title: 'Portfolio', icon: 'mdi-grid'},
+            {title: 'Skills', icon: 'mdi-dumbbell'},
+            {title: 'Certificates', icon: 'mdi-certificate'},
         ];
+
+        get componentName(): string {
+            const itemName = this.currentItem.replace(/\s/g, '');
+            return `Admin${itemName}`;
+        }
     }
 </script>
 
