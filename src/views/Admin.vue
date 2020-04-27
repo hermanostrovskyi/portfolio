@@ -50,15 +50,21 @@
             <v-toolbar-title>Admin Panel</v-toolbar-title>
         </v-app-bar>
 
-        <keep-alive>
-            <component :is="componentName"></component>
-        </keep-alive>
+        <v-card>
+            <v-toolbar>
+                <v-toolbar-title>Edit toolbar</v-toolbar-title>
+            </v-toolbar>
+            <keep-alive>
+                <component :is="componentName"></component>
+            </keep-alive>
+        </v-card>
+
+
 
     </v-container>
 
 </template>
 
-// TODO Create a single component for Admin
 <script lang="ts">
     import Vue from 'vue';
     import Component from "vue-class-component";
@@ -91,7 +97,6 @@
 
         @auth.Action
         public logout!: () => void;
-
 
         get componentName(): string {
             const itemName = this.currentItem.replace(/\s/g, '');
