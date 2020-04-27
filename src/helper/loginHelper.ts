@@ -27,3 +27,9 @@ export function isTokenExpired(): boolean {
     }
     return true;
 }
+
+export function clearJWT(): void {
+    localStorage.removeItem('localId');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('token')
+}

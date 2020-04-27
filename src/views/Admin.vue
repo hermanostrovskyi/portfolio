@@ -35,7 +35,7 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider></v-divider>
-                <v-list-item link>
+                <v-list-item @click="logout">
                     <v-list-item-action>
                         <v-icon>mdi-exit-to-app</v-icon>
                     </v-list-item-action>
@@ -88,6 +88,9 @@
             {title: 'Skills', icon: 'mdi-dumbbell'},
             {title: 'Certificates', icon: 'mdi-certificate'},
         ];
+
+        @auth.Action
+        public logout!: () => void;
 
 
         get componentName(): string {

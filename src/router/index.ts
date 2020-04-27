@@ -2,8 +2,6 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import Home from '../views/Home.vue';
 import store from "@/store/index";
-import Admin from "@/views/Admin.vue";
-
 
 Vue.use(VueRouter)
 

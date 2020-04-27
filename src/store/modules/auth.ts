@@ -3,6 +3,7 @@ import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import axios from 'axios';
 import router from "@/router";
 import {
+    clearJWT,
     getAuthUri,
     getTokenFromLocalStorage,
     getUserIdFromLocalStorage,
@@ -25,6 +26,11 @@ class Auth extends VuexModule {
     public authUser(authData: IAuthData) {
         this.authData.idToken = authData.token;
         this.authData.userId = authData.userId;
+    }
+
+    @Mutation
+    public clearAuthData() {
+        this.authData.idToken = this.authData.userId = null;
     }
 
     @Action
@@ -56,6 +62,13 @@ class Auth extends VuexModule {
         }
         const userId = getUserIdFromLocalStorage();
         this.context.commit('authUser', {token, userId});
+    }
+
+    @Action
+    public logout() {
+        clearJWT();
+        this.context.commit('clearAuthData');
+        router.replace('/');
     }
 }
 
