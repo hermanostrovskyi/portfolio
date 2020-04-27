@@ -22,8 +22,8 @@ const routes: Array<RouteConfig> = [
     {
         path: '/admin',
         name: 'Admin',
+        component: () => import('../views/Admin.vue'),
         beforeEnter(to, from, next) {
-
             if(store.getters['Auth/isAuthenticated']) {
                 console.log('yep')
                 next();
@@ -32,9 +32,11 @@ const routes: Array<RouteConfig> = [
                 next('/login')
             }
         },
-        component: Admin
-        // component: () => import('../views/Admin.vue')
-    }
+    },
+    {
+        path: '*',
+        redirect: '/'
+    },
 ]
 
 const router = new VueRouter({
