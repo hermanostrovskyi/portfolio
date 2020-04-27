@@ -51,8 +51,7 @@
         }
 
         @auth.Action
-        public login!: (loginData: ILoginData) => void
-
+        public login!: (loginData: ILoginData) => void;
 
     }
 </script>

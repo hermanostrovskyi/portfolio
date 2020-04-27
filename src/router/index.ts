@@ -12,14 +12,12 @@ const routes: Array<RouteConfig> = [
     {path: '/login', component: () => import('../views/Login.vue')},
     {
         path: '/admin',
-        component: Admin,
+        component: () => import('../views/Admin.vue'),
         beforeEnter(to, from, next) {
             if (store.getters['Auth/isAuthenticated']) {
-                console.log('yep')
                 next();
             } else {
-                console.log('nope')
-                next('/login')
+                next('/login');
             }
         },
     },

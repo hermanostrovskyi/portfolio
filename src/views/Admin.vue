@@ -67,6 +67,8 @@
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
+    import {namespace} from "vuex-class";
+    const auth = namespace('Auth');
 
 
     @Component({
@@ -86,6 +88,7 @@
             {title: 'Skills', icon: 'mdi-dumbbell'},
             {title: 'Certificates', icon: 'mdi-certificate'},
         ];
+
 
         get componentName(): string {
             const itemName = this.currentItem.replace(/\s/g, '');
