@@ -1,26 +1,23 @@
 import Vue from 'vue';
-import VueRouter, {RouteConfig} from 'vue-router';
+import VueRouter, {Route, RouteConfig} from 'vue-router';
 import Home from '../views/Home.vue';
-// import Login from '../views/Login.vue';
+import store from "@/store/index";
 
 Vue.use(VueRouter)
 
-const routes: Array<RouteConfig> = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
-    // {
-    //     path: '/login',
-    //     name: 'Login',
-    //     component: Login
-    // },
-    {
-        path: '/admin',
-        name: 'Admin',
-        component: () => import('../views/Admin.vue')
+const isAuthentificated = (to: Route, from: Route, next: any) => {
+    if (store.getters['Auth/isAuthenticated']) {
+        next();
+    } else {
+        next('/login');
     }
+}
+
+const routes: Array<RouteConfig> = [
+    {path: '/', component: Home},
+    {path: '/login', component: () => import('../views/Login.vue')},
+    {path: '/admin', component: () => import('../views/Admin.vue'), beforeEnter: isAuthentificated},
+    {path: '*', redirect: '/'},
 ]
 
 const router = new VueRouter({
