@@ -1,87 +1,66 @@
-import {IAuthData, IAuthState} from "@/interfaces/interfaces";
+import {IAuthData, IAuthState, ILoginData} from "@/interfaces/interfaces";
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import axios from 'axios';
 import router from "@/router";
+import {
+    getAuthUri,
+    getTokenFromLocalStorage,
+    getUserIdFromLocalStorage,
+    isTokenExpired,
+    saveDataToLocalStorage
+} from "@/helper/loginHelper";
 
-
-@Module({namespaced: true, name: 'test'})
+@Module({namespaced: true})
 class Auth extends VuexModule {
     public authData: IAuthState = {
         idToken: null,
         userId: null
     }
 
-    // @ts-ignore
-    private saveDataToLocalStorage(response) {
-        const now: Date = new Date();
-        const expirationDate: string = new Date(now.getTime() + response.data.expiresIn * 1000).toDateString();
-        localStorage.setItem('token', response.data.idToken);
-        localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('localId', response.data.localId);
+    get isAuthenticated(): boolean {
+        return this.authData.idToken !== null
     }
 
-
-    // @Mutation
-    // public setName(newName: string): void {
-    //     this.name = newName
-    // }
+    @Mutation
+    public authUser(authData: IAuthData) {
+        this.authData.idToken = authData.token;
+        this.authData.userId = authData.userId;
+    }
 
     @Action
-    public login({commit, dispatch}: any, authData: IAuthData) {
-        const uri: string = process.env.VUE_APP_AUTH_URI + '/accounts:signInWithPassword?key=' + process.env.VUE_APP_API_KEY;
+    public login(loginData: ILoginData): void {
+        const uri: string = getAuthUri();
         axios.post(uri, {
-            email: authData.email,
-            password: authData.password,
+            email: loginData.email,
+            password: loginData.password,
             returnSecureToken: true
         })
             .then(response => {
-                this.saveDataToLocalStorage(response);
-                // const now = new Date();
-                // const expirationDate = new Date(now.getTime() + response.data.expiresIn * 1000);
-                // localStorage.setItem('token', response.data.idToken);
-                // localStorage.setItem('expirationDate', expirationDate);
-                // localStorage.setItem('localId', response.data.localId);
-                commit('authUser', {token: response.data.idToken, userId: response.data.localId});
+                saveDataToLocalStorage(response);
+                this.context.commit('authUser', {token: response.data.idToken, userId: response.data.localId});
                 // dispatch('setLogoutTimer', response.data.expiresIn);
                 router.push('/admin');
                 console.log(response);
             })
             .catch(error => console.log(error))
     }
-}
 
-// const getters = {};
-//
-// const mutations = {};
-//
-//
-// const actions: any = {
-//     [LOGIN]: ({commit, dispatch}: any, authData: IAuthData) => {
-//         axios.post('/accounts:signInWithPassword?key=AIzaSyC3BAzI20UHZgzF3sb7sz1Egyu5rG-jkbo', {
-//             email: authData.email,
-//             password: authData.password,
-//             returnSecureToken: true
-//         })
-//             .then(response => {
-//                 // const now = new Date();
-//                 // const expirationDate = new Date(now.getTime() + response.data.expiresIn * 1000);
-//                 // localStorage.setItem('token', response.data.idToken);
-//                 // localStorage.setItem('expirationDate', expirationDate);
-//                 // localStorage.setItem('localId', response.data.localId);
-//                 commit('authUser', {token: response.data.idToken, userId: response.data.localId});
-//                 // dispatch('setLogoutTimer', response.data.expiresIn);
-//                 router.push('/dashboard');
-//                 console.log(response);
-//             })
-//             .catch(error => console.log(error))
-//     };
-//
-//     export default {
-//         state,
-//         getters,
-//         mutations,
-//         actions
-//     }
+    @Action
+    public tryAutoLogin() {
+        const token = getTokenFromLocalStorage();
+        if (!token) {
+            return;
+        }
+        if (isTokenExpired()) {
+            return;
+        }
+        const userId = getUserIdFromLocalStorage();
+
+        console.log(token, userId)
+
+        this.context.commit('authUser', {token, userId});
+    }
+}
 
 
 export default Auth;

@@ -13,7 +13,7 @@
                                     name="email"
                                     prepend-icon="mdi-email"
                                     type="text"
-                                    v-model="email"
+                                    v-model="loginData.email"
                             />
 
                             <v-text-field
@@ -22,13 +22,13 @@
                                     name="password"
                                     prepend-icon="mdi-lock"
                                     type="password"
-                                    v-model="password"
+                                    v-model="loginData.password"
                             />
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer/>
-                        <v-btn color="secondary">Login</v-btn>
+                        <v-btn color="secondary" @click="login(loginData)">Login</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -38,12 +38,21 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+    import { Component, Vue } from 'vue-property-decorator'
+    import {ILoginData} from "@/interfaces/interfaces";
+    import {namespace} from "vuex-class";
+    const auth = namespace('Auth');
 
     @Component
     export default class Login extends Vue {
-        email: string = '';
-        password: string = ''
+        loginData: ILoginData = {
+            email: '',
+            password: ''
+        }
+
+        @auth.Action
+        public login!: (loginData: ILoginData) => void
+
+
     }
 </script>

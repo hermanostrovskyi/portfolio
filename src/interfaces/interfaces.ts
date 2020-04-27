@@ -8,7 +8,13 @@ export interface IAuthState {
     userId: string | null;
 }
 
-export interface IAuthData {
+export interface ILoginData {
     email: string;
     password: string;
 }
+
+export interface IAuthData {
+    token: string;
+    userId: string;
+}
+
