@@ -5,26 +5,16 @@ import store from "@/store/index";
 import Admin from "@/views/Admin.vue";
 
 
-
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: () => import('../views/Login.vue')
-    },
+    {path: '/', component: Home},
+    {path: '/login', component: () => import('../views/Login.vue')},
     {
         path: '/admin',
-        name: 'Admin',
-        component: () => import('../views/Admin.vue'),
+        component: Admin,
         beforeEnter(to, from, next) {
-            if(store.getters['Auth/isAuthenticated']) {
+            if (store.getters['Auth/isAuthenticated']) {
                 console.log('yep')
                 next();
             } else {
@@ -33,10 +23,7 @@ const routes: Array<RouteConfig> = [
             }
         },
     },
-    {
-        path: '*',
-        redirect: '/'
-    },
+    {path: '*', redirect: '/'},
 ]
 
 const router = new VueRouter({

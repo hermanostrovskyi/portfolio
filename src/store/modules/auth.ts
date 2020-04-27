@@ -55,9 +55,6 @@ class Auth extends VuexModule {
             return;
         }
         const userId = getUserIdFromLocalStorage();
-
-        console.log(token, userId)
-
         this.context.commit('authUser', {token, userId});
     }
 }

@@ -11,6 +11,15 @@
             </v-list-item>
             <v-divider></v-divider>
             <v-list dense>
+                <v-list-item link to="/">
+                    <v-list-item-icon>
+                        <v-icon>mdi-home</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                        <v-list-item-title>Home</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item
                         v-for="menuItem in menuItems"
                         :key="menuItem.title"
@@ -69,10 +78,9 @@
         }
     })
     export default class Admin extends Vue {
-        drawer: boolean = false;
+        drawer: boolean = true;
         currentItem: string = 'Skills';
         menuItems: IAdminMenuItem[] = [
-            {title: 'Home', icon: 'mdi-home'},
             {title: 'Work Experience', icon: 'mdi-briefcase'},
             {title: 'Portfolio', icon: 'mdi-grid'},
             {title: 'Skills', icon: 'mdi-dumbbell'},
