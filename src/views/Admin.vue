@@ -51,15 +51,24 @@
         </v-app-bar>
 
         <v-card>
-            <v-toolbar>
-                <v-toolbar-title>Edit toolbar</v-toolbar-title>
+            <v-toolbar flat>
+                <v-toolbar-title>{{currentItem}}</v-toolbar-title>
+                <v-spacer></v-spacer>
+
+                <v-btn color="success">
+                    <v-icon left>mdi-plus-circle-outline</v-icon> New
+                </v-btn>
+
+                <v-btn color="primary" class="save-btn">
+                    <v-icon left>mdi-content-save</v-icon> Save all
+                </v-btn>
             </v-toolbar>
+            <v-divider></v-divider>
+
             <keep-alive>
                 <component :is="componentName"></component>
             </keep-alive>
         </v-card>
-
-
 
     </v-container>
 
@@ -74,6 +83,7 @@
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
     import {namespace} from "vuex-class";
+
     const auth = namespace('Auth');
 
 
@@ -104,4 +114,10 @@
         }
     }
 </script>
+
+<style scoped>
+    .save-btn {
+        margin-left: 12px;
+    }
+</style>
 
