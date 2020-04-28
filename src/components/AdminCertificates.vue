@@ -40,8 +40,6 @@
         get allCertificates(): ICertificate[] {
             return certificateStore.allCertificates;
         }
-
-
     }
 </script>
 

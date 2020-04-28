@@ -1,11 +1,11 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md6 lg4 v-for="skill in skills" :key="skill.id" >
+            <v-flex xs12 sm6 md6 lg4 v-for="skill in allSkills" :key="skill.id">
                 <v-card>
                     <v-card-title>{{skill.name}}</v-card-title>
                     <v-container>
-                        <v-progress-linear  class="progress-bar" rounded height="25px" :value="skill.skillValue">
+                        <v-progress-linear class="progress-bar" rounded height="25px" :value="skill.skillValue">
                             <strong>{{skill.skillValue}} %</strong>
                         </v-progress-linear>
                     </v-container>
@@ -32,16 +32,16 @@
     import Vue from 'vue';
     import Component from "vue-class-component";
     import {ISkill} from "@/interfaces/interfaces";
+    import Skill from "@/store/modules/skill";
+    import {getModule} from "vuex-module-decorators";
+
+    const skillStore = getModule(Skill);
 
     @Component
     export default class AdminSkills extends Vue {
-        skills: ISkill[] = [
-            {id: 1, name: 'Photoshop', skillValue: 75},
-            {id: 2, name: 'Illustrator', skillValue: 55},
-            {id: 3, name: 'Mockup', skillValue: 87},
-            {id: 4, name: 'Mobile', skillValue: 34},
-            {id: 5, name: 'Photo', skillValue: 70}
-        ]
+        get allSkills(): ISkill[] {
+            return skillStore.allSkills;
+        }
     }
 </script>
 

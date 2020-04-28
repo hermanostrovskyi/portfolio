@@ -56,7 +56,7 @@ class Certificate extends VuexModule {
 
     @Mutation
     updateCertificate(certificate: ICertificate): void {
-        const index = this.certificates.findIndex((certificate: ICertificate) => certificate.id === certificate.id);
+        const index = this.certificates.findIndex((certificateItem: ICertificate) => certificateItem.id === certificate.id);
         this.certificates[index] = certificate;
     }
 
