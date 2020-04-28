@@ -10,8 +10,16 @@ import {
     isTokenExpired,
     saveDataToLocalStorage
 } from "@/helper/loginHelper";
+import Store from '../index';
 
-@Module({namespaced: true})
+@Module(
+    {
+        dynamic: true,
+        store: Store,
+        name: "auth",
+        namespaced: true
+    }
+)
 class Auth extends VuexModule {
     public authData: IAuthState = {
         idToken: null,

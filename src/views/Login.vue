@@ -28,7 +28,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer/>
-                        <v-btn color="secondary" @click="login(loginData)">Login</v-btn>
+                        <v-btn color="secondary" @click="loginUser(loginData)">Login</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -38,10 +38,12 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator'
+    import {Component, Vue} from 'vue-property-decorator'
     import {ILoginData} from "@/interfaces/interfaces";
-    import {namespace} from "vuex-class";
-    const auth = namespace('Auth');
+    import {getModule} from "vuex-module-decorators";
+    import Auth from "@/store/modules/auth";
+
+    const authStore = getModule(Auth);
 
     @Component
     export default class Login extends Vue {
@@ -50,8 +52,9 @@
             password: ''
         }
 
-        @auth.Action
-        public login!: (loginData: ILoginData) => void;
+        loginUser(loginData: ILoginData): void {
+            authStore.login(loginData);
+        }
 
     }
 </script>

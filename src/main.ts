@@ -3,8 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
+import Auth from "@/store/modules/auth";
+import {getModule} from "vuex-module-decorators";
 
-store.dispatch('Auth/tryAutoLogin');
+const authStore = getModule(Auth);
+authStore.tryAutoLogin();
 
 new Vue({
   router,

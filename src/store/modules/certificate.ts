@@ -6,7 +6,7 @@ import Store from '../index';
     dynamic: true,
     store: Store,
     name: "Certificate",
-    namespaced: true,
+    namespaced: true
 })
 class Certificate extends VuexModule {
     public certificates: ICertificate[] = [

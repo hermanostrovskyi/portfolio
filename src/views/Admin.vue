@@ -83,9 +83,10 @@
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
-    import {namespace} from "vuex-class";
+    import {getModule} from "vuex-module-decorators";
+    import Auth from "@/store/modules/auth";
 
-    const auth = namespace('Auth');
+    const authStore = getModule(Auth);
 
 
     @Component({
@@ -106,8 +107,10 @@
             {title: 'Certificates', icon: 'mdi-certificate'},
         ];
 
-        @auth.Action
-        public logout!: () => void;
+       public logout(): void {
+           authStore.logout();
+       }
+        // public logout!: () => void;
 
         get componentName(): string {
             const itemName = this.currentItem.replace(/\s/g, '');

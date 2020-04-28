@@ -4,9 +4,7 @@
             <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.id">
                 <v-card>
                     <v-card-title>{{certificate.title}}</v-card-title>
-                    <v-container>
-                        <p>{{certificate.url}}</p>
-                    </v-container>
+                    <v-img src="@/assets/vue.jpg"></v-img>
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -15,9 +13,12 @@
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
+
                         <v-btn fab small color="error">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
+
+
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -33,14 +34,14 @@
     import store from "@/store";
 
     const certificateStore = getModule(Certificate, store);
-    // import {namespace} from "vuex-class";
-    // const certificate = namespace('Certificate');
 
     @Component
     export default class AdminCertificates extends Vue {
-        public get allCertificates(): ICertificate[] {
+        get allCertificates(): ICertificate[] {
             return certificateStore.allCertificates;
         }
+
+
     }
 </script>
 
