@@ -24,25 +24,23 @@
                 </v-card>
             </v-flex>
         </v-layout>
-
-
-
     </v-container>
 
 </template>
 
-<script>
+<script lang="ts">
     import Vue from 'vue';
     import Component from "vue-class-component";
+    import {ISkill} from "@/interfaces/interfaces";
 
     @Component
     export default class AdminSkills extends Vue {
-        skills = [
-            {id: 1, name: 'Photoshop', skillValue: 75, cols: 6},
-            {id: 2, name: 'Illustrator', skillValue: 55, cols: 6},
-            {id: 3, name: 'Mockup', skillValue: 87, cols: 6},
-            {id: 4, name: 'Mobile', skillValue: 34, cols: 6},
-            {id: 5, name: 'Photo', skillValue: 70, cols: 6}
+        skills: ISkill[] = [
+            {id: 1, name: 'Photoshop', skillValue: 75},
+            {id: 2, name: 'Illustrator', skillValue: 55},
+            {id: 3, name: 'Mockup', skillValue: 87},
+            {id: 4, name: 'Mobile', skillValue: 34},
+            {id: 5, name: 'Photo', skillValue: 70}
         ]
     }
 </script>

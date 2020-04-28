@@ -56,11 +56,13 @@
                 <v-spacer></v-spacer>
 
                 <v-btn color="success">
-                    <v-icon left>mdi-plus-circle-outline</v-icon> New
+                    <v-icon left>mdi-plus-circle-outline</v-icon>
+                    New
                 </v-btn>
 
                 <v-btn color="primary" class="save-btn">
-                    <v-icon left>mdi-content-save</v-icon> Save all
+                    <v-icon left>mdi-content-save</v-icon>
+                    Save all
                 </v-btn>
             </v-toolbar>
             <v-divider></v-divider>
@@ -75,8 +77,7 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+    import {Component, Vue} from 'vue-property-decorator'
     import {IAdminMenuItem} from "@/interfaces/interfaces";
     import AdminSkills from '@/components/AdminSkills.vue';
     import AdminCertificates from '@/components/AdminCertificates.vue';

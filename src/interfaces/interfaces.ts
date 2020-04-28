@@ -18,3 +18,26 @@ export interface IAuthData {
     userId: string;
 }
 
+export interface ICertificate {
+    id: number;
+    title: string;
+    url: string;
+}
+
+export interface ISkill {
+    id: number;
+    name: string;
+    skillValue: number;
+}
+
+export interface IPortfolioItem {
+    id: number;
+    description: string;
+    url: number;
+}
+
+export interface IWorkExperienceRecord {
+    id: number;
+    work: string;
+    period: string;
+}

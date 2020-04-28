@@ -1,17 +1,49 @@
 <template>
-    <p>Certificates works</p>
+    <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+            <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.id">
+                <v-card>
+                    <v-card-title>{{certificate.title}}</v-card-title>
+                    <v-container>
+                        <p>{{certificate.url}}</p>
+                    </v-container>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn fab small color="primary">
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+
+                        <v-btn fab small color="error">
+                            <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
-<script>
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+<script lang="ts">
+    import {Component, Vue} from 'vue-property-decorator';
+    import {getModule} from "vuex-module-decorators";
+    import Certificate from "@/store/modules/certificate";
+    import {ICertificate} from "@/interfaces/interfaces";
+    import store from "@/store";
+
+    const certificateStore = getModule(Certificate, store);
+    // import {namespace} from "vuex-class";
+    // const certificate = namespace('Certificate');
 
     @Component
     export default class AdminCertificates extends Vue {
-
+        public get allCertificates(): ICertificate[] {
+            return certificateStore.allCertificates;
+        }
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>
