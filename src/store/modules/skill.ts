@@ -1,5 +1,5 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import {ICertificate, ISkill} from "@/interfaces/interfaces";
+import {ISkill} from "@/interfaces/interfaces";
 import Store from '../index';
 
 @Module({
@@ -8,7 +8,7 @@ import Store from '../index';
     name: "Skill",
     namespaced: true
 })
-class Certificate extends VuexModule {
+class Skill extends VuexModule {
     public skills: ISkill[] = [
         {id: 1, name: 'Photoshop', skillValue: 75},
         {id: 2, name: 'Illustrator', skillValue: 55},
@@ -58,4 +58,4 @@ class Certificate extends VuexModule {
 }
 
 
-export default Certificate;
+export default Skill;
