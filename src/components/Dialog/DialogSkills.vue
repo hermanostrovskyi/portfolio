@@ -35,7 +35,7 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="closeDialog()">Close</v-btn>
+            <v-btn color="blue darken-1" text @click="close">Close</v-btn>
             <v-btn
                     color="blue darken-1"
                     text
@@ -48,12 +48,13 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    import {eventBus} from '@/main';
     import Skill from "@/store/modules/skill";
     import {getModule} from "vuex-module-decorators";
     import {ICreateSkillData, ISkill} from "@/interfaces/interfaces";
+    import AdminDialog from "@/store/modules/adminDialog";
 
     const skillStore = getModule(Skill);
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class DialogSkill extends Vue {
@@ -62,23 +63,19 @@
             skillValue: 0
         }
 
-
-        closeDialog(): void {
-            eventBus.$emit('adminDialogClose');
-            if (this.updatedSkill) {
-                skillStore.unsetUpdatedSkill();
-            }
+        close() {
+            adminDialogStore.hideAdminDialog();
         }
 
         onSkillSave(): void {
             skillStore.addNewSkill(this.skillData);
             this.resetValues();
-            this.closeDialog();
+            this.close();
         }
 
         onSkillUpdate(): void {
             skillStore.updateExistingSkill(this.updatedSkill);
-            this.closeDialog();
+            this.close();
         }
 
         resetValues() {

@@ -55,7 +55,7 @@
                 <v-toolbar-title>{{currentItem}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-btn color="success" @click="dialog = true">
+                <v-btn color="success" @click="showDialog">
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     New
                 </v-btn>
@@ -89,10 +89,10 @@
     import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
     import {getModule} from "vuex-module-decorators";
     import Auth from "@/store/modules/auth";
-    import {eventBus} from "@/main";
+    import AdminDialog from "@/store/modules/adminDialog";
 
     const authStore = getModule(Auth);
-
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component({
         components: {
@@ -106,7 +106,7 @@
     export default class Admin extends Vue {
         drawer: boolean = true;
         currentItem: string = 'Skills';
-        dialog: boolean = false;
+
         menuItems: IAdminMenuItem[] = [
             {title: 'Work Experience', icon: 'mdi-briefcase'},
             {title: 'Portfolio', icon: 'mdi-grid'},
@@ -128,15 +128,14 @@
             return `Dialog${itemName}`;
         }
 
-        created() {
-            eventBus.$on('adminDialogClose', () => {
-                this.dialog = false;
-            });
-
-            eventBus.$on('adminDialogOpen', () => {
-                this.dialog = true;
-            })
+        showDialog() {
+            adminDialogStore.showAdminDialog();
         }
+
+        get dialog() {
+            return adminDialogStore.dialogVisibility;
+        }
+
     }
 </script>
 
