@@ -1,6 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import {ISkill} from "@/interfaces/interfaces";
+import {ICreateSkillData, ISkill} from "@/interfaces/interfaces";
 import Store from '../index';
+import {generateID} from "@/helper/idGenerator";
 
 @Module({
     dynamic: true,
@@ -10,11 +11,11 @@ import Store from '../index';
 })
 class Skill extends VuexModule {
     public skills: ISkill[] = [
-        {id: 1, name: 'Photoshop', skillValue: 75},
-        {id: 2, name: 'Illustrator', skillValue: 55},
-        {id: 3, name: 'Mockup', skillValue: 87},
-        {id: 4, name: 'Mobile', skillValue: 34},
-        {id: 5, name: 'Photo', skillValue: 70}
+        {id:  generateID(), name: 'Photoshop', skillValue: 75},
+        {id:  generateID(), name: 'Illustrator', skillValue: 55},
+        {id:  generateID(), name: 'Mockup', skillValue: 87},
+        {id:  generateID(), name: 'Mobile', skillValue: 34},
+        {id:  generateID(), name: 'Photo', skillValue: 70}
     ];
 
 
@@ -24,12 +25,14 @@ class Skill extends VuexModule {
 
 
     @Mutation
-    public addSkill(skill: ISkill): void {
+    public addSkill(skillData: ICreateSkillData): void {
+        const id: string = generateID();
+        const skill = {...skillData, id}
         this.skills.push(skill);
     }
 
     @Mutation
-    public deleteSkill(id: number): void {
+    public deleteSkill(id: string): void {
         const index = this.skills.findIndex((skill: ISkill) => skill.id === id);
         this.skills.splice(index, 1);
     }
@@ -41,8 +44,8 @@ class Skill extends VuexModule {
     }
 
     @Action
-    public addNewSkill(skill: ISkill): void {
-        this.context.commit('addSkill', skill);
+    public addNewSkill(skillData: ICreateSkillData): void {
+        this.context.commit('addSkill', skillData);
     }
 
     @Action

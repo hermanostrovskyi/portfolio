@@ -55,7 +55,7 @@
                 <v-toolbar-title>{{currentItem}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-btn color="success">
+                <v-btn color="success" @click="dialog = true">
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     New
                 </v-btn>
@@ -71,8 +71,13 @@
                 <component :is="componentName"></component>
             </keep-alive>
         </v-card>
-
+        <v-dialog v-model="dialog" persistent max-width="600px">
+            <keep-alive>
+                <component :is="dialogComponentName"></component>
+            </keep-alive>
+        </v-dialog>
     </v-container>
+
 
 </template>
 
@@ -80,11 +85,13 @@
     import {Component, Vue} from 'vue-property-decorator'
     import {IAdminMenuItem} from "@/interfaces/interfaces";
     import AdminSkills from '@/components/AdminSkills.vue';
+    import DialogSkills from '@/components/Dialog/DialogSkills.vue';
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
     import {getModule} from "vuex-module-decorators";
     import Auth from "@/store/modules/auth";
+    import {eventBus} from "@/main";
 
     const authStore = getModule(Auth);
 
@@ -94,12 +101,14 @@
             AdminSkills,
             AdminCertificates,
             AdminPortfolio,
-            AdminWorkExperience
+            AdminWorkExperience,
+            DialogSkills
         }
     })
     export default class Admin extends Vue {
         drawer: boolean = true;
         currentItem: string = 'Skills';
+        dialog: boolean = false;
         menuItems: IAdminMenuItem[] = [
             {title: 'Work Experience', icon: 'mdi-briefcase'},
             {title: 'Portfolio', icon: 'mdi-grid'},
@@ -107,14 +116,24 @@
             {title: 'Certificates', icon: 'mdi-certificate'},
         ];
 
-       public logout(): void {
-           authStore.logout();
-       }
-        // public logout!: () => void;
+        public logout(): void {
+            authStore.logout();
+        }
 
         get componentName(): string {
             const itemName = this.currentItem.replace(/\s/g, '');
             return `Admin${itemName}`;
+        }
+
+        get dialogComponentName(): string {
+            const itemName = this.currentItem.replace(/\s/g, '');
+            return `Dialog${itemName}`;
+        }
+
+        created() {
+            eventBus.$on('adminDialogClose', () => {
+                this.dialog = false;
+            })
         }
     }
 </script>

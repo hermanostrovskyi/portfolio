@@ -25,7 +25,12 @@ export interface ICertificate {
 }
 
 export interface ISkill {
-    id: number;
+    id: string;
+    name: string;
+    skillValue: number;
+}
+
+export interface ICreateSkillData {
     name: string;
     skillValue: number;
 }

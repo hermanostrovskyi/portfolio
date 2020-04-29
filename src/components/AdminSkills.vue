@@ -17,7 +17,7 @@
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
-                        <v-btn fab small color="error">
+                        <v-btn fab small color="error" @click="deleteSkill(skill.id)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
                     </v-card-actions>
@@ -25,6 +25,7 @@
             </v-flex>
         </v-layout>
     </v-container>
+
 
 </template>
 
@@ -41,6 +42,10 @@
     export default class AdminSkills extends Vue {
         get allSkills(): ISkill[] {
             return skillStore.allSkills;
+        }
+
+        deleteSkill(id: number): void {
+            skillStore.deleteExistingSkill(id);
         }
     }
 </script>
