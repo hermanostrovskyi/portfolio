@@ -5,12 +5,12 @@ import Store from '../index';
 @Module({
     dynamic: true,
     store: Store,
-    name: "Portfolio",
+    name: "portfolio",
     namespaced: true
 })
 class Portfolio extends VuexModule {
     public portfolioItems: IPortfolioItem[] = [
-        {id: 1, description: 'Some Description', url: 'https://s3.amazonaws.com/www-inside-design/uploads/2019/01/Screen-Shot-2019-01-24-at-21.44.03.png'},
+        {id: 1, description: 'Some Description', url: 'https://bashooka.com/wp-content/uploads/2015/08/card-ui-designs-21.jpg'},
         {id: 2, description: 'Some Description', url: 'https://bashooka.com/wp-content/uploads/2015/08/card-ui-designs-21.jpg'},
         {id: 3, description: 'Some Description', url: 'https://d33wubrfki0l68.cloudfront.net/1bc23771296f6f364a2b34a15c751bf71433a9cc/9f7b2/en/blog/uploads/cards-ui-elements.png'},
         {id: 4, description: 'Some Description', url: 'https://file.mockplus.com/image/2018/11/9314c44f-c653-40a6-8ea5-7e1c903feecf.png'},
