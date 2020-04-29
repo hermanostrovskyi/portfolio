@@ -34,10 +34,11 @@
     import Component from "vue-class-component";
     import {ISkill} from "@/interfaces/interfaces";
     import Skill from "@/store/modules/skill";
+    import AdminDialog from "@/store/modules/adminDialog";
     import {getModule} from "vuex-module-decorators";
-    import {eventBus} from "@/main";
 
     const skillStore = getModule(Skill);
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class AdminSkills extends Vue {
@@ -50,7 +51,7 @@
         }
 
         pickUpdatedSkill(updatedSkill: ISkill): void {
-            eventBus.$emit('adminDialogOpen');
+            adminDialogStore.showAdminDialog();
             skillStore.setUpdatedSkill(updatedSkill);
         }
     }

@@ -9,7 +9,6 @@ import {getModule} from "vuex-module-decorators";
 const authStore = getModule(Auth);
 authStore.tryAutoLogin();
 
-export const eventBus  = new Vue();
 
 new Vue({
   router,
