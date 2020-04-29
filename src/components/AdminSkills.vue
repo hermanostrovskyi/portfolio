@@ -13,11 +13,11 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn fab small color="primary">
+                        <v-btn fab small color="primary" @click="pickUpdatedSkill(skill)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
-                        <v-btn fab small color="error">
+                        <v-btn fab small color="error" @click="deleteSkill(skill.id)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
                     </v-card-actions>
@@ -25,6 +25,7 @@
             </v-flex>
         </v-layout>
     </v-container>
+
 
 </template>
 
@@ -34,6 +35,7 @@
     import {ISkill} from "@/interfaces/interfaces";
     import Skill from "@/store/modules/skill";
     import {getModule} from "vuex-module-decorators";
+    import {eventBus} from "@/main";
 
     const skillStore = getModule(Skill);
 
@@ -41,6 +43,15 @@
     export default class AdminSkills extends Vue {
         get allSkills(): ISkill[] {
             return skillStore.allSkills;
+        }
+
+        deleteSkill(id: string): void {
+            skillStore.deleteExistingSkill(id);
+        }
+
+        pickUpdatedSkill(updatedSkill: ISkill): void {
+            eventBus.$emit('adminDialogOpen');
+            skillStore.setUpdatedSkill(updatedSkill);
         }
     }
 </script>
