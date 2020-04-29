@@ -6,21 +6,27 @@ import {generateID} from "@/helper/idGenerator";
 @Module({
     dynamic: true,
     store: Store,
-    name: "Skill",
+    name: "skill",
     namespaced: true
 })
 class Skill extends VuexModule {
     public skills: ISkill[] = [
-        {id:  generateID(), name: 'Photoshop', skillValue: 75},
-        {id:  generateID(), name: 'Illustrator', skillValue: 55},
-        {id:  generateID(), name: 'Mockup', skillValue: 87},
-        {id:  generateID(), name: 'Mobile', skillValue: 34},
-        {id:  generateID(), name: 'Photo', skillValue: 70}
+        {id: generateID(), name: 'Photoshop', skillValue: 75},
+        {id: generateID(), name: 'Illustrator', skillValue: 55},
+        {id: generateID(), name: 'Mockup', skillValue: 87},
+        {id: generateID(), name: 'Mobile', skillValue: 34},
+        {id: generateID(), name: 'Photo', skillValue: 70}
     ];
+
+    public updatedSkill: ISkill = null;
 
 
     get allSkills(): ISkill[] {
         return this.skills;
+    }
+
+    get updateSkillItem(): ISkill {
+        return this.updatedSkill;
     }
 
 
@@ -39,9 +45,21 @@ class Skill extends VuexModule {
 
     @Mutation
     updateSkill(skill: ISkill): void {
-        const index = this.skills.findIndex((skillItem: ISkill) => skillItem.id === skill.id);
-        this.skills[index] = skill;
+        const skillToUpdate = this.skills.find((skillItem: ISkill) => skillItem.id === skill.id);
+        skillToUpdate.skillValue = skill.skillValue;
+        skillToUpdate.name = skill.name;
     }
+
+    @Mutation
+    public setSkillToUpdate(skill: ISkill): void {
+        this.updatedSkill = {...skill};
+    }
+
+    @Mutation
+    public unsetSkillToUpdate(): void {
+        this.updatedSkill = null;
+    }
+
 
     @Action
     public addNewSkill(skillData: ICreateSkillData): void {
@@ -49,13 +67,24 @@ class Skill extends VuexModule {
     }
 
     @Action
-    public deleteExistingSkill(id: number): void {
+    public deleteExistingSkill(id: string): void {
         this.context.commit('deleteSkill', id);
     }
 
     @Action
     public updateExistingSkill(skill: ISkill): void {
         this.context.commit('updateSkill', skill);
+        this.context.dispatch('unsetUpdatedSkill');
+    }
+
+    @Action
+    public setUpdatedSkill(skill: ISkill): void {
+        this.context.commit('setSkillToUpdate', skill);
+    }
+
+    @Action
+    public unsetUpdatedSkill(): void {
+        this.context.commit('unsetSkillToUpdate');
     }
 
 }

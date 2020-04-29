@@ -72,9 +72,7 @@
             </keep-alive>
         </v-card>
         <v-dialog v-model="dialog" persistent max-width="600px">
-            <keep-alive>
-                <component :is="dialogComponentName"></component>
-            </keep-alive>
+            <component :is="dialogComponentName"></component>
         </v-dialog>
     </v-container>
 
@@ -133,6 +131,10 @@
         created() {
             eventBus.$on('adminDialogClose', () => {
                 this.dialog = false;
+            });
+
+            eventBus.$on('adminDialogOpen', () => {
+                this.dialog = true;
             })
         }
     }
