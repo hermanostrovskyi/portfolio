@@ -31,9 +31,8 @@
     import {getModule} from "vuex-module-decorators";
     import Certificate from "@/store/modules/certificate";
     import {ICertificate} from "@/interfaces/interfaces";
-    import store from "@/store";
 
-    const certificateStore = getModule(Certificate, store);
+    const certificateStore = getModule(Certificate);
 
     @Component
     export default class AdminCertificates extends Vue {

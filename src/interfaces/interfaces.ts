@@ -33,7 +33,7 @@ export interface ISkill {
 export interface IPortfolioItem {
     id: number;
     description: string;
-    url: number;
+    url: string;
 }
 
 export interface IWorkExperienceRecord {
