@@ -31,6 +31,7 @@ class AdminDialog extends VuexModule {
     @Action
     public hideAdminDialog(): void {
         this.context.commit('changeDialogVisibility', false);
+        skillStore.unsetSkillToUpdate();
     }
 
 }

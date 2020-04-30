@@ -3,8 +3,11 @@
         <v-layout row wrap>
             <v-flex xs12 sm6 md6 lg4 v-for="experienceRecord in allExperienceRecords" :key="experienceRecord.id">
                 <v-card>
-                    <v-card-title>{{experienceRecord.work}}</v-card-title>
-                    <p>Period: {{experienceRecord.period}}</p>
+                    <v-card-title>{{experienceRecord.place}}</v-card-title>
+                    <v-divider></v-divider>
+                    <p>Period: {{experienceRecord.periodStart}} - {{experienceRecord.periodEnd}}</p>
+                    <p>Position: {{experienceRecord.position}}</p>
+                    <p>Responsibility: {{experienceRecord.responsibility}}</p>
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
