@@ -42,7 +42,10 @@ export interface IPortfolioItem {
 }
 
 export interface IWorkExperienceRecord {
-    id: number;
-    work: string;
-    period: string;
+    id: string;
+    place: string;
+    position: string;
+    responsibility: string;
+    periodStart: Date;
+    periodEnd: Date;
 }
