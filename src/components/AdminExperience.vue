@@ -21,7 +21,7 @@
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
-                        <v-btn fab small color="error">
+                        <v-btn fab small color="error" @click="deleteExperienceItem(experienceRecord.id)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
                     </v-card-actions>
@@ -38,13 +38,17 @@
     import Experience from "@/store/modules/experience";
     import {getModule} from "vuex-module-decorators";
 
-
     const experienceStore = getModule(Experience);
 
     @Component
     export default class AdminExperience extends Vue {
+
         get allExperienceRecords(): IWorkExperienceRecord[] {
             return experienceStore.allWorkExperiences;
+        }
+
+        deleteExperienceItem(id: string): void {
+            experienceStore.deleteExistingExperienceRecord(id);
         }
 
     }

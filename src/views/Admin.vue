@@ -84,9 +84,10 @@
     import {IAdminMenuItem} from "@/interfaces/interfaces";
     import AdminSkills from '@/components/AdminSkills.vue';
     import DialogSkills from '@/components/Dialog/DialogSkills.vue';
+    import DialogExperience from '@/components/Dialog/DialogExperience.vue';
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
-    import AdminWorkExperience from '@/components/AdminWorkExperience.vue';
+    import AdminExperience from '@/components/AdminExperience.vue';
     import {getModule} from "vuex-module-decorators";
     import Auth from "@/store/modules/auth";
     import AdminDialog from "@/store/modules/adminDialog";
@@ -99,8 +100,9 @@
             AdminSkills,
             AdminCertificates,
             AdminPortfolio,
-            AdminWorkExperience,
-            DialogSkills
+            AdminExperience,
+            DialogSkills,
+            DialogExperience
         }
     })
     export default class Admin extends Vue {
@@ -108,7 +110,7 @@
         currentItem: string = 'Skills';
 
         menuItems: IAdminMenuItem[] = [
-            {title: 'Work Experience', icon: 'mdi-briefcase'},
+            {title: 'Experience', icon: 'mdi-briefcase'},
             {title: 'Portfolio', icon: 'mdi-grid'},
             {title: 'Skills', icon: 'mdi-dumbbell'},
             {title: 'Certificates', icon: 'mdi-certificate'},

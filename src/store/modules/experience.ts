@@ -1,5 +1,5 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import {IWorkExperienceRecord} from "@/interfaces/interfaces";
+import {ICreateExperienceRecord, IWorkExperienceRecord} from "@/interfaces/interfaces";
 import Store from '../index';
 import {generateID} from "@/helper/idGenerator";
 
@@ -54,7 +54,9 @@ class Experience extends VuexModule {
 
     @Mutation
     public addExperience(experienceRecord: IWorkExperienceRecord): void {
-        this.workExperiences.push(experienceRecord);
+        const id: string = generateID();
+        const experience = {...experienceRecord, id}
+        this.workExperiences.push(experience);
     }
 
     @Mutation
@@ -70,12 +72,12 @@ class Experience extends VuexModule {
     }
 
     @Action
-    public addNewExperienceRecord(experienceRecord: IWorkExperienceRecord): void {
+    public addNewExperienceRecord(experienceRecord: ICreateExperienceRecord): void {
         this.context.commit('addExperience', experienceRecord);
     }
 
     @Action
-    public deleteExistingExperienceRecord(id: number): void {
+    public deleteExistingExperienceRecord(id: string): void {
         this.context.commit('deleteExperience', id);
     }
 
