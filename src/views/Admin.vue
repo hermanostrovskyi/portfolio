@@ -55,7 +55,7 @@
                 <v-toolbar-title>{{currentItem}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-btn color="success" @click="showDialog">
+                <v-btn color="success" @click="onAddClick()">
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     New
                 </v-btn>
@@ -71,8 +71,8 @@
                 <component :is="componentName"></component>
             </keep-alive>
         </v-card>
-        <v-dialog v-model="dialog" persistent max-width="600px">
-            <component :is="dialogComponentName"></component>
+        <v-dialog v-model="dialogVisible" persistent max-width="600px">
+            <component :is="dialogComponentName" :dialogProps="dialogProps"></component>
         </v-dialog>
     </v-container>
 
@@ -120,23 +120,28 @@
             authStore.logout();
         }
 
+        onAddClick() {
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('Dialog' + this.currentItem);
+            adminDialogStore.setDialogPropertiesAction({mode: 'create'})
+        }
+
+        get dialogVisible(): boolean {
+            return adminDialogStore.dialogVisibility;
+        }
+
         get componentName(): string {
-            const itemName = this.currentItem.replace(/\s/g, '');
-            return `Admin${itemName}`;
+            return `Admin${this.currentItem}`;
         }
 
         get dialogComponentName(): string {
-            const itemName = this.currentItem.replace(/\s/g, '');
-            return `Dialog${itemName}`;
+            return adminDialogStore.contentComponent;
         }
 
-        showDialog() {
-            adminDialogStore.showAdminDialog();
+        get dialogProps(): string {
+            return adminDialogStore.dialogProps;
         }
 
-        get dialog() {
-            return adminDialogStore.dialogVisibility;
-        }
 
     }
 </script>

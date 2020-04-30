@@ -1,9 +1,5 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators';
 import Store from '../index';
-import Skill from "@/store/modules/skill";
-import {getModule} from "vuex-module-decorators";
-
-const skillStore = getModule(Skill);
 
 @Module({
     dynamic: true,
@@ -13,14 +9,35 @@ const skillStore = getModule(Skill);
 })
 class AdminDialog extends VuexModule {
     public isDialogVisible: boolean = false;
+    public dialogComponent: string = null;
+    public dialogProperties: any = null;
 
     get dialogVisibility(): boolean {
         return this.isDialogVisible;
     }
 
+    get contentComponent(): string {
+        return this.dialogComponent;
+    }
+
+    get dialogProps(): string {
+        return this.dialogProperties;
+    }
+
+
     @Mutation
     public changeDialogVisibility(dialogVisible: boolean): void {
         this.isDialogVisible = dialogVisible;
+    }
+
+    @Mutation
+    public setDialogComponent(name: string): void {
+        this.dialogComponent = name;
+    }
+
+    @Mutation
+    public setDialogProperties(props: any): void {
+        this.dialogProperties = props;
     }
 
     @Action
@@ -31,7 +48,16 @@ class AdminDialog extends VuexModule {
     @Action
     public hideAdminDialog(): void {
         this.context.commit('changeDialogVisibility', false);
-        skillStore.unsetSkillToUpdate();
+    }
+
+    @Action
+    public setDialogComponentAction(name: string): void {
+        this.context.commit('setDialogComponent', name);
+    }
+
+    @Action
+    public setDialogPropertiesAction(props: any): void {
+        this.context.commit('setDialogProperties', props);
     }
 
 }

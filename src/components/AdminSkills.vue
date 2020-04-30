@@ -52,7 +52,8 @@
 
         pickUpdatedSkill(updatedSkill: ISkill): void {
             adminDialogStore.showAdminDialog();
-            skillStore.setUpdatedSkill(updatedSkill);
+            adminDialogStore.setDialogComponentAction('DialogSkills');
+            adminDialogStore.setDialogPropertiesAction({mode: 'update', populateWith: {...updatedSkill}})
         }
     }
 </script>

@@ -30,11 +30,6 @@ export interface ISkill {
     skillValue: number;
 }
 
-export interface ICreateSkillData {
-    name: string;
-    skillValue: number;
-}
-
 export interface IPortfolioItem {
     id: number;
     description: string;
