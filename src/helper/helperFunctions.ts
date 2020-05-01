@@ -44,7 +44,6 @@ export function formatDate(date: Date): string {
         }
 
         const dateInStringFormat: string = date.toISOString().substr(0, 10);
-        console.log(dateInStringFormat);
 
         const [year, month] = dateInStringFormat.split('-')
         return `${year}-${month}`;
