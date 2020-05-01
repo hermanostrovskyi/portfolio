@@ -13,42 +13,6 @@ const db = getFirebaseDB();
 })
 class Experience extends VuexModule {
     public workExperience: IExperience[] = [];
-    // public workExperiences: IWorkExperienceRecord[] = [
-    //     {
-    //         id: generateID(),
-    //         place: 'Firm First',
-    //         periodStart: new Date('2014-01-01'),
-    //         periodEnd: new Date('2015-01-01'),
-    //         position: 'designer assistant',
-    //         responsibility: 'Make coffee'
-    //     },
-    //     {
-    //         id: generateID(), place: 'UPS', periodStart: new Date('2015-01-01'),
-    //         periodEnd: new Date('2016-01-01'),
-    //         position: 'designer assistant',
-    //         responsibility: 'Make coffee'
-    //     },
-    //     {
-    //         id: generateID(), place: 'Apple', periodStart: new Date('2016-01-01'),
-    //         periodEnd: new Date('2017-01-01'),
-    //         position: 'designer assistant',
-    //         responsibility: 'Make coffee'
-    //     },
-    //     {
-    //         id: generateID(), place: 'UIDesignSolutions GmbH', periodStart: new Date('2017-01-01'),
-    //         periodEnd: new Date('2018-01-01'),
-    //         position: 'designer assistant',
-    //         responsibility: 'Make coffee'
-    //     },
-    //
-    //     {
-    //         id: generateID(), place: 'Germany KG', periodStart: new Date('2019-01-01'),
-    //         periodEnd: new Date('2020-01-01'),
-    //         position: 'designer assistant',
-    //         responsibility: 'Make coffee'
-    //     }
-    // ];
-
 
     get allWorkExperiences(): IExperience[] {
         return this.workExperience;
