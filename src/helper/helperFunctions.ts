@@ -33,3 +33,18 @@ export function clearJWT(): void {
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('token')
 }
+
+export function generateID(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+export function formatDate(date: Date): string {
+        if (!date) {
+            return null;
+        }
+
+        const dateInStringFormat: string = date.toISOString().substr(0, 10);
+
+        const [year, month] = dateInStringFormat.split('-')
+        return `${year}-${month}`;
+}

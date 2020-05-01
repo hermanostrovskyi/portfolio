@@ -8,27 +8,17 @@
                 <v-row>
                     <v-col cols="12">
                         <v-text-field
-                                v-if="updatedSkill"
-                                label="Title*"
-                                v-model='updatedSkill.name'
-                                required></v-text-field>
-                        <v-text-field
-                                v-else
                                 label="Title*"
                                 v-model='skillData.name'
-                                required></v-text-field>
+                                required>
+                        </v-text-field>
                     </v-col>
                     <v-col cols="12">
                         <v-text-field
-                                v-if="updatedSkill"
-                                label="Value*"
-                                v-model='updatedSkill.skillValue'
-                                required></v-text-field>
-                        <v-text-field
-                                v-else
                                 label="Value*"
                                 v-model='skillData.skillValue'
-                                required></v-text-field>
+                                required>
+                        </v-text-field>
                     </v-col>
                 </v-row>
             </v-container>
@@ -39,7 +29,8 @@
             <v-btn
                     color="blue darken-1"
                     text
-                    @click="updatedSkill ?  onSkillUpdate() : onSkillSave() ">{{updatedSkill ? 'Update' : 'Save'}}
+                    @click="submitMethod()"
+            >{{buttonLabel}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -47,44 +38,56 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Component, Vue, Prop} from 'vue-property-decorator'
     import Skill from "@/store/modules/skill";
     import {getModule} from "vuex-module-decorators";
-    import {ICreateSkillData, ISkill} from "@/interfaces/interfaces";
+    import {ISkill} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
+    import {generateID} from "@/helper/helperFunctions";
 
     const skillStore = getModule(Skill);
     const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class DialogSkill extends Vue {
-        skillData: ICreateSkillData = {
+        @Prop() dialogProps: any;
+
+        skillData: ISkill = {
+            id: null,
             name: '',
             skillValue: 0
         }
 
         close() {
             adminDialogStore.hideAdminDialog();
+            adminDialogStore.setDialogComponentAction(null);
+            adminDialogStore.setDialogPropertiesAction(null);
         }
 
         onSkillSave(): void {
-            skillStore.addNewSkill(this.skillData);
-            this.resetValues();
+            const skill: ISkill = {...this.skillData, id: generateID()}
+            skillStore.addNewSkill(skill);
             this.close();
         }
 
         onSkillUpdate(): void {
-            skillStore.updateExistingSkill(this.updatedSkill);
+            skillStore.updateExistingSkill(this.skillData);
             this.close();
         }
 
-        resetValues() {
-            this.skillData.name = '';
-            this.skillData.skillValue = 0;
+        get buttonLabel(): string {
+            return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
         }
 
-        get updatedSkill(): ISkill {
-            return skillStore.updatedSkill;
+        get submitMethod(): any {
+            return this.dialogProps.mode === 'create' ? this.onSkillSave : this.onSkillUpdate;
+        }
+
+
+        created() {
+            if (this.dialogProps.populateWith) {
+                this.skillData = this.dialogProps.populateWith;
+            }
         }
 
     }

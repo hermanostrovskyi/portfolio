@@ -30,11 +30,6 @@ export interface ISkill {
     skillValue: number;
 }
 
-export interface ICreateSkillData {
-    name: string;
-    skillValue: number;
-}
-
 export interface IPortfolioItem {
     id: number;
     description: string;
@@ -42,7 +37,10 @@ export interface IPortfolioItem {
 }
 
 export interface IWorkExperienceRecord {
-    id: number;
-    work: string;
-    period: string;
+    id: string;
+    place: string;
+    position: string;
+    responsibility: string;
+    periodStart: Date;
+    periodEnd: Date;
 }

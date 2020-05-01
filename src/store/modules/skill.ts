@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import {ICreateSkillData, ISkill} from "@/interfaces/interfaces";
+import {ISkill} from "@/interfaces/interfaces";
 import Store from '../index';
-import {generateID} from "@/helper/idGenerator";
+import {generateID} from "@/helper/helperFunctions";
 
 @Module({
     dynamic: true,
@@ -18,22 +18,12 @@ class Skill extends VuexModule {
         {id: generateID(), name: 'Photo', skillValue: 70}
     ];
 
-    public updatedSkill: ISkill = null;
-
-
     get allSkills(): ISkill[] {
         return this.skills;
     }
 
-    get updateSkillItem(): ISkill {
-        return this.updatedSkill;
-    }
-
-
     @Mutation
-    public addSkill(skillData: ICreateSkillData): void {
-        const id: string = generateID();
-        const skill = {...skillData, id}
+    public addSkill(skill: ISkill): void {
         this.skills.push(skill);
     }
 
@@ -50,20 +40,10 @@ class Skill extends VuexModule {
         skillToUpdate.name = skill.name;
     }
 
-    @Mutation
-    public setSkillToUpdate(skill: ISkill): void {
-        this.updatedSkill = {...skill};
-    }
-
-    @Mutation
-    public unsetSkillToUpdate(): void {
-        this.updatedSkill = null;
-    }
-
 
     @Action
-    public addNewSkill(skillData: ICreateSkillData): void {
-        this.context.commit('addSkill', skillData);
+    public addNewSkill(skill: ISkill): void {
+        this.context.commit('addSkill', skill);
     }
 
     @Action
@@ -74,17 +54,6 @@ class Skill extends VuexModule {
     @Action
     public updateExistingSkill(skill: ISkill): void {
         this.context.commit('updateSkill', skill);
-        this.context.dispatch('unsetUpdatedSkill');
-    }
-
-    @Action
-    public setUpdatedSkill(skill: ISkill): void {
-        this.context.commit('setSkillToUpdate', skill);
-    }
-
-    @Action
-    public unsetUpdatedSkill(): void {
-        this.context.commit('unsetSkillToUpdate');
     }
 
 }
