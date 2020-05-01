@@ -25,7 +25,7 @@ export interface ICertificate {
 }
 
 export interface ISkill {
-    id: string;
+    fbID: string;
     name: string;
     skillValue: number;
 }

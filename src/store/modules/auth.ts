@@ -1,6 +1,6 @@
 import {IAuthData, IAuthState, ILoginData} from "@/interfaces/interfaces";
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import axios from 'axios';
+import firebase from "firebase";
 import router from "@/router";
 import {
     clearJWT,
@@ -8,7 +8,7 @@ import {
     getTokenFromLocalStorage,
     getUserIdFromLocalStorage,
     isTokenExpired,
-    saveDataToLocalStorage
+    saveDataToLocalStorage, saveFireBaseUserDataToLocalStorage
 } from "@/helper/helperFunctions";
 import Store from '../index';
 
@@ -41,22 +41,36 @@ class Auth extends VuexModule {
         this.authData.idToken = this.authData.userId = null;
     }
 
+    // @Action
+    // public login(loginData: ILoginData): void {
+    //     const uri: string = getAuthUri();
+    //     axios.post(uri, {
+    //         email: loginData.email,
+    //         password: loginData.password,
+    //         returnSecureToken: true
+    //     })
+    //         .then(response => {
+    //             saveDataToLocalStorage(response);
+    //             this.context.commit('authUser', {token: response.data.idToken, userId: response.data.localId});
+    //             // dispatch('setLogoutTimer', response.data.expiresIn);
+    //             router.push('/admin');
+    //             console.log(response);
+    //         })
+    //         .catch(error => console.log(error))
+    // }
+
     @Action
     public login(loginData: ILoginData): void {
-        const uri: string = getAuthUri();
-        axios.post(uri, {
-            email: loginData.email,
-            password: loginData.password,
-            returnSecureToken: true
-        })
+
+        firebase.auth().signInWithEmailAndPassword(loginData.email, loginData.password)
             .then(response => {
-                saveDataToLocalStorage(response);
-                this.context.commit('authUser', {token: response.data.idToken, userId: response.data.localId});
-                // dispatch('setLogoutTimer', response.data.expiresIn);
-                router.push('/admin');
-                console.log(response);
-            })
-            .catch(error => console.log(error))
+                    console.log(response)
+                    saveFireBaseUserDataToLocalStorage(response);
+                    this.context.commit('authUser', {token: response.user.refreshToken, userId: response.user.uid});
+                    router.push('/admin');
+                },
+                error => console.log(error)
+            )
     }
 
     @Action
@@ -65,9 +79,9 @@ class Auth extends VuexModule {
         if (!token) {
             return;
         }
-        if (isTokenExpired()) {
-            return;
-        }
+        // if (isTokenExpired()) {
+        //     return;
+        // }
         const userId = getUserIdFromLocalStorage();
         this.context.commit('authUser', {token, userId});
     }

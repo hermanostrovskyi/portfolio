@@ -91,9 +91,11 @@
     import {getModule} from "vuex-module-decorators";
     import Auth from "@/store/modules/auth";
     import AdminDialog from "@/store/modules/adminDialog";
+    import Skill from "@/store/modules/skill";
 
     const authStore = getModule(Auth);
     const adminDialogStore = getModule(AdminDialog);
+    const skillStore = getModule(Skill);
 
     @Component({
         components: {
@@ -123,7 +125,10 @@
         onAddClick() {
             adminDialogStore.showAdminDialog();
             adminDialogStore.setDialogComponentAction('Dialog' + this.currentItem);
-            adminDialogStore.setDialogPropertiesAction({mode: 'create'})
+            adminDialogStore.setDialogPropertiesAction({
+                mode: 'create',
+                submit: skillStore.addSkillAction
+            })
         }
 
         get dialogVisible(): boolean {
@@ -140,6 +145,10 @@
 
         get dialogProps(): string {
             return adminDialogStore.dialogProps;
+        }
+
+        created() {
+            // store.dispatch("saveData");
         }
 
 

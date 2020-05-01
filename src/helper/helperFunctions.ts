@@ -1,9 +1,19 @@
+import firebase from "firebase";
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
+import DataSnapshot = firebase.database.DataSnapshot;
+import {ISkill} from "@/interfaces/interfaces";
+
 export function saveDataToLocalStorage(response: any): void {
     const now: Date = new Date();
     const expirationDate: Date = new Date(now.getTime() + response.data.expiresIn * 1000);
     localStorage.setItem('token', response.data.idToken);
     localStorage.setItem('expirationDate', String(expirationDate));
     localStorage.setItem('localId', response.data.localId);
+}
+
+export function saveFireBaseUserDataToLocalStorage(response: any) {
+    localStorage.setItem('token', response.user.refreshToken);
+    localStorage.setItem('localId', response.user.uid);
 }
 
 export function getAuthUri(): string {
@@ -39,12 +49,29 @@ export function generateID(): string {
 }
 
 export function formatDate(date: Date): string {
-        if (!date) {
-            return null;
+    if (!date) {
+        return null;
+    }
+
+    const dateInStringFormat: string = date.toISOString().substr(0, 10);
+
+    const [year, month] = dateInStringFormat.split('-')
+    return `${year}-${month}`;
+}
+
+
+export function getFirebaseDB() {
+    return firebase.database();
+}
+
+export function retrieveSkills(fetchedSkills: any): ISkill[] {
+    if (fetchedSkills) {
+        const skills: ISkill[] = [];
+        for (const key in fetchedSkills) {
+            fetchedSkills[key].fbID = key;
+            skills.push(fetchedSkills[key]);
         }
 
-        const dateInStringFormat: string = date.toISOString().substr(0, 10);
-
-        const [year, month] = dateInStringFormat.split('-')
-        return `${year}-${month}`;
+        return skills;
+    }
 }

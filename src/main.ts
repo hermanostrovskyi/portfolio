@@ -12,10 +12,10 @@ const authStore = getModule(Auth);
 authStore.tryAutoLogin();
 
 
-let config = {
+const config = {
     apiKey: process.env.VUE_APP_API_KEY,
     authDomain: process.env.VUE_APP_FIREBASE_AUTH_URI,
-    databaseURL: process.env.VUE_APP_AUTH_URI,
+    databaseURL: process.env.VUE_APP_BASE_URI,
     projectId: process.env.VUE_APP_PROJECT_ID,
     storageBucket: process.env.VUE_APP_FIREBASE_STORAGE,
     messagingSenderId: process.env.VUE_APP_SENDER_ID

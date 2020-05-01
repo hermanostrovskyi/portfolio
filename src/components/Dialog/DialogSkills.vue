@@ -26,12 +26,7 @@
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="close">Close</v-btn>
-            <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="submitMethod()"
-            >{{buttonLabel}}
-            </v-btn>
+            <v-btn color="blue darken-1" text @click="submit">{{buttonLabel}}</v-btn>
         </v-card-actions>
     </v-card>
 
@@ -43,7 +38,6 @@
     import {getModule} from "vuex-module-decorators";
     import {ISkill} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
-    import {generateID} from "@/helper/helperFunctions";
 
     const skillStore = getModule(Skill);
     const adminDialogStore = getModule(AdminDialog);
@@ -53,7 +47,7 @@
         @Prop() dialogProps: any;
 
         skillData: ISkill = {
-            id: null,
+            fbID: null,
             name: '',
             skillValue: 0
         }
@@ -64,24 +58,30 @@
             adminDialogStore.setDialogPropertiesAction(null);
         }
 
-        onSkillSave(): void {
-            const skill: ISkill = {...this.skillData, id: generateID()}
-            skillStore.addNewSkill(skill);
+        submit() {
+            this.dialogProps.submit(this.skillData);
             this.close();
-        }
 
-        onSkillUpdate(): void {
-            skillStore.updateExistingSkill(this.skillData);
-            this.close();
+            // this.dialogProps.mode === 'create' ? skillStore.addSkillAction(this.skillData) : skillStore.updateSkillAction(this.skillData);
         }
+        //
+        // onSkillSave(): void {
+        //     skillStore.addSkillAction(this.skillData);
+        //     this.close();
+        // }
+        //
+        // onSkillUpdate(): void {
+        //     skillStore.updateSkillAction(this.skillData);
+        //     this.close();
+        // }
 
         get buttonLabel(): string {
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
         }
 
-        get submitMethod(): any {
-            return this.dialogProps.mode === 'create' ? this.onSkillSave : this.onSkillUpdate;
-        }
+        // get submitMethod(): any {
+        //     return this.dialogProps.mode === 'create' ? this.onSkillSave : this.onSkillUpdate;
+        // }
 
 
         created() {
