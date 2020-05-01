@@ -1,7 +1,6 @@
 import firebase from "firebase";
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
-import DataSnapshot = firebase.database.DataSnapshot;
-import {ISkill} from "@/interfaces/interfaces";
+import {IExperience, ISkill} from "@/interfaces/interfaces";
+import Database = firebase.database.Database;
 
 export function saveDataToLocalStorage(response: any): void {
     const now: Date = new Date();
@@ -44,34 +43,20 @@ export function clearJWT(): void {
     localStorage.removeItem('token')
 }
 
-export function generateID(): string {
-    return '_' + Math.random().toString(36).substr(2, 9);
-}
 
-export function formatDate(date: Date): string {
-    if (!date) {
-        return null;
-    }
-
-    const dateInStringFormat: string = date.toISOString().substr(0, 10);
-
-    const [year, month] = dateInStringFormat.split('-')
-    return `${year}-${month}`;
-}
-
-
-export function getFirebaseDB() {
+export function getFirebaseDB(): Database {
     return firebase.database();
 }
 
-export function retrieveSkills(fetchedSkills: any): ISkill[] {
-    if (fetchedSkills) {
-        const skills: ISkill[] = [];
-        for (const key in fetchedSkills) {
-            fetchedSkills[key].fbID = key;
-            skills.push(fetchedSkills[key]);
+
+export function retrieveData(fetchedData: any): IExperience[] | ISkill[] {
+    if (fetchedData) {
+        const response: IExperience[] | ISkill[] = [];
+        for (const key in fetchedData) {
+            fetchedData[key].fbID = key;
+            response.push(fetchedData[key]);
         }
 
-        return skills;
+        return response;
     }
 }

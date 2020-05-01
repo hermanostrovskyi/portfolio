@@ -36,18 +36,18 @@ export interface IPortfolioItem {
     url: string;
 }
 
-export interface IWorkExperienceRecord {
-    id: string;
+export interface IExperience {
+    fbID: string;
     place: string;
     position: string;
     responsibility: string;
-    periodStart: Date;
-    periodEnd: Date;
+    periodStart: string;
+    periodEnd: string;
 }
 
 
 export interface IDialogProps {
     mode: string;
     submit: Function;
-    populateWith: ISkill;
+    populateWith: ISkill | IExperience;
 }

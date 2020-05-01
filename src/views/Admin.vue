@@ -81,7 +81,7 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    import {IAdminMenuItem} from "@/interfaces/interfaces";
+    import {IAdminMenuItem, IDialogProps} from "@/interfaces/interfaces";
     import AdminSkills from '@/components/AdminSkills.vue';
     import DialogSkills from '@/components/Dialog/DialogSkills.vue';
     import DialogExperience from '@/components/Dialog/DialogExperience.vue';
@@ -92,10 +92,13 @@
     import Auth from "@/store/modules/auth";
     import AdminDialog from "@/store/modules/adminDialog";
     import Skill from "@/store/modules/skill";
+    import Experience from "@/store/modules/experience";
 
     const authStore = getModule(Auth);
     const adminDialogStore = getModule(AdminDialog);
     const skillStore = getModule(Skill);
+    const experienceStore = getModule(Experience);
+
 
     @Component({
         components: {
@@ -127,7 +130,8 @@
             adminDialogStore.setDialogComponentAction('Dialog' + this.currentItem);
             adminDialogStore.setDialogPropertiesAction({
                 mode: 'create',
-                submit: skillStore.addSkillAction
+                submit: this.addAction,
+                populateWith: null
             })
         }
 
@@ -143,8 +147,19 @@
             return adminDialogStore.contentComponent;
         }
 
-        get dialogProps(): string {
+        get dialogProps(): IDialogProps {
             return adminDialogStore.dialogProps;
+        }
+
+        get addAction() {
+            switch (this.currentItem) {
+                case 'Skills':
+                    return skillStore.addSkillAction;
+                case 'Experience':
+                    return experienceStore.addExperienceAction;
+                default:
+                    return skillStore.addSkillAction;
+            }
         }
 
         created() {

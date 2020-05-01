@@ -79,7 +79,7 @@
             <v-btn
                     color="blue darken-1"
                     text
-                    @click="submitMethod() ">{{buttonLabel}}
+                    @click="submit() ">{{buttonLabel}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -89,78 +89,57 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator'
     import {getModule} from "vuex-module-decorators";
-    import Experience from "@/store/modules/experience";
     import AdminDialog from "@/store/modules/adminDialog";
-    import {IWorkExperienceRecord} from "@/interfaces/interfaces";
-    import {formatDate, generateID} from "@/helper/helperFunctions";
-
-    const experienceStore = getModule(Experience);
+    import {IDialogProps, IExperience} from "@/interfaces/interfaces";
     const adminDialogStore = getModule(AdminDialog);
 
 
     @Component
     export default class DialogExperienceCreate extends Vue {
-        @Prop() dialogProps: any;
+        @Prop() dialogProps: IDialogProps;
         startPeriodMenu: boolean = false;
         endPeriodMenu: boolean = false;
-
-        experienceRecord: IWorkExperienceRecord = {
-            id: null,
-            place: '',
-            position: '',
-            responsibility: '',
-            periodStart: null,
-            periodEnd: null
-        }
+        experienceRecord: IExperience = null;
 
         close() {
             adminDialogStore.hideAdminDialog();
-            adminDialogStore.setDialogComponentAction(null);
-            adminDialogStore.setDialogPropertiesAction(null);
         }
 
-        onExperienceSave(): void {
-            const experienceToSave = {
-                ...this.experienceRecord,
-                periodStart: new Date(this.experienceRecord.periodStart),
-                periodEnd: new Date(this.experienceRecord.periodEnd),
-                id: generateID()
-            };
-
-            experienceStore.addNewExperienceRecord(experienceToSave);
+        submit() {
+            this.dialogProps.submit(this.experienceRecord);
             this.close();
         }
 
 
-        onExperienceUpdate(): void {
-            const experienceToUpdate = {
-                ...this.experienceRecord,
-                periodStart: new Date(this.experienceRecord.periodStart),
-                periodEnd: new Date(this.experienceRecord.periodEnd)
-            };
-
-            console.log(experienceToUpdate);
-            experienceStore.updateExistingExperienceRecord(experienceToUpdate);
-            this.close();
-        }
-
+        // onExperienceUpdate(): void {
+        //     const experienceToUpdate = {
+        //         ...this.experienceRecord,
+        //         periodStart: new Date(this.experienceRecord.periodStart),
+        //         periodEnd: new Date(this.experienceRecord.periodEnd)
+        //     };
+        //
+        //     console.log(experienceToUpdate);
+        //     experienceStore.updateExistingExperienceRecord(experienceToUpdate);
+        //     this.close();
+        // }
 
 
         get buttonLabel(): string {
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
         }
 
-        get submitMethod(): any {
-            return this.dialogProps.mode === 'create' ? this.onExperienceSave : this.onExperienceUpdate;
-        }
 
         created() {
-            if (this.dialogProps.populateWith) {
-                const originStartDate = this.dialogProps.populateWith.periodStart;
-                const originEndDate = this.dialogProps.populateWith.periodEnd;
-
-                this.experienceRecord = {...this.dialogProps.populateWith, periodStart: formatDate(originStartDate), periodEnd: formatDate(originEndDate)};
-            }
+            this.experienceRecord = this.dialogProps.populateWith  ?
+                this.dialogProps.populateWith as IExperience :
+                {
+                    fbID: null,
+                    place: '',
+                    position: '',
+                    responsibility: '',
+                    periodStart: null,
+                    periodEnd: null
+                }
         }
 
 

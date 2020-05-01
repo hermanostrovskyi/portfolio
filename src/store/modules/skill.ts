@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {ISkill} from "@/interfaces/interfaces";
 import Store from '../index';
-import {getFirebaseDB, retrieveSkills} from "@/helper/helperFunctions";
+import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 
 
 const db = getFirebaseDB();
@@ -48,7 +48,7 @@ class Skill extends VuexModule {
         db.ref('data/skill')
             .once('value')
             .then(snapshot => {
-                const skills = retrieveSkills(snapshot.val());
+                const skills: ISkill[] = retrieveData(snapshot.val()) as ISkill[];
                 this.context.commit('setSkills', skills);
             })
     }

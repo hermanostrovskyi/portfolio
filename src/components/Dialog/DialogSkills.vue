@@ -45,13 +45,11 @@
         @Prop() dialogProps: IDialogProps;
         skillData: ISkill = null;
 
-        close() {
+        close(): void {
             adminDialogStore.hideAdminDialog();
-            adminDialogStore.setDialogComponentAction(null);
-            adminDialogStore.setDialogPropertiesAction(null);
         }
 
-        submit() {
+        submit(): void {
             this.dialogProps.submit(this.skillData);
             this.close();
         }
@@ -61,7 +59,7 @@
         }
 
 
-        created() {
+        created(): void {
             this.skillData = this.dialogProps.populateWith ?
                 this.dialogProps.populateWith : {fbID: null, name: '', skillValue: 0}
         }
