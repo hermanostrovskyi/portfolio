@@ -34,23 +34,16 @@
 
 <script lang="ts">
     import {Component, Vue, Prop} from 'vue-property-decorator'
-    import Skill from "@/store/modules/skill";
     import {getModule} from "vuex-module-decorators";
-    import {ISkill} from "@/interfaces/interfaces";
+    import {IDialogProps, ISkill} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
 
-    const skillStore = getModule(Skill);
     const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class DialogSkill extends Vue {
-        @Prop() dialogProps: any;
-
-        skillData: ISkill = {
-            fbID: null,
-            name: '',
-            skillValue: 0
-        }
+        @Prop() dialogProps: IDialogProps;
+        skillData: ISkill = null;
 
         close() {
             adminDialogStore.hideAdminDialog();
@@ -61,33 +54,16 @@
         submit() {
             this.dialogProps.submit(this.skillData);
             this.close();
-
-            // this.dialogProps.mode === 'create' ? skillStore.addSkillAction(this.skillData) : skillStore.updateSkillAction(this.skillData);
         }
-        //
-        // onSkillSave(): void {
-        //     skillStore.addSkillAction(this.skillData);
-        //     this.close();
-        // }
-        //
-        // onSkillUpdate(): void {
-        //     skillStore.updateSkillAction(this.skillData);
-        //     this.close();
-        // }
 
         get buttonLabel(): string {
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
         }
 
-        // get submitMethod(): any {
-        //     return this.dialogProps.mode === 'create' ? this.onSkillSave : this.onSkillUpdate;
-        // }
-
 
         created() {
-            if (this.dialogProps.populateWith) {
-                this.skillData = this.dialogProps.populateWith;
-            }
+            this.skillData = this.dialogProps.populateWith ?
+                this.dialogProps.populateWith : {fbID: null, name: '', skillValue: 0}
         }
 
     }

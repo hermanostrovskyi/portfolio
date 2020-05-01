@@ -44,3 +44,10 @@ export interface IWorkExperienceRecord {
     periodStart: Date;
     periodEnd: Date;
 }
+
+
+export interface IDialogProps {
+    mode: string;
+    submit: Function;
+    populateWith: ISkill;
+}
