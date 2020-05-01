@@ -43,7 +43,7 @@
     import {getModule} from "vuex-module-decorators";
     import {ISkill} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
-    import {generateID} from "@/helper/idGenerator";
+    import {generateID} from "@/helper/helperFunctions";
 
     const skillStore = getModule(Skill);
     const adminDialogStore = getModule(AdminDialog);
@@ -57,7 +57,6 @@
             name: '',
             skillValue: 0
         }
-
 
         close() {
             adminDialogStore.hideAdminDialog();

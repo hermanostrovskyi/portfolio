@@ -9,7 +9,7 @@ import {
     getUserIdFromLocalStorage,
     isTokenExpired,
     saveDataToLocalStorage
-} from "@/helper/loginHelper";
+} from "@/helper/helperFunctions";
 import Store from '../index';
 
 @Module(

@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import {ICreateExperienceRecord, IWorkExperienceRecord} from "@/interfaces/interfaces";
+import {IWorkExperienceRecord} from "@/interfaces/interfaces";
 import Store from '../index';
-import {generateID} from "@/helper/idGenerator";
+import {generateID} from "@/helper/helperFunctions";
 
 @Module({
     dynamic: true,
@@ -54,9 +54,7 @@ class Experience extends VuexModule {
 
     @Mutation
     public addExperience(experienceRecord: IWorkExperienceRecord): void {
-        const id: string = generateID();
-        const experience = {...experienceRecord, id}
-        this.workExperiences.push(experience);
+        this.workExperiences.push(experienceRecord);
     }
 
     @Mutation
@@ -67,12 +65,16 @@ class Experience extends VuexModule {
 
     @Mutation
     updateExperience(experienceRecord: IWorkExperienceRecord): void {
-        const index = this.workExperiences.findIndex((experienceItem: IWorkExperienceRecord) => experienceItem.id === experienceRecord.id);
-        this.workExperiences[index] = experienceRecord;
+        this.workExperiences = this.workExperiences.map((workExperience: IWorkExperienceRecord) => {
+            if(workExperience.id === experienceRecord.id) {
+                return {...experienceRecord};
+            }
+            return workExperience;
+        })
     }
 
     @Action
-    public addNewExperienceRecord(experienceRecord: ICreateExperienceRecord): void {
+    public addNewExperienceRecord(experienceRecord: IWorkExperienceRecord): void {
         this.context.commit('addExperience', experienceRecord);
     }
 

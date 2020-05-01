@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {ISkill} from "@/interfaces/interfaces";
 import Store from '../index';
-import {generateID} from "@/helper/idGenerator";
+import {generateID} from "@/helper/helperFunctions";
 
 @Module({
     dynamic: true,

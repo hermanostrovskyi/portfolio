@@ -79,7 +79,7 @@
             <v-btn
                     color="blue darken-1"
                     text
-                    @click="onExperienceSave() ">Save
+                    @click="submitMethod() ">{{buttonLabel}}
             </v-btn>
         </v-card-actions>
     </v-card>
@@ -87,21 +87,25 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
-    import Experience from "@/store/modules/experience";
+    import {Component, Prop, Vue} from 'vue-property-decorator'
     import {getModule} from "vuex-module-decorators";
-    import {ICreateExperienceRecord} from "@/interfaces/interfaces";
+    import Experience from "@/store/modules/experience";
     import AdminDialog from "@/store/modules/adminDialog";
+    import {IWorkExperienceRecord} from "@/interfaces/interfaces";
+    import {formatDate, generateID} from "@/helper/helperFunctions";
 
     const experienceStore = getModule(Experience);
     const adminDialogStore = getModule(AdminDialog);
 
+
     @Component
     export default class DialogExperienceCreate extends Vue {
+        @Prop() dialogProps: any;
         startPeriodMenu: boolean = false;
         endPeriodMenu: boolean = false;
 
-        experienceRecord: ICreateExperienceRecord = {
+        experienceRecord: IWorkExperienceRecord = {
+            id: null,
             place: '',
             position: '',
             responsibility: '',
@@ -111,38 +115,54 @@
 
         close() {
             adminDialogStore.hideAdminDialog();
+            adminDialogStore.setDialogComponentAction(null);
+            adminDialogStore.setDialogPropertiesAction(null);
         }
 
         onExperienceSave(): void {
             const experienceToSave = {
                 ...this.experienceRecord,
                 periodStart: new Date(this.experienceRecord.periodStart),
-                periodEnd: new Date(this.experienceRecord.periodEnd)
+                periodEnd: new Date(this.experienceRecord.periodEnd),
+                id: generateID()
             };
 
             experienceStore.addNewExperienceRecord(experienceToSave);
-            this.resetValues();
             this.close();
         }
 
-        //
-        // onSkillUpdate(): void {
-        //     skillStore.updateExistingSkill(this.updatedSkill);
-        //     this.close();
-        // }
-        //
-        resetValues() {
-            this.experienceRecord.place = '';
-            this.experienceRecord.position = '';
-            this.experienceRecord.responsibility = '';
-            this.experienceRecord.periodStart = null;
-            this.experienceRecord.periodEnd = null;
+
+        onExperienceUpdate(): void {
+            const experienceToUpdate = {
+                ...this.experienceRecord,
+                periodStart: new Date(this.experienceRecord.periodStart),
+                periodEnd: new Date(this.experienceRecord.periodEnd)
+            };
+
+            console.log(experienceToUpdate);
+            experienceStore.updateExistingExperienceRecord(experienceToUpdate);
+            this.close();
         }
 
-        //
-        // get updatedSkill(): ISkill {
-        //     return skillStore.updatedSkill;
-        // }
+
+
+        get buttonLabel(): string {
+            return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
+        }
+
+        get submitMethod(): any {
+            return this.dialogProps.mode === 'create' ? this.onExperienceSave : this.onExperienceUpdate;
+        }
+
+        created() {
+            if (this.dialogProps.populateWith) {
+                const originStartDate = this.dialogProps.populateWith.periodStart;
+                const originEndDate = this.dialogProps.populateWith.periodEnd;
+
+                this.experienceRecord = {...this.dialogProps.populateWith, periodStart: formatDate(originStartDate), periodEnd: formatDate(originEndDate)};
+            }
+        }
+
 
     }
 </script>

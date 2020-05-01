@@ -17,7 +17,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn fab small color="primary">
+                        <v-btn fab small color="primary" @click="onExperienceUpdate(experienceRecord)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
@@ -36,9 +36,11 @@
     import Component from "vue-class-component";
     import {IWorkExperienceRecord} from "@/interfaces/interfaces";
     import Experience from "@/store/modules/experience";
+    import AdminDialog from "@/store/modules/adminDialog";
     import {getModule} from "vuex-module-decorators";
 
     const experienceStore = getModule(Experience);
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class AdminExperience extends Vue {
@@ -49,6 +51,12 @@
 
         deleteExperienceItem(id: string): void {
             experienceStore.deleteExistingExperienceRecord(id);
+        }
+
+        onExperienceUpdate(experienceRecord: IWorkExperienceRecord): void {
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogExperience');
+            adminDialogStore.setDialogPropertiesAction({mode: 'update', populateWith: {...experienceRecord}})
         }
 
     }

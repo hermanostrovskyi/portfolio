@@ -44,12 +44,3 @@ export interface IWorkExperienceRecord {
     periodStart: Date;
     periodEnd: Date;
 }
-
-
-export interface ICreateExperienceRecord {
-    place: string;
-    position: string;
-    responsibility: string;
-    periodStart: Date;
-    periodEnd: Date;
-}
