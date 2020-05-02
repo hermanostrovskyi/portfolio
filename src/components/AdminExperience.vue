@@ -15,11 +15,9 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-
                         <v-btn fab small color="primary" @click="onExperienceUpdate(experienceRecord)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
-
                         <v-btn fab small color="error" @click="deleteExperienceItem(experienceRecord.fbID)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
@@ -59,7 +57,7 @@
                 mode: 'update',
                 populateWith: {...experienceRecord},
                 submit: experienceStore.updateExperienceAction
-            })
+            });
         }
 
         created() {

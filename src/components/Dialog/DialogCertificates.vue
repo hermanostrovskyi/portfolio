@@ -27,7 +27,7 @@
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="close">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="submit">{{buttonLabel}}</v-btn>
+            <v-btn :disabled="isSubmitDisabled" color="blue darken-1" text @click="submit">{{buttonLabel}}</v-btn>
         </v-card-actions>
     </v-card>
 
@@ -54,6 +54,16 @@
         }
 
         submit(): void {
+            if(this.certificate.fullFirebasePath && !this.file) {
+                this.dialogProps.submit(this.certificate);
+                this.close();
+                return;
+            }
+
+            if (this.certificate.fullFirebasePath && this.file) {
+                firebase.storage().ref(this.certificate.fullFirebasePath).delete();
+            }
+
             const fileRef = certificatesStorage.child(this.file.name);
             fileRef.put(this.file)
                 .then(snapshot => {
@@ -65,6 +75,10 @@
                     });
                 });
 
+        }
+
+        get isSubmitDisabled(): boolean {
+            return !this.file && this.dialogProps.mode === 'create'
         }
 
         get buttonLabel(): string {

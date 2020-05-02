@@ -41,7 +41,7 @@ class Experience extends VuexModule {
                 return {...updatedExperience};
             }
             return experience;
-        })
+        });
     }
 
     @Action

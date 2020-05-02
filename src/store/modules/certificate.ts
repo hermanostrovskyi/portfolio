@@ -36,12 +36,11 @@ class Certificate extends VuexModule {
         this.certificates.splice(index, 1);
     }
 
-    //
-    // @Mutation
-    // updateCertificate(certificate: ICertificate): void {
-    //     const index = this.certificates.findIndex((certificateItem: ICertificate) => certificateItem.id === certificate.id);
-    //     this.certificates[index] = certificate;
-    // }
+
+    @Mutation
+    updateCertificate(updatedCertificate: ICertificate): void {
+        this.certificates = this.certificates.map((certificate: ICertificate) => certificate.fbID === updatedCertificate.fbID ? updatedCertificate : certificate);
+    }
     //
     // @Action
     // public addNewCertificate(certificate: ICertificate): void {
@@ -86,6 +85,14 @@ class Certificate extends VuexModule {
                 firebase.storage().ref(certificate.fullFirebasePath).delete();
                 this.context.commit('deleteCertificate', certificate.fbID);
             });
+    }
+
+    @Action
+    public updateCertificateAction(certificate: ICertificate): void {
+        dbCertificate
+            .child(certificate.fbID)
+            .set(certificate)
+            .then(() => this.context.commit('updateCertificate', certificate));
     }
 }
 

@@ -8,16 +8,12 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn fab small color="primary">
+                        <v-btn fab small color="primary" @click="onCertificateUpdate(certificate)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
-
-
                         <v-btn fab small color="error" @click="onCertificateDelete(certificate)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
-
-
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -30,9 +26,10 @@
     import {getModule} from "vuex-module-decorators";
     import Certificate from "@/store/modules/certificate";
     import {ICertificate} from "@/interfaces/interfaces";
+    import AdminDialog from "@/store/modules/adminDialog";
 
     const certificateStore = getModule(Certificate);
-
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class AdminCertificates extends Vue {
@@ -42,6 +39,16 @@
 
         onCertificateDelete(certificate: ICertificate): void {
             certificateStore.deleteCertificateAction(certificate);
+        }
+
+        onCertificateUpdate(certificate: ICertificate): void {
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogCertificates');
+            adminDialogStore.setDialogPropertiesAction({
+                mode: 'update',
+                populateWith: {...certificate},
+                submit: certificateStore.updateCertificateAction
+            });
         }
 
         created() {
