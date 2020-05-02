@@ -4,7 +4,7 @@ import Store from '../index';
 import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 
 
-const db = getFirebaseDB();
+const dbSkill = getFirebaseDB().ref('data/skill');
 
 @Module({
     dynamic: true,
@@ -14,6 +14,7 @@ const db = getFirebaseDB();
 })
 class Skill extends VuexModule {
     public skills: ISkill[] = [];
+
 
     get allSkills(): ISkill[] {
         return this.skills;
@@ -45,8 +46,7 @@ class Skill extends VuexModule {
 
     @Action
     public fetchSkills() {
-        db.ref('data/skill')
-            .once('value')
+        dbSkill.once('value')
             .then(snapshot => {
                 const skills: ISkill[] = retrieveData(snapshot.val()) as ISkill[];
                 this.context.commit('setSkills', skills);
@@ -55,23 +55,20 @@ class Skill extends VuexModule {
 
     @Action
     public addSkillAction(skill: ISkill): void {
-        db.ref('data/skill')
-            .push(skill)
+        dbSkill.push(skill)
             .then(res => this.context.commit('addSkill', {...skill, fbID: res.key}));
     }
 
     @Action
     public updateSkillAction(skill: ISkill): void {
-        db.ref('data/skill')
-            .child(skill.fbID)
+        dbSkill.child(skill.fbID)
             .set(skill)
             .then(() => this.context.commit('updateSkill', skill));
     }
 
     @Action
     public deleteSkillAction(fbID: string): void {
-        db.ref(`data/skill`)
-            .child(fbID)
+        dbSkill.child(fbID)
             .set(null)
             .then(() => this.context.commit('deleteSkill', fbID));
     }
