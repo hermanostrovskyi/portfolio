@@ -19,9 +19,10 @@ export interface IAuthData {
 }
 
 export interface ICertificate {
-    id: number;
+    fbID: string;
     title: string;
     url: string;
+    fullFirebasePath: string;
 }
 
 export interface ISkill {
@@ -49,5 +50,5 @@ export interface IExperience {
 export interface IDialogProps {
     mode: string;
     submit: Function;
-    populateWith: ISkill | IExperience;
+    populateWith: ISkill | IExperience| ICertificate;
 }

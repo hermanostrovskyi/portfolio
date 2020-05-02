@@ -49,7 +49,9 @@ class Skill extends VuexModule {
         dbSkill.once('value')
             .then(snapshot => {
                 const skills: ISkill[] = retrieveData(snapshot.val()) as ISkill[];
-                this.context.commit('setSkills', skills);
+                if(skills) {
+                    this.context.commit('setSkills', skills);
+                }
             })
     }
 

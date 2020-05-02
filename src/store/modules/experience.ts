@@ -50,7 +50,9 @@ class Experience extends VuexModule {
             .once('value')
             .then(snapshot => {
                 const experience: IExperience[] = retrieveData(snapshot.val()) as IExperience[];
-                this.context.commit('setWorkExperience', experience);
+                if(experience) {
+                    this.context.commit('setWorkExperience', experience);
+                }
             })
     }
 

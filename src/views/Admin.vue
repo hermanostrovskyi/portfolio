@@ -81,24 +81,28 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
+    import {getModule} from "vuex-module-decorators";
     import {IAdminMenuItem, IDialogProps} from "@/interfaces/interfaces";
+
     import AdminSkills from '@/components/AdminSkills.vue';
     import DialogSkills from '@/components/Dialog/DialogSkills.vue';
     import DialogExperience from '@/components/Dialog/DialogExperience.vue';
+    import DialogCertificates from '@/components/Dialog/DialogCertificates.vue'
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminExperience from '@/components/AdminExperience.vue';
-    import {getModule} from "vuex-module-decorators";
+
     import Auth from "@/store/modules/auth";
     import AdminDialog from "@/store/modules/adminDialog";
     import Skill from "@/store/modules/skill";
     import Experience from "@/store/modules/experience";
+    import Certificate from "@/store/modules/certificate";
 
     const authStore = getModule(Auth);
     const adminDialogStore = getModule(AdminDialog);
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
-
+    const certificateStore = getModule(Certificate);
 
     @Component({
         components: {
@@ -107,7 +111,8 @@
             AdminPortfolio,
             AdminExperience,
             DialogSkills,
-            DialogExperience
+            DialogExperience,
+            DialogCertificates
         }
     })
     export default class Admin extends Vue {
@@ -157,6 +162,8 @@
                     return skillStore.addSkillAction;
                 case 'Experience':
                     return experienceStore.addExperienceAction;
+                case 'Certificates':
+                    return certificateStore.addCertificateAction;
                 default:
                     return skillStore.addSkillAction;
             }

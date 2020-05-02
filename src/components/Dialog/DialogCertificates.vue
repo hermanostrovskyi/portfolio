@@ -9,16 +9,17 @@
                     <v-col cols="12">
                         <v-text-field
                                 label="Title*"
-                                v-model='skillData.name'
+                                v-model='certificate.title'
                                 required>
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
-                        <v-text-field
-                                label="Value*"
-                                v-model='skillData.skillValue'
-                                required>
-                        </v-text-field>
+                        <v-file-input
+                                label="File input"
+                                v-model="file"
+                                filled
+                                prepend-icon="mdi-file-image"
+                        ></v-file-input>
                     </v-col>
                 </v-row>
             </v-container>
@@ -35,23 +36,35 @@
 <script lang="ts">
     import {Component, Vue, Prop} from 'vue-property-decorator'
     import {getModule} from "vuex-module-decorators";
-    import {IDialogProps, ISkill} from "@/interfaces/interfaces";
+    import {ICertificate, IDialogProps} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
+    import firebase from "firebase";
 
     const adminDialogStore = getModule(AdminDialog);
+    const certificatesStorage = firebase.storage().ref('images/certificates');
 
     @Component
     export default class DialogSkill extends Vue {
         @Prop() dialogProps: IDialogProps;
-        skillData: ISkill = null;
+        file: File = null;
+        certificate: ICertificate = null;
 
         close(): void {
             adminDialogStore.hideAdminDialog();
         }
 
         submit(): void {
-            this.dialogProps.submit(this.skillData);
-            this.close();
+            const fileRef = certificatesStorage.child(this.file.name);
+            fileRef.put(this.file)
+                .then(snapshot => {
+                    snapshot.ref.getDownloadURL().then((url: string) => {
+                        this.certificate.url = url;
+                        this.certificate.fullFirebasePath = fileRef.fullPath;
+                        this.dialogProps.submit(this.certificate);
+                        this.close();
+                    });
+                });
+
         }
 
         get buttonLabel(): string {
@@ -60,10 +73,15 @@
 
 
         created(): void {
-            this.skillData = this.dialogProps.populateWith ?
-                this.dialogProps.populateWith as ISkill : {fbID: null, name: '', skillValue: 0}
+            this.certificate = this.dialogProps.populateWith ?
+                this.dialogProps.populateWith as ICertificate :
+                {
+                    title: '',
+                    url: '',
+                    fbID: null,
+                    fullFirebasePath: ''
+                }
         }
-
     }
 </script>
 

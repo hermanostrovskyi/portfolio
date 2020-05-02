@@ -1,10 +1,10 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.id">
+            <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.fbID">
                 <v-card>
                     <v-card-title>{{certificate.title}}</v-card-title>
-                    <v-img :src="certificateUrl"></v-img>
+                    <v-img :src="certificate.url"></v-img>
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -30,32 +30,21 @@
     import {getModule} from "vuex-module-decorators";
     import Certificate from "@/store/modules/certificate";
     import {ICertificate} from "@/interfaces/interfaces";
-    import firebase from "firebase";
-
-    const storage = firebase.storage();
-    const storageRef = storage.ref();
-
-    // storageRef.child('certificates/vue.jpg').;
-
-    // console.log(storageRef.child('certificates/vue.jpg'));
 
     const certificateStore = getModule(Certificate);
 
 
-
     @Component
     export default class AdminCertificates extends Vue {
-        certificateUrl: string = '';
         get allCertificates(): ICertificate[] {
             return certificateStore.allCertificates;
         }
 
-
-
-       created() {
-            storageRef.child('certificates/vue.jpg').getDownloadURL()
-                .then(url => this.certificateUrl = url)
+        created() {
+            certificateStore.fetchCertificates();
         }
+
+
     }
 </script>
 
