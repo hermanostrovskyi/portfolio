@@ -3,7 +3,7 @@ import {IExperience} from "@/interfaces/interfaces";
 import Store from '../index';
 import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 
-const db = getFirebaseDB();
+const dbExperience = getFirebaseDB().ref('data/experience');
 
 @Module({
     dynamic: true,
@@ -46,7 +46,7 @@ class Experience extends VuexModule {
 
     @Action
     public fetchExperienceAction() {
-        db.ref('data/experience')
+        dbExperience
             .once('value')
             .then(snapshot => {
                 const experience: IExperience[] = retrieveData(snapshot.val()) as IExperience[];
@@ -56,14 +56,14 @@ class Experience extends VuexModule {
 
     @Action
     public addExperienceAction(experience: IExperience) {
-        db.ref('data/experience')
+        dbExperience
             .push(experience)
             .then(res => this.context.commit('addExperience', {...experience, fbID: res.key}));
     }
 
     @Action
     public deleteExperienceAction(fbID: string): void {
-        db.ref(`data/experience`)
+        dbExperience
             .child(fbID)
             .set(null)
             .then(() => this.context.commit('deleteExperience', fbID));
@@ -71,7 +71,7 @@ class Experience extends VuexModule {
 
     @Action
     public updateExperienceAction(experience: IExperience): void {
-        db.ref('data/experience')
+        dbExperience
             .child(experience.fbID)
             .set(experience)
             .then(() => this.context.commit('updateExperience', experience));

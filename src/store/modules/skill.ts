@@ -55,20 +55,23 @@ class Skill extends VuexModule {
 
     @Action
     public addSkillAction(skill: ISkill): void {
-        dbSkill.push(skill)
+        dbSkill
+            .push(skill)
             .then(res => this.context.commit('addSkill', {...skill, fbID: res.key}));
     }
 
     @Action
     public updateSkillAction(skill: ISkill): void {
-        dbSkill.child(skill.fbID)
+        dbSkill
+            .child(skill.fbID)
             .set(skill)
             .then(() => this.context.commit('updateSkill', skill));
     }
 
     @Action
     public deleteSkillAction(fbID: string): void {
-        dbSkill.child(fbID)
+        dbSkill
+            .child(fbID)
             .set(null)
             .then(() => this.context.commit('deleteSkill', fbID));
     }
