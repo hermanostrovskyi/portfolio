@@ -55,14 +55,9 @@
                 <v-toolbar-title>{{currentItem}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-btn color="success" @click="onAddClick()">
+                <v-btn color="primary" @click="onAddClick()">
                     <v-icon left>mdi-plus-circle-outline</v-icon>
-                    New
-                </v-btn>
-
-                <v-btn color="primary" class="save-btn">
-                    <v-icon left>mdi-content-save</v-icon>
-                    Save all
+                    Add new
                 </v-btn>
             </v-toolbar>
             <v-divider></v-divider>
