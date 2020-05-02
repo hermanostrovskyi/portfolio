@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title>
-            <span class="headline">Experience Info</span>
+            <span class="headline">{{formLabel}}</span>
         </v-card-title>
         <v-card-text>
             <v-container>
@@ -111,21 +111,12 @@
         }
 
 
-        // onExperienceUpdate(): void {
-        //     const experienceToUpdate = {
-        //         ...this.experienceRecord,
-        //         periodStart: new Date(this.experienceRecord.periodStart),
-        //         periodEnd: new Date(this.experienceRecord.periodEnd)
-        //     };
-        //
-        //     console.log(experienceToUpdate);
-        //     experienceStore.updateExistingExperienceRecord(experienceToUpdate);
-        //     this.close();
-        // }
-
-
         get buttonLabel(): string {
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
+        }
+
+        get formLabel(): string {
+            return this.dialogProps.mode === 'create' ? 'Add new work experience' : 'Update your work experience';
         }
 
 

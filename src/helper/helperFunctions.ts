@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import {ICertificate, IExperience, ISkill} from "@/interfaces/interfaces";
+import {ICertificate, IExperience, IPortfolioItem, ISkill} from "@/interfaces/interfaces";
 import Database = firebase.database.Database;
 
 export function saveDataToLocalStorage(response: any): void {
@@ -49,9 +49,9 @@ export function getFirebaseDB(): Database {
 }
 
 
-export function retrieveData(fetchedData: any): IExperience[] | ISkill[] | ICertificate[] {
+export function retrieveData(fetchedData: any): IExperience[] | ISkill[] | ICertificate[] | IPortfolioItem[] {
     if (fetchedData) {
-        const response: IExperience[] | ISkill[] | ICertificate[] = [];
+        const response: IExperience[] | ISkill[] | ICertificate[] | IPortfolioItem[] = [];
         for (const key in fetchedData) {
             fetchedData[key].fbID = key;
             response.push(fetchedData[key]);

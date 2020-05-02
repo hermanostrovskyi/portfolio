@@ -87,7 +87,8 @@
     import AdminSkills from '@/components/AdminSkills.vue';
     import DialogSkills from '@/components/Dialog/DialogSkills.vue';
     import DialogExperience from '@/components/Dialog/DialogExperience.vue';
-    import DialogCertificates from '@/components/Dialog/DialogCertificates.vue'
+    import DialogCertificates from '@/components/Dialog/DialogCertificates.vue';
+    import DialogPortfolio from "@/components/Dialog/DialogPortfolio.vue";
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminExperience from '@/components/AdminExperience.vue';
@@ -97,12 +98,14 @@
     import Skill from "@/store/modules/skill";
     import Experience from "@/store/modules/experience";
     import Certificate from "@/store/modules/certificate";
+    import Portfolio from "@/store/modules/portfolio";
 
     const authStore = getModule(Auth);
     const adminDialogStore = getModule(AdminDialog);
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
     const certificateStore = getModule(Certificate);
+    const portfolioStore = getModule(Portfolio);
 
     @Component({
         components: {
@@ -112,7 +115,8 @@
             AdminExperience,
             DialogSkills,
             DialogExperience,
-            DialogCertificates
+            DialogCertificates,
+            DialogPortfolio
         }
     })
     export default class Admin extends Vue {
@@ -164,6 +168,8 @@
                     return experienceStore.addExperienceAction;
                 case 'Certificates':
                     return certificateStore.addCertificateAction;
+                case 'Portfolio':
+                    return portfolioStore.addPortfolioItemAction;
                 default:
                     return skillStore.addSkillAction;
             }

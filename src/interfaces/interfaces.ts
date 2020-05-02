@@ -32,9 +32,11 @@ export interface ISkill {
 }
 
 export interface IPortfolioItem {
-    id: number;
+    fbID: string;
+    title: string;
     description: string;
     url: string;
+    fullFirebasePath: string;
 }
 
 export interface IExperience {
@@ -50,5 +52,5 @@ export interface IExperience {
 export interface IDialogProps {
     mode: string;
     submit: Function;
-    populateWith: ISkill | IExperience| ICertificate;
+    populateWith: ISkill | IExperience| ICertificate | IPortfolioItem;
 }

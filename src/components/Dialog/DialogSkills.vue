@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title>
-            <span class="headline">Skill Info</span>
+            <span class="headline">{{formLabel}}</span>
         </v-card-title>
         <v-card-text>
             <v-container>
@@ -56,6 +56,10 @@
 
         get buttonLabel(): string {
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
+        }
+
+        get formLabel(): string {
+            return this.dialogProps.mode === 'create' ? 'Add new skill' : 'Update your skill';
         }
 
 

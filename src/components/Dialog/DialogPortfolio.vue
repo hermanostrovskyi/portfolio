@@ -9,9 +9,16 @@
                     <v-col cols="12">
                         <v-text-field
                                 label="Title*"
-                                v-model='certificate.title'
+                                v-model='portfolioItem.title'
                                 required>
                         </v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-textarea
+                                label="Description*"
+                                v-model='portfolioItem.description'
+                                required>
+                        </v-textarea>
                     </v-col>
                     <v-col cols="12">
                         <v-file-input
@@ -36,41 +43,41 @@
 <script lang="ts">
     import {Component, Vue, Prop} from 'vue-property-decorator'
     import {getModule} from "vuex-module-decorators";
-    import {ICertificate, IDialogProps} from "@/interfaces/interfaces";
+    import {IDialogProps, IPortfolioItem} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
     import firebase from "firebase";
 
     const adminDialogStore = getModule(AdminDialog);
-    const certificatesStorage = firebase.storage().ref('images/certificates');
+    const portfolioStorage = firebase.storage().ref('images/portfolio');
 
     @Component
     export default class DialogSkill extends Vue {
         @Prop() dialogProps: IDialogProps;
         file: File = null;
-        certificate: ICertificate = null;
+        portfolioItem: IPortfolioItem = null;
 
         close(): void {
             adminDialogStore.hideAdminDialog();
         }
 
         submit(): void {
-            if(this.certificate.fullFirebasePath && !this.file) {
-                this.dialogProps.submit(this.certificate);
-                this.close();
-                return;
-            }
-
-            if (this.certificate.fullFirebasePath && this.file) {
-                firebase.storage().ref(this.certificate.fullFirebasePath).delete();
-            }
-
-            const fileRef = certificatesStorage.child(this.file.name);
+            // if(this.certificate.fullFirebasePath && !this.file) {
+            //     this.dialogProps.submit(this.certificate);
+            //     this.close();
+            //     return;
+            // }
+            //
+            // if (this.certificate.fullFirebasePath && this.file) {
+            //     firebase.storage().ref(this.certificate.fullFirebasePath).delete();
+            // }
+            //
+            const fileRef = portfolioStorage.child(this.file.name);
             fileRef.put(this.file)
                 .then(snapshot => {
                     snapshot.ref.getDownloadURL().then((url: string) => {
-                        this.certificate.url = url;
-                        this.certificate.fullFirebasePath = fileRef.fullPath;
-                        this.dialogProps.submit(this.certificate);
+                        this.portfolioItem.url = url;
+                        this.portfolioItem.fullFirebasePath = fileRef.fullPath;
+                        this.dialogProps.submit(this.portfolioItem);
                         this.close();
                     });
                 });
@@ -86,15 +93,16 @@
         }
 
         get formLabel(): string {
-            return this.dialogProps.mode === 'create' ? 'Add new certificate' : 'Update your certificate';
+            return this.dialogProps.mode === 'create' ? 'Add new item to portfolio' : 'Update your portfolio';
         }
 
 
         created(): void {
-            this.certificate = this.dialogProps.populateWith ?
-                this.dialogProps.populateWith as ICertificate :
+            this.portfolioItem = this.dialogProps.populateWith ?
+                this.dialogProps.populateWith as IPortfolioItem :
                 {
                     title: '',
+                    description: '',
                     url: '',
                     fbID: null,
                     fullFirebasePath: ''

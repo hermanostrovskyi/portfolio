@@ -41,21 +41,6 @@ class Certificate extends VuexModule {
     updateCertificate(updatedCertificate: ICertificate): void {
         this.certificates = this.certificates.map((certificate: ICertificate) => certificate.fbID === updatedCertificate.fbID ? updatedCertificate : certificate);
     }
-    //
-    // @Action
-    // public addNewCertificate(certificate: ICertificate): void {
-    //     this.context.commit('addCertificate', certificate);
-    // }
-    //
-    // @Action
-    // public deleteExistingCertificate(id: number): void {
-    //     this.context.commit('deleteCertificate', id);
-    // }
-    //
-    // @Action
-    // public updateExistingCertificate(certificate: ICertificate): void {
-    //     this.context.commit('updateCertificate', certificate);
-    // }
 
     @Action
     public fetchCertificates(): void {
