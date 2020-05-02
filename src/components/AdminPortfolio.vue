@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-flex xs12 sm6 md6 lg4 v-for="portfolioItem in portfolioItems" :key="portfolioItem.fbID">
                 <v-card>
-                    <v-card-title>{{portfolioItem.description}}</v-card-title>
+                    <v-card-title>{{portfolioItem.title}}</v-card-title>
                     <v-divider></v-divider>
                     <v-img height="300" :src="portfolioItem.url"></v-img>
                     <v-container fluid>
@@ -14,7 +14,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn fab small color="primary">
+                        <v-btn fab small color="primary" @click="onPortfolioEdit(portfolioItem)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
@@ -29,13 +29,14 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+    import {Component, Vue} from 'vue-property-decorator';
     import {IPortfolioItem} from "@/interfaces/interfaces";
     import Portfolio from "@/store/modules/portfolio";
     import {getModule} from "vuex-module-decorators";
+    import AdminDialog from "@/store/modules/adminDialog";
 
     const portfolioStore = getModule(Portfolio);
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class AdminPortfolio extends Vue {
@@ -45,6 +46,16 @@
 
         onPortfolioDelete(portfolioItem: IPortfolioItem) {
             portfolioStore.deletePortfolioItemAction(portfolioItem);
+        }
+
+        onPortfolioEdit(portfolioItem: IPortfolioItem) {
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogPortfolio');
+            adminDialogStore.setDialogPropertiesAction({
+                mode: 'update',
+                populateWith: {...portfolioItem},
+                submit: portfolioStore.updatePortfolioItemAction
+            });
         }
 
         created() {

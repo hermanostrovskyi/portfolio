@@ -30,8 +30,7 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+    import {Component, Vue} from 'vue-property-decorator';
     import {ISkill} from "@/interfaces/interfaces";
     import Skill from "@/store/modules/skill";
     import AdminDialog from "@/store/modules/adminDialog";

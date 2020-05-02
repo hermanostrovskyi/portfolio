@@ -29,8 +29,7 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+    import {Component, Vue} from 'vue-property-decorator';
     import {IExperience} from "@/interfaces/interfaces";
     import Experience from "@/store/modules/experience";
     import AdminDialog from "@/store/modules/adminDialog";

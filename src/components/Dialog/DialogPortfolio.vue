@@ -61,16 +61,16 @@
         }
 
         submit(): void {
-            // if(this.certificate.fullFirebasePath && !this.file) {
-            //     this.dialogProps.submit(this.certificate);
-            //     this.close();
-            //     return;
-            // }
-            //
-            // if (this.certificate.fullFirebasePath && this.file) {
-            //     firebase.storage().ref(this.certificate.fullFirebasePath).delete();
-            // }
-            //
+            if(this.portfolioItem.fullFirebasePath && !this.file) {
+                this.dialogProps.submit(this.portfolioItem);
+                this.close();
+                return;
+            }
+
+            if (this.portfolioItem.fullFirebasePath && this.file) {
+                firebase.storage().ref(this.portfolioItem.fullFirebasePath).delete();
+            }
+
             const fileRef = portfolioStorage.child(this.file.name);
             fileRef.put(this.file)
                 .then(snapshot => {
