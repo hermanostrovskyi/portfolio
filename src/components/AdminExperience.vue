@@ -1,11 +1,10 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md6 lg4 v-for="experienceRecord in allExperienceRecords" :key="experienceRecord.id">
+            <v-flex xs12 sm6 md6 lg4 v-for="experienceRecord in allExperienceRecords" :key="experienceRecord.fbID">
                 <v-card>
                     <v-card-title>{{experienceRecord.place}}</v-card-title>
-                    <v-card-subtitle>Period: {{experienceRecord.periodStart | dateFormat('MM.YY')}} -
-                        {{experienceRecord.periodEnd | dateFormat('MM.YY') }}
+                    <v-card-subtitle>Period: {{experienceRecord.periodStart }} - {{experienceRecord.periodEnd  }}
                     </v-card-subtitle>
                     <v-divider></v-divider>
                     <v-container fluid>
@@ -16,12 +15,10 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-
                         <v-btn fab small color="primary" @click="onExperienceUpdate(experienceRecord)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
-
-                        <v-btn fab small color="error" @click="deleteExperienceItem(experienceRecord.id)">
+                        <v-btn fab small color="error" @click="deleteExperienceItem(experienceRecord.fbID)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
                     </v-card-actions>
@@ -32,9 +29,8 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
-    import {IWorkExperienceRecord} from "@/interfaces/interfaces";
+    import {Component, Vue} from 'vue-property-decorator';
+    import {IExperience} from "@/interfaces/interfaces";
     import Experience from "@/store/modules/experience";
     import AdminDialog from "@/store/modules/adminDialog";
     import {getModule} from "vuex-module-decorators";
@@ -45,18 +41,26 @@
     @Component
     export default class AdminExperience extends Vue {
 
-        get allExperienceRecords(): IWorkExperienceRecord[] {
+        get allExperienceRecords(): IExperience[] {
             return experienceStore.allWorkExperiences;
         }
 
-        deleteExperienceItem(id: string): void {
-            experienceStore.deleteExistingExperienceRecord(id);
+        deleteExperienceItem(fbID: string): void {
+            experienceStore.deleteExperienceAction(fbID);
         }
 
-        onExperienceUpdate(experienceRecord: IWorkExperienceRecord): void {
+        onExperienceUpdate(experienceRecord: IExperience): void {
             adminDialogStore.showAdminDialog();
             adminDialogStore.setDialogComponentAction('DialogExperience');
-            adminDialogStore.setDialogPropertiesAction({mode: 'update', populateWith: {...experienceRecord}})
+            adminDialogStore.setDialogPropertiesAction({
+                mode: 'update',
+                populateWith: {...experienceRecord},
+                submit: experienceStore.updateExperienceAction
+            });
+        }
+
+        created() {
+            experienceStore.fetchExperienceAction();
         }
 
     }

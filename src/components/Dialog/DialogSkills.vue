@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title>
-            <span class="headline">Skill Info</span>
+            <span class="headline">{{formLabel}}</span>
         </v-card-title>
         <v-card-text>
             <v-container>
@@ -26,12 +26,7 @@
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="close">Close</v-btn>
-            <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="submitMethod()"
-            >{{buttonLabel}}
-            </v-btn>
+            <v-btn color="blue darken-1" text @click="submit">{{buttonLabel}}</v-btn>
         </v-card-actions>
     </v-card>
 
@@ -39,39 +34,23 @@
 
 <script lang="ts">
     import {Component, Vue, Prop} from 'vue-property-decorator'
-    import Skill from "@/store/modules/skill";
     import {getModule} from "vuex-module-decorators";
-    import {ISkill} from "@/interfaces/interfaces";
+    import {IDialogProps, ISkill} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
-    import {generateID} from "@/helper/helperFunctions";
 
-    const skillStore = getModule(Skill);
     const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class DialogSkill extends Vue {
-        @Prop() dialogProps: any;
+        @Prop() dialogProps: IDialogProps;
+        skillData: ISkill = null;
 
-        skillData: ISkill = {
-            id: null,
-            name: '',
-            skillValue: 0
-        }
-
-        close() {
+        close(): void {
             adminDialogStore.hideAdminDialog();
-            adminDialogStore.setDialogComponentAction(null);
-            adminDialogStore.setDialogPropertiesAction(null);
         }
 
-        onSkillSave(): void {
-            const skill: ISkill = {...this.skillData, id: generateID()}
-            skillStore.addNewSkill(skill);
-            this.close();
-        }
-
-        onSkillUpdate(): void {
-            skillStore.updateExistingSkill(this.skillData);
+        submit(): void {
+            this.dialogProps.submit(this.skillData);
             this.close();
         }
 
@@ -79,15 +58,14 @@
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';
         }
 
-        get submitMethod(): any {
-            return this.dialogProps.mode === 'create' ? this.onSkillSave : this.onSkillUpdate;
+        get formLabel(): string {
+            return this.dialogProps.mode === 'create' ? 'Add new skill' : 'Update your skill';
         }
 
 
-        created() {
-            if (this.dialogProps.populateWith) {
-                this.skillData = this.dialogProps.populateWith;
-            }
+        created(): void {
+            this.skillData = this.dialogProps.populateWith ?
+                this.dialogProps.populateWith as ISkill : {fbID: null, name: '', skillValue: 0}
         }
 
     }

@@ -19,28 +19,38 @@ export interface IAuthData {
 }
 
 export interface ICertificate {
-    id: number;
+    fbID: string;
     title: string;
     url: string;
+    fullFirebasePath: string;
 }
 
 export interface ISkill {
-    id: string;
+    fbID: string;
     name: string;
     skillValue: number;
 }
 
 export interface IPortfolioItem {
-    id: number;
+    fbID: string;
+    title: string;
     description: string;
     url: string;
+    fullFirebasePath: string;
 }
 
-export interface IWorkExperienceRecord {
-    id: string;
+export interface IExperience {
+    fbID: string;
     place: string;
     position: string;
     responsibility: string;
-    periodStart: Date;
-    periodEnd: Date;
+    periodStart: string;
+    periodEnd: string;
+}
+
+
+export interface IDialogProps {
+    mode: string;
+    submit: Function;
+    populateWith: ISkill | IExperience| ICertificate | IPortfolioItem;
 }

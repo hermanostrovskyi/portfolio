@@ -1,7 +1,7 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md6 lg4 v-for="skill in allSkills" :key="skill.id">
+            <v-flex xs12 sm6 md6 lg4 v-for="skill in allSkills" :key="skill.fbID">
                 <v-card>
                     <v-card-title>{{skill.name}}</v-card-title>
                     <v-container>
@@ -17,7 +17,7 @@
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
-                        <v-btn fab small color="error" @click="deleteSkill(skill.id)">
+                        <v-btn fab small color="error" @click="deleteSkill(skill.fbID)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
                     </v-card-actions>
@@ -30,8 +30,7 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import Component from "vue-class-component";
+    import {Component, Vue} from 'vue-property-decorator';
     import {ISkill} from "@/interfaces/interfaces";
     import Skill from "@/store/modules/skill";
     import AdminDialog from "@/store/modules/adminDialog";
@@ -46,14 +45,23 @@
             return skillStore.allSkills;
         }
 
-        deleteSkill(id: string): void {
-            skillStore.deleteExistingSkill(id);
+        deleteSkill(fbId: string): void {
+            skillStore.deleteSkillAction(fbId);
         }
 
         pickUpdatedSkill(updatedSkill: ISkill): void {
             adminDialogStore.showAdminDialog();
             adminDialogStore.setDialogComponentAction('DialogSkills');
-            adminDialogStore.setDialogPropertiesAction({mode: 'update', populateWith: {...updatedSkill}})
+            adminDialogStore.setDialogPropertiesAction({
+                    mode: 'update',
+                    populateWith: {...updatedSkill},
+                    submit: skillStore.updateSkillAction
+                }
+            )
+        }
+
+        created() {
+            skillStore.fetchSkills();
         }
     }
 </script>

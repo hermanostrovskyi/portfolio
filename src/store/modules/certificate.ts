@@ -1,6 +1,11 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {ICertificate} from "@/interfaces/interfaces";
 import Store from '../index';
+import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
+import firebase from "firebase";
+import DataSnapshot = firebase.database.DataSnapshot;
+
+const dbCertificate = getFirebaseDB().ref('data/certificate');
 
 @Module({
     dynamic: true,
@@ -9,39 +14,11 @@ import Store from '../index';
     namespaced: true
 })
 class Certificate extends VuexModule {
-    public certificates: ICertificate[] = [
-        {
-            id: 1,
-            title: 'First certificate',
-            url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftraining.proprofs.com%2Fhow-do-i-create-customize-and-brand-a-course-certificate&psig=AOvVaw04cBOgazo4k_s2CoU6UFpU&ust=1588187076956000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiS_Yvoi-kCFQAAAAAdAAAAABAT'
-        },
-        {
-            id: 2,
-            title: 'Second certificate',
-            url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftraining.proprofs.com%2Fhow-do-i-create-customize-and-brand-a-course-certificate&psig=AOvVaw04cBOgazo4k_s2CoU6UFpU&ust=1588187076956000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiS_Yvoi-kCFQAAAAAdAAAAABAT'
-        },
-        {
-            id: 3,
-            title: 'Third certificate',
-            url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftraining.proprofs.com%2Fhow-do-i-create-customize-and-brand-a-course-certificate&psig=AOvVaw04cBOgazo4k_s2CoU6UFpU&ust=1588187076956000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiS_Yvoi-kCFQAAAAAdAAAAABAT'
-        },
-        {
-            id: 4,
-            title: 'Fourth certificate',
-            url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftraining.proprofs.com%2Fhow-do-i-create-customize-and-brand-a-course-certificate&psig=AOvVaw04cBOgazo4k_s2CoU6UFpU&ust=1588187076956000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiS_Yvoi-kCFQAAAAAdAAAAABAT'
-        },
-        {
-            id: 5,
-            title: 'Fifth certificate',
-            url: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ftraining.proprofs.com%2Fhow-do-i-create-customize-and-brand-a-course-certificate&psig=AOvVaw04cBOgazo4k_s2CoU6UFpU&ust=1588187076956000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiS_Yvoi-kCFQAAAAAdAAAAABAT'
-        }
-    ];
-
+    certificates: ICertificate[] = [];
 
     get allCertificates(): ICertificate[] {
         return this.certificates;
     }
-
 
     @Mutation
     public addCertificate(certificate: ICertificate): void {
@@ -49,32 +26,59 @@ class Certificate extends VuexModule {
     }
 
     @Mutation
-    public deleteCertificate(id: number): void {
-        const index = this.certificates.findIndex((certificate: ICertificate) => certificate.id === id);
-        this.certificates.splice(index, 1);
+    public setCertificates(certificates: ICertificate[]): void {
+        this.certificates = [...certificates];
     }
 
     @Mutation
-    updateCertificate(certificate: ICertificate): void {
-        const index = this.certificates.findIndex((certificateItem: ICertificate) => certificateItem.id === certificate.id);
-        this.certificates[index] = certificate;
+    public deleteCertificate(fbID: string): void {
+        const index = this.certificates.findIndex((certificate: ICertificate) => certificate.fbID === fbID);
+        this.certificates.splice(index, 1);
+    }
+
+
+    @Mutation
+    updateCertificate(updatedCertificate: ICertificate): void {
+        this.certificates = this.certificates.map((certificate: ICertificate) => certificate.fbID === updatedCertificate.fbID ? updatedCertificate : certificate);
     }
 
     @Action
-    public addNewCertificate(certificate: ICertificate): void {
-        this.context.commit('addCertificate', certificate);
+    public fetchCertificates(): void {
+        dbCertificate.once('value')
+            .then((snapshot: DataSnapshot) => {
+                const certificates: ICertificate[] = retrieveData(snapshot.val()) as ICertificate[];
+                if (certificates) {
+                    this.context.commit('setCertificates', certificates);
+                }
+            });
+    }
+
+
+    @Action
+    public addCertificateAction(certificate: ICertificate): void {
+        dbCertificate
+            .push(certificate)
+            .then(res => this.context.commit('addCertificate', {...certificate, fbID: res.key}))
     }
 
     @Action
-    public deleteExistingCertificate(id: number): void {
-        this.context.commit('deleteCertificate', id);
+    public deleteCertificateAction(certificate: ICertificate): void {
+        dbCertificate
+            .child(certificate.fbID)
+            .set(null)
+            .then(() => {
+                firebase.storage().ref(certificate.fullFirebasePath).delete();
+                this.context.commit('deleteCertificate', certificate.fbID);
+            });
     }
 
     @Action
-    public updateExistingCertificate(certificate: ICertificate): void {
-        this.context.commit('updateCertificate', certificate);
+    public updateCertificateAction(certificate: ICertificate): void {
+        dbCertificate
+            .child(certificate.fbID)
+            .set(certificate)
+            .then(() => this.context.commit('updateCertificate', certificate));
     }
-
 }
 
 

@@ -1,24 +1,19 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.id">
+            <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.fbID">
                 <v-card>
                     <v-card-title>{{certificate.title}}</v-card-title>
-                    <v-img src="@/assets/vue.jpg"></v-img>
+                    <v-img :src="certificate.url"></v-img>
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-
-                        <v-btn fab small color="primary">
+                        <v-btn fab small color="primary" @click="onCertificateUpdate(certificate)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
-
-
-                        <v-btn fab small color="error">
+                        <v-btn fab small color="error" @click="onCertificateDelete(certificate)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
-
-
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -31,14 +26,36 @@
     import {getModule} from "vuex-module-decorators";
     import Certificate from "@/store/modules/certificate";
     import {ICertificate} from "@/interfaces/interfaces";
+    import AdminDialog from "@/store/modules/adminDialog";
 
     const certificateStore = getModule(Certificate);
+    const adminDialogStore = getModule(AdminDialog);
 
     @Component
     export default class AdminCertificates extends Vue {
         get allCertificates(): ICertificate[] {
             return certificateStore.allCertificates;
         }
+
+        onCertificateDelete(certificate: ICertificate): void {
+            certificateStore.deleteCertificateAction(certificate);
+        }
+
+        onCertificateUpdate(certificate: ICertificate): void {
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogCertificates');
+            adminDialogStore.setDialogPropertiesAction({
+                mode: 'update',
+                populateWith: {...certificate},
+                submit: certificateStore.updateCertificateAction
+            });
+        }
+
+        created() {
+            certificateStore.fetchCertificates();
+        }
+
+
     }
 </script>
 
