@@ -13,7 +13,7 @@
                         </v-btn>
 
 
-                        <v-btn fab small color="error">
+                        <v-btn fab small color="error" @click="onCertificateDelete(certificate)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
 
@@ -38,6 +38,10 @@
     export default class AdminCertificates extends Vue {
         get allCertificates(): ICertificate[] {
             return certificateStore.allCertificates;
+        }
+
+        onCertificateDelete(certificate: ICertificate): void {
+            certificateStore.deleteCertificateAction(certificate);
         }
 
         created() {
