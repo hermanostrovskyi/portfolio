@@ -38,24 +38,24 @@
         }
 
         onCertificateDelete(certificate: ICertificate): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
-            adminDialogStore.setDialogPropertiesAction({
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogDeleteConfirmation',
+                properties: {
                     mode: 'deleteConfirmation',
                     submit: certificateStore.deleteCertificateAction,
                     data: certificate
                 }
-            );
-            certificateStore.deleteCertificateAction(certificate);
+            });
         }
 
         onCertificateUpdate(certificate: ICertificate): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogCertificates');
-            adminDialogStore.setDialogPropertiesAction({
-                mode: 'update',
-                populateWith: {...certificate},
-                submit: certificateStore.updateCertificateAction
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogCertificates',
+                properties: {
+                    mode: 'update',
+                    populateWith: {...certificate},
+                    submit: certificateStore.updateCertificateAction
+                }
             });
         }
 

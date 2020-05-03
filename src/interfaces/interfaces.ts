@@ -55,3 +55,9 @@ export interface IDialogProps {
     populateWith?: ISkill | IExperience| ICertificate | IPortfolioItem;
     data?: string | ICertificate | IPortfolioItem;
 }
+
+
+export interface IDialogOptions {
+    componentName: string;
+    properties: IDialogProps;
+}

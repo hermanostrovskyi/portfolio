@@ -132,13 +132,13 @@
         }
 
         onAddClick() {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('Dialog' + this.currentItem);
-            adminDialogStore.setDialogPropertiesAction({
-                mode: 'create',
-                submit: this.addAction,
-                populateWith: null
-            })
+            adminDialogStore.setDialogOptions({
+                componentName: 'Dialog' + this.currentItem,
+                properties: {
+                    mode: 'create',
+                    submit: this.addAction,
+                }
+            });
         }
 
         get dialogVisible(): boolean {

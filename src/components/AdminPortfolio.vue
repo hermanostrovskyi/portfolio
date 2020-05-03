@@ -45,23 +45,24 @@
         }
 
         onPortfolioDelete(portfolioItem: IPortfolioItem) {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
-            adminDialogStore.setDialogPropertiesAction({
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogDeleteConfirmation',
+                properties: {
                     mode: 'deleteConfirmation',
                     submit: portfolioStore.deletePortfolioItemAction,
                     data: portfolioItem
                 }
-            );
+            });
         }
 
         onPortfolioEdit(portfolioItem: IPortfolioItem) {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogPortfolio');
-            adminDialogStore.setDialogPropertiesAction({
-                mode: 'update',
-                populateWith: {...portfolioItem},
-                submit: portfolioStore.updatePortfolioItemAction
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogPortfolio',
+                properties: {
+                    mode: 'update',
+                    populateWith: {...portfolioItem},
+                    submit: portfolioStore.updatePortfolioItemAction
+                }
             });
         }
 

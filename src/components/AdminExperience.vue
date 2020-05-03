@@ -46,23 +46,24 @@
         }
 
         deleteExperienceItem(fbID: string): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
-            adminDialogStore.setDialogPropertiesAction({
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogDeleteConfirmation',
+                properties: {
                     mode: 'deleteConfirmation',
                     submit: experienceStore.deleteExperienceAction,
                     data: fbID
                 }
-            );
+            });
         }
 
         onExperienceUpdate(experienceRecord: IExperience): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogExperience');
-            adminDialogStore.setDialogPropertiesAction({
-                mode: 'update',
-                populateWith: {...experienceRecord},
-                submit: experienceStore.updateExperienceAction
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogExperience',
+                properties: {
+                    mode: 'update',
+                    populateWith: {...experienceRecord},
+                    submit: experienceStore.updateExperienceAction
+                }
             });
         }
 

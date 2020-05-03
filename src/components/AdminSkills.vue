@@ -47,25 +47,25 @@
         }
 
         deleteSkill(fbId: string): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
-            adminDialogStore.setDialogPropertiesAction({
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogDeleteConfirmation',
+                properties: {
                     mode: 'deleteConfirmation',
                     submit: skillStore.deleteSkillAction,
                     data: fbId
                 }
-            );
+            });
         }
 
         pickUpdatedSkill(updatedSkill: ISkill): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogSkills');
-            adminDialogStore.setDialogPropertiesAction({
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogSkills',
+                properties: {
                     mode: 'update',
                     populateWith: {...updatedSkill},
                     submit: skillStore.updateSkillAction
                 }
-            );
+            });
         }
 
         created() {
