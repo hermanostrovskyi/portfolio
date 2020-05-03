@@ -46,7 +46,14 @@
         }
 
         deleteExperienceItem(fbID: string): void {
-            experienceStore.deleteExperienceAction(fbID);
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
+            adminDialogStore.setDialogPropertiesAction({
+                    mode: 'deleteConfirmation',
+                    submit: experienceStore.deleteExperienceAction,
+                    data: fbID
+                }
+            );
         }
 
         onExperienceUpdate(experienceRecord: IExperience): void {

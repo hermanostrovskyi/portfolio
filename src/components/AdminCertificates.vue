@@ -38,6 +38,14 @@
         }
 
         onCertificateDelete(certificate: ICertificate): void {
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
+            adminDialogStore.setDialogPropertiesAction({
+                    mode: 'deleteConfirmation',
+                    submit: certificateStore.deleteCertificateAction,
+                    data: certificate
+                }
+            );
             certificateStore.deleteCertificateAction(certificate);
         }
 

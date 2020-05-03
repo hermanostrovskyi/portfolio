@@ -45,7 +45,14 @@
         }
 
         onPortfolioDelete(portfolioItem: IPortfolioItem) {
-            portfolioStore.deletePortfolioItemAction(portfolioItem);
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
+            adminDialogStore.setDialogPropertiesAction({
+                    mode: 'deleteConfirmation',
+                    submit: portfolioStore.deletePortfolioItemAction,
+                    data: portfolioItem
+                }
+            );
         }
 
         onPortfolioEdit(portfolioItem: IPortfolioItem) {
