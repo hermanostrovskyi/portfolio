@@ -84,6 +84,7 @@
     import DialogExperience from '@/components/Dialog/DialogExperience.vue';
     import DialogCertificates from '@/components/Dialog/DialogCertificates.vue';
     import DialogPortfolio from "@/components/Dialog/DialogPortfolio.vue";
+    import DialogDeleteConfirmation from "@/components/Dialog/DialogDeleteConfirmation.vue";
     import AdminCertificates from '@/components/AdminCertificates.vue';
     import AdminPortfolio from '@/components/AdminPortfolio.vue';
     import AdminExperience from '@/components/AdminExperience.vue';
@@ -111,7 +112,8 @@
             DialogSkills,
             DialogExperience,
             DialogCertificates,
-            DialogPortfolio
+            DialogPortfolio,
+            DialogDeleteConfirmation
         }
     })
     export default class Admin extends Vue {
@@ -170,17 +172,10 @@
             }
         }
 
-        created() {
-            // store.dispatch("saveData");
-        }
-
 
     }
 </script>
 
 <style scoped>
-    .save-btn {
-        margin-left: 12px;
-    }
 </style>
 

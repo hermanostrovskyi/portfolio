@@ -17,6 +17,7 @@ class AdminDialog extends VuexModule {
         return this.isDialogVisible;
     }
 
+
     get contentComponent(): string {
         return this.dialogComponent;
     }
@@ -62,6 +63,8 @@ class AdminDialog extends VuexModule {
     public setDialogPropertiesAction(props: IDialogProps): void {
         this.context.commit('setDialogProperties', props);
     }
+
+
 
 }
 

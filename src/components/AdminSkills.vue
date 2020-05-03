@@ -41,12 +41,20 @@
 
     @Component
     export default class AdminSkills extends Vue {
+
         get allSkills(): ISkill[] {
             return skillStore.allSkills;
         }
 
         deleteSkill(fbId: string): void {
-            skillStore.deleteSkillAction(fbId);
+            adminDialogStore.showAdminDialog();
+            adminDialogStore.setDialogComponentAction('DialogDeleteConfirmation');
+            adminDialogStore.setDialogPropertiesAction({
+                    mode: 'deleteConfirmation',
+                    submit: skillStore.deleteSkillAction,
+                    data: fbId
+                }
+            );
         }
 
         pickUpdatedSkill(updatedSkill: ISkill): void {
@@ -57,7 +65,7 @@
                     populateWith: {...updatedSkill},
                     submit: skillStore.updateSkillAction
                 }
-            )
+            );
         }
 
         created() {

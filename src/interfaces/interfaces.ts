@@ -51,6 +51,7 @@ export interface IExperience {
 
 export interface IDialogProps {
     mode: string;
-    submit: Function;
-    populateWith: ISkill | IExperience| ICertificate | IPortfolioItem;
+    submit?: Function;
+    populateWith?: ISkill | IExperience| ICertificate | IPortfolioItem;
+    data?: any;
 }
