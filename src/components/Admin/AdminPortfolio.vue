@@ -66,7 +66,7 @@
             });
         }
 
-        created() {
+        beforeCreate() {
             portfolioStore.fetchPortfolio();
         }
     }

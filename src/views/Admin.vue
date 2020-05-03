@@ -79,15 +79,15 @@
     import {getModule} from "vuex-module-decorators";
     import {IAdminMenuItem, IDialogProps} from "@/interfaces/interfaces";
 
-    import AdminSkills from '@/components/AdminSkills.vue';
+    import AdminSkills from '@/components/Admin/AdminSkills.vue';
     import DialogSkills from '@/components/Dialog/DialogSkills.vue';
     import DialogExperience from '@/components/Dialog/DialogExperience.vue';
     import DialogCertificates from '@/components/Dialog/DialogCertificates.vue';
     import DialogPortfolio from "@/components/Dialog/DialogPortfolio.vue";
     import DialogDeleteConfirmation from "@/components/Dialog/DialogDeleteConfirmation.vue";
-    import AdminCertificates from '@/components/AdminCertificates.vue';
-    import AdminPortfolio from '@/components/AdminPortfolio.vue';
-    import AdminExperience from '@/components/AdminExperience.vue';
+    import AdminCertificates from '@/components/Admin/AdminCertificates.vue';
+    import AdminPortfolio from '@/components/Admin/AdminPortfolio.vue';
+    import AdminExperience from '@/components/Admin/AdminExperience.vue';
 
     import Auth from "@/store/modules/auth";
     import AdminDialog from "@/store/modules/adminDialog";

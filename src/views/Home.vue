@@ -1,20 +1,46 @@
 <template>
-  <div class="home">
-    <v-list-item link to="/admin">
-      <v-list-item-icon>
-        <v-icon>mdi-info</v-icon>
-      </v-list-item-icon>
+    <div>
+        <BaseHeader></BaseHeader>
+    </div>
 
-      <v-list-item-content>
-        <v-list-item-title>Admin</v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
-  </div>
 </template>
 
-<script>
+<script lang="ts">
+    import {Component, Vue} from 'vue-property-decorator'
+    import {getModule} from "vuex-module-decorators";
+    import Skill from "@/store/modules/skill";
+    import {IExperience, ISkill} from "@/interfaces/interfaces";
+    import Experience from "@/store/modules/experience";
+    import BaseHeader from "@/components/BaseHeader.vue";
 
-export default {
+    const skillStore = getModule(Skill);
+    const experienceStore = getModule(Experience);
 
-}
+    @Component({
+        components: {
+            BaseHeader
+        }
+    })
+    export default class Home extends Vue {
+        get skills(): ISkill[] {
+            return skillStore.allSkills
+        }
+
+        get experience(): IExperience[] {
+            return experienceStore.allWorkExperiences;
+        }
+
+        beforeCreate() {
+            experienceStore.fetchExperienceAction();
+            skillStore.fetchSkills();
+        }
+    }
 </script>
+
+
+<style lang="scss">
+    .wrapper {
+        max-width: 1500px;
+        margin: 0 auto
+    }
+</style>
