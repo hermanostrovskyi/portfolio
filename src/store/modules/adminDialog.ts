@@ -17,7 +17,6 @@ class AdminDialog extends VuexModule {
         return this.isDialogVisible;
     }
 
-
     get contentComponent(): string {
         return this.dialogComponent;
     }
@@ -50,8 +49,8 @@ class AdminDialog extends VuexModule {
     @Action
     public hideAdminDialog(): void {
         this.context.commit('changeDialogVisibility', false);
-        this.context.dispatch('setDialogPropertiesAction', null);
-        this.context.dispatch('setDialogComponentAction', null);
+        this.context.commit('setDialogComponent', null);
+        this.context.commit('setDialogProperties', null);
     }
 
     @Action

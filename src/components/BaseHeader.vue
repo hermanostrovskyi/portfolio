@@ -1,22 +1,32 @@
 <template>
-    <header class="main-header wrapper">
-        <div class="logo">
-            <a href="#" class="logo__link">SN</a>
+    <header class="main-header">
+        <div class="header-wrapper">
+            <nav class="main-nav">
+                <div class="logo">
+                    <a href="#" class="logo__link">
+                        <img src="@/assets/logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="main-nav__menu-list">
+                    <li class="main-nav__menu-item main-nav__menu-item--active">Home</li>
+                    <li class="main-nav__menu-item">Berufserfahrung</li>
+                    <li class="main-nav__menu-item">Skills</li>
+                    <li class="main-nav__menu-item">Projekte</li>
+                    <li class="main-nav__menu-item">Certificate</li>
+                </ul>
+            </nav>
+            <section class="moto">
+                <p class="moto__text">Hallo, ich bin <span class="moto__name">Stella Notkina</span><span
+                        class="moto__description">UI/UX Designerin</span>Lorem ipsum dolor sit
+                    amet, consectetur adipisicing elit. Doloribus officia optio reprehenderit rerum tenetur. Consequatur
+                    cum
+                    debitis dicta dignissimos doloribus fugiat</p>
+                <button class="moto__btn">Download CV</button>
+            </section>
+
         </div>
 
-        <nav class="main-nav">
-            <ul class="main-nav__menu-list">
-                <li class="main-nav__menu-item">Experience</li>
-                <li class="main-nav__menu-item">Skills</li>
-                <li class="main-nav__menu-item">Portfolio</li>
-                <li class="main-nav__menu-item">Certificates</li>
-                <li class="main-nav__menu-item">Contact me</li>
-            </ul>
-        </nav>
 
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <polygon fill="white" points="0,450 0,1 100,100"/>
-        </svg>
     </header>
 
 </template>
@@ -31,41 +41,97 @@
 </script>
 
 <style scoped lang="scss">
-    svg {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 250px;
-        /* set height to pixels if you want angle to change with screen width */
-    }
+
     .main-header {
-
-        height: 500px;
-        position: relative;
-        display: flex;
-        background-image: url("https://e-tangata.co.nz/wp-content/uploads/2018/04/Lance-Norman-001.jpg");
-        background-position: 100% 0;
+        min-height: 1000px;
+        background-image: url("../assets/foto.png");
         background-repeat: no-repeat;
+        background-size: contain;
+        padding: 30px 5.8333%;
+        align-content: center;
 
-        background-color: black;
+        .header-wrapper {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+        }
 
-        .logo {
-            margin-right: 50px;
+        .moto {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            align-self: flex-end;
+            color: white;
+            max-width: 55%;
+            text-wrap: normal;
+            text-align: justify;
 
-            &__link {
+            &__text {
+                display: flex;
+                flex-direction: column;
+                text-align: right;
+                font-size: 18px;
+            }
 
+            &__name {
+                font-size: 48px;
+                line-height: 48px;
+                color: #ffc400;
+                text-transform: uppercase;
+            }
+
+            &__description {
+                font-size: 30px;
+                line-height: 30px;
+            }
+
+            &__btn {
+                background-color: #ffc400;
+                border-radius: 20px;
+                padding: 10px 30px;
+                outline: none;
+                color: black;
+                /*max-width: 200px;*/
             }
         }
 
+
         .main-nav {
+            display: flex;
+
+
+            .logo {
+                width: 15%;
+                min-width: 60px;
+                /*height: auto;*/
+                /*min-height: 135px;*/
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+
+                margin-right: 5%;
+            }
+
             &__menu-list {
-                display: flex;
+                display: inline-flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+                padding: 0;
+                margin: 0;
+                width: 100%;
             }
 
             &__menu-item {
+                font-size: 1.2vw;
                 list-style: none;
                 color: white;
-                margin-right: 30px;
+
+                &--active {
+                    color: #ffc400;
+                }
             }
         }
 

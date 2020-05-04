@@ -39,8 +39,5 @@
 
 
 <style lang="scss">
-    .wrapper {
-        max-width: 1500px;
-        margin: 0 auto
-    }
+
 </style>
