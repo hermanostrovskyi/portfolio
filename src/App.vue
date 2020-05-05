@@ -30,6 +30,20 @@
 </script>
 
 <style lang="scss">
+    @font-face {
+        font-family: 'Myriad Pro';
+        src: local('Myriad Pro'),
+        url('../src/assets/fonts/miryad/MyriadProRegular.woff');
+        font-weight: 100;
+        font-style: normal;
+    }
 
+    @font-face {
+        font-family: 'Myriad Pro Condensed';
+        src: local('Myriad Pro Condensed'),
+        url('../src/assets/fonts/miryad/MyriadProCond.woff');
+        font-weight: normal;
+        font-style: normal;
+    }
 </style>
 

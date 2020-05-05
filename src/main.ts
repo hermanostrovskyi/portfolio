@@ -3,10 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-import firebase from "firebase";
+// import firebase from "firebase";
 import Auth from "@/store/modules/auth";
 import {getModule} from "vuex-module-decorators";
 import VueFilterDateFormat from 'vue-filter-date-format';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // import Skill from "@/store/modules/skill";
 // import {ISkill} from "@/interfaces/interfaces";
@@ -32,6 +34,9 @@ authStore.tryAutoLogin();
 
 Vue.use(VueFilterDateFormat);
 new Vue({
+    created() {
+        AOS.init();
+    },
     router,
     store,
     vuetify,

@@ -1,6 +1,7 @@
 <template>
     <div>
         <BaseHeader></BaseHeader>
+<!--        <BaseExperience></BaseExperience>-->
     </div>
 
 </template>
@@ -12,13 +13,15 @@
     import {IExperience, ISkill} from "@/interfaces/interfaces";
     import Experience from "@/store/modules/experience";
     import BaseHeader from "@/components/BaseHeader.vue";
+    import BaseExperience from "@/components/BaseExperience.vue";
 
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
 
     @Component({
         components: {
-            BaseHeader
+            BaseHeader,
+            BaseExperience
         }
     })
     export default class Home extends Vue {
