@@ -1,14 +1,14 @@
 <template>
     <div>
-        <section id="experience">
-            <h2>Experience</h2>
-            <ul >
-                <li v-for="experience in allExperiences" :key="experience.fbID">
-                    <p>From: {{experience.periodStart}} - {{experience.periodStart}}</p>
-                    <p>Place: {{experience.place}}</p>
-                    <p>Position: {{experience.position}}; Responsibility: {{experience.responsibility}}</p>
-                </li>
-            </ul>
+        <section id="experienceSection" class="experience">
+            <h2 class="experience__header">Experience</h2>
+            <div class="experience__list">
+                <article class="experience__item" v-for="experience in allExperiences" :key="experience.fbID">
+                    <h3 class="experience__item-header">{{experience.periodStart}} - {{experience.periodStart}}</h3>
+                    <p class="experience__item-position"> {{experience.position}}<br> {{experience.place}}</p>
+                    <p class="experience__item-description"> {{experience.responsibility}}</p>
+                </article>
+            </div>
         </section>
     </div>
 
@@ -20,6 +20,7 @@
     import {IExperience} from "@/interfaces/interfaces";
     import {getModule} from "vuex-module-decorators";
     import Experience from "@/store/modules/experience";
+
     const experienceStore = getModule(Experience);
 
     @Component
@@ -31,4 +32,46 @@
 </script>
 
 <style scoped lang="scss">
+    .experience {
+        padding: 30px 5.8333%;
+        margin-top: 50px;
+        font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+
+        &__header {
+            color: #ffc400;
+            font-size: 48px;
+        }
+
+        &__list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        &__item {
+            &:hover {
+                cursor: pointer;
+
+                .experience__item-header {
+                    background-color: #ffc400;
+                    box-shadow: -1px -1px 7px 0px rgba(0,0,0,0.75);
+                }
+            }
+
+            &-header {
+                background-color: lightgray;
+                padding: 10px 30px;
+            }
+
+            &-position {
+                font-weight: bold;
+                margin: 0;
+                padding: 10px 30px;
+            }
+
+            &-description {
+                margin: 0;
+                padding: 10px 30px;
+            }
+        }
+    }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <BaseHeader></BaseHeader>
-<!--        <BaseExperience></BaseExperience>-->
+        <BaseExperience></BaseExperience>
     </div>
 
 </template>

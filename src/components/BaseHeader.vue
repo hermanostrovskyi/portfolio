@@ -1,31 +1,27 @@
 <template>
     <header class="main-header">
         <nav class="main-nav">
-
             <div class="main-nav-logo logo">
                 <a href="#" class="logo__link">
                     <img src="@/assets/logo.png" alt="logo">
                 </a>
             </div>
-            <v-app-bar-nav-icon
-                    app
-                    class="main-nav__toggle"
-                    dark
-                    @click="isMenuActive = true"
-            >
-            </v-app-bar-nav-icon>
+            <v-btn icon @click="isMenuActive = true" class="main-nav__toggle">
+                <v-icon>mdi-menu</v-icon>
+            </v-btn>
+
             <div class="overlay navigation" :class="{'overlay--active': isMenuActive}">
                 <v-btn icon @click="isMenuActive = false" class="closeBtn">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
-                <ul class="main-nav__menu-list overlay__content" >
-                    <li class="main-nav__menu-item main-nav__menu-item--active">Home</li>
-                    <li class="main-nav__menu-item">Berufserfahrung</li>
-                    <li class="main-nav__menu-item">Skills</li>
-                    <li class="main-nav__menu-item">Projekte</li>
-                    <li class="main-nav__menu-item">Certificate</li>
-                </ul>
             </div>
+            <ul class="main-nav__menu-list" :class="{'main-nav__menu-list--active': isMenuActive}">
+                <li class="main-nav__menu-item main-nav__menu-item--active">Home</li>
+                <li class="main-nav__menu-item">Berufserfahrung</li>
+                <li class="main-nav__menu-item">Skills</li>
+                <li class="main-nav__menu-item">Projekte</li>
+                <li class="main-nav__menu-item">Certificate</li>
+            </ul>
 
         </nav>
         <section class="moto">
@@ -58,148 +54,185 @@
     $white: #fff;
     $black: #000;
 
-    .overlay {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        background-color: $yellow;
-        overflow-y: auto;
-        max-height: 100vh;
-        transition: 0.5s;
-
-        &__content {
-            position: relative;
-            z-index: 3;
-            top: 0;
-            width: 100%;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        &--active {
-            width: 100%;
-        }
-
-        .closeBtn {
-            position: absolute;
-            z-index: 4;
-            top: 20px;
-            right: 45px;
-            font-size: 40px !important;
-        }
-    }
-
     .main-header {
         padding: 30px 5.8333%;
         background-color: $black;
-    }
 
-    .main-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 60px;
-
-        &__toggle {
-            /*position: fixed;*/
-            /*right: 100%;*/
-            /*top: 0;*/
-            /*z-index: 1000;*/
-            i.v-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 40px;
-                color: $yellow;
-            }
-        }
-
-        &__menu-list {
-            display: block;
-            margin: 0;
-            padding: 0;
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
             background-color: $yellow;
-            width: 100%;
-
+            overflow-y: auto;
+            max-height: 100vh;
+            transition: 0.5s;
 
             &--active {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-            }
-        }
-
-        &__menu-item {
-            font-size: 30px;
-            height: 100%;
-            text-align: center;
-            padding: 20px;
-            cursor: pointer;
-            color: $white;
-        }
-
-        .logo {
-            max-width: 50px;
-
-            img {
                 width: 100%;
-                display: block;
-                height: auto;
             }
 
-            margin-right: 5%;
+            .closeBtn {
+                position: fixed;
+                z-index: 4;
+                top: 15px;
+                right: 45px;
+                font-size: 40px !important;
+            }
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+
+            &__toggle {
+                i.v-icon {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 40px;
+                    color: $yellow;
+                }
+            }
+
+            &__menu-list {
+                display: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+
+
+                &--active {
+                    display: flex;
+                    position: fixed;
+                    top: 40px;
+                    z-index: 3;
+                    left: 0;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    transition: 0.5s;
+                }
+
+            }
+
+            &__menu-item {
+                font-size: 30px;
+                height: 100%;
+                text-align: center;
+                padding: 20px;
+                cursor: pointer;
+                list-style: none;
+                color: $white;
+            }
+
+
+            .logo {
+                max-width: 50px;
+
+                img {
+                    width: 100%;
+                    display: block;
+                    height: auto;
+                }
+
+                margin-right: 5%;
+            }
+
+
+        }
+
+        .moto {
+            color: $white;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            &__text-start {
+                font-size: 18px;
+                line-height: 18px;
+                text-align: justify;
+                margin-bottom: 25px;
+            }
+
+            &__text-end {
+                font-size: 18px;
+                line-height: 26px;
+                margin-bottom: 20px;
+                text-align: right;
+            }
+
+            &__name {
+                font-size: 48px;
+                line-height: 48px;
+                color: $yellow;
+                margin-bottom: 0;
+                text-transform: uppercase;
+                text-align: right;
+                font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+            }
+
+            &__description {
+                margin-bottom: 25px;
+                font-size: 30px;
+                line-height: 30px;
+                font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+            }
+
+            &__btn {
+                background-color: $yellow;
+                border-radius: 20px;
+                padding: 10px 30px;
+                outline: none;
+                color: $black;
+                max-width: 200px;
+            }
         }
 
 
     }
 
-    .moto {
-        color: $white;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+    @media (min-width: 768px) {
+        .main-header {
+            background: none;
+            background-image: url("../assets/foto.png");
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            background-size: cover;
 
-        &__text-start {
-            font-size: 18px;
-            line-height: 18px;
-            text-align: justify;
-            margin-bottom: 25px;
+
+            .overlay {
+                display: none;
+            }
+
+
+            .main-nav__toggle {
+                display: none;
+            }
+
+            .main-nav__menu-list {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .main-nav__menu-item {
+                font-size: 1.5vw;
+            }
+
+            .main-nav-logo {
+                width: 90px;
+                /*max-width: 90px;*/
+            }
+
+            .moto {
+                max-width: 50%;
+            }
         }
 
-        &__text-end {
-            font-size: 18px;
-            line-height: 26px;
-            margin-bottom: 20px;
-            text-align: right;
-        }
 
-        &__name {
-            font-size: 48px;
-            line-height: 48px;
-            color: $yellow;
-            margin-bottom: 0;
-            text-transform: uppercase;
-            text-align: right;
-            font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
-        }
-
-        &__description {
-            margin-bottom: 25px;
-            font-size: 30px;
-            line-height: 30px;
-            font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
-        }
-
-        &__btn {
-            background-color: $yellow;
-            border-radius: 20px;
-            padding: 10px 30px;
-            outline: none;
-            color: $black;
-            max-width: 200px;
-        }
     }
+
 
 </style>
