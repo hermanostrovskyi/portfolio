@@ -14,6 +14,15 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
+                        <v-overflow-btn
+                                class="my-2"
+                                :items="types"
+                                v-model="skillData.type"
+                                label="Type*"
+                                target="#dropdown-example"
+                        ></v-overflow-btn>
+                    </v-col>
+                    <v-col cols="12">
                         <v-text-field
                                 label="Value*"
                                 v-model='skillData.skillValue'
@@ -44,6 +53,7 @@
     export default class DialogSkill extends Vue {
         @Prop() dialogProps: IDialogProps;
         skillData: ISkill = null;
+        types: string[] = ['Main', 'Tools']
 
         close(): void {
             adminDialogStore.hideAdminDialog();
@@ -65,7 +75,7 @@
 
         created(): void {
             this.skillData = this.dialogProps.populateWith ?
-                this.dialogProps.populateWith as ISkill : {fbID: null, name: '', skillValue: 0}
+                this.dialogProps.populateWith as ISkill : {fbID: null, name: '', skillValue: 0, type: ''}
         }
 
     }

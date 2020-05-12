@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <section id="experienceSection" class="experience">
+        <section id="experienceSection" class="experience"  data-aos-easing="ease-in-out" data-aos="fade-up" data-aos-duration="2500"  data-aos-once="false">
             <h2 class="experience__header">Experience</h2>
             <div class="experience__list">
                 <article class="experience__item" v-for="experience in allExperiences" :key="experience.fbID">
@@ -10,8 +9,6 @@
                 </article>
             </div>
         </section>
-    </div>
-
 
 </template>
 
@@ -40,11 +37,13 @@
         &__header {
             color: #ffc400;
             font-size: 48px;
+            margin-bottom: 40px;
         }
 
         &__list {
+            font-size: 24px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
 
         &__item {
@@ -53,6 +52,7 @@
 
                 .experience__item-header {
                     background-color: #ffc400;
+                    transition: 300ms ease-out;
                     box-shadow: -1px -1px 7px 0px rgba(0,0,0,0.75);
                 }
             }

@@ -25,7 +25,6 @@
 
     @Component
     export default class APP extends Vue {
-
     }
 </script>
 

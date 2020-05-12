@@ -2,6 +2,7 @@
     <div>
         <BaseHeader></BaseHeader>
         <BaseExperience></BaseExperience>
+        <BaseSkill></BaseSkill>
     </div>
 
 </template>
@@ -14,6 +15,7 @@
     import Experience from "@/store/modules/experience";
     import BaseHeader from "@/components/BaseHeader.vue";
     import BaseExperience from "@/components/BaseExperience.vue";
+    import BaseSkill from "@/components/BaseSkill.vue";
 
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
@@ -21,7 +23,8 @@
     @Component({
         components: {
             BaseHeader,
-            BaseExperience
+            BaseExperience,
+            BaseSkill
         }
     })
     export default class Home extends Vue {
