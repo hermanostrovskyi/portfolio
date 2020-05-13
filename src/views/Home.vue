@@ -3,6 +3,7 @@
         <BaseHeader></BaseHeader>
         <BaseExperience></BaseExperience>
         <BaseSkill></BaseSkill>
+        <BasePortfolio></BasePortfolio>
     </div>
 
 </template>
@@ -16,15 +17,20 @@
     import BaseHeader from "@/components/BaseHeader.vue";
     import BaseExperience from "@/components/BaseExperience.vue";
     import BaseSkill from "@/components/BaseSkill.vue";
+    import BasePortfolio from "@/components/BasePortfolio.vue";
+    import Portfolio from "@/store/modules/portfolio";
 
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
+    const portfolioStore = getModule(Portfolio);
+
 
     @Component({
         components: {
             BaseHeader,
             BaseExperience,
-            BaseSkill
+            BaseSkill,
+            BasePortfolio
         }
     })
     export default class Home extends Vue {
@@ -39,6 +45,7 @@
         beforeCreate() {
             experienceStore.fetchExperienceAction();
             skillStore.fetchSkills();
+            portfolioStore.fetchPortfolio();
         }
     }
 </script>
