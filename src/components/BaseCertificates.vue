@@ -79,15 +79,15 @@
 </script>
 
 <style scoped lang="scss">
+    @import "src/scss/mixins";
+
     .certificate {
         padding: 30px 5.8333%;
         margin-top: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
-            color: #ffc400;
-            font-size: 48px;
-            margin-bottom: 40px;
+            @include section-header();
         }
 
         &__list {

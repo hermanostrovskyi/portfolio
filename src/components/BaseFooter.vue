@@ -4,7 +4,7 @@
         <section class="footer__contacts">
             <div class="footer__contacts-phone-section">
                 <p class="footer__contacts-phone-section-caption">Mobil</p>
-                <p class="footer__contacts-phone-section-content">+491631319487</p>
+                <p class="footer__contacts-phone-section-content">+49 16 31319487</p>
             </div>
             <div class="footer__contacts-email-section">
                 <p class="footer__contacts-email-section-caption">Email</p>
@@ -51,12 +51,14 @@
                 &-caption {
                     font-weight: bold;
                     font-style: italic;
-                    font-size: 18px;
+                    font-size: 22px;
+                    margin: 0;
                 }
 
                 &-content {
                     color: #ffc400;
-                    font-size: 18px;
+                    font-size: 22px;
+                    margin: 0;
                 }
             }
 
@@ -67,14 +69,16 @@
 
                 &-caption {
                     font-weight: bold;
-                    font-size: 18px;
+                    font-size: 22px;
                     font-style: italic;
                     text-align: right;
+                    margin: 0;
                 }
 
                 &-content {
                     color: #ffc400;
-                    font-size: 18px;
+                    font-size: 22px;
+                    margin: 0;
                 }
             }
 
@@ -105,12 +109,13 @@
 
         &__copyright {
             background-color: #ffc400;
+            font-family: 'Myriad Pro', 'Roboto', sans-serif;
 
             &-title {
                 padding: 10px 0;
                 margin: 0;
                 text-align: center;
-                font-size: 18px;
+                font-size: 20px;
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
         <section id="experienceSection" class="experience"  data-aos-easing="ease-in-out" data-aos="fade-up" data-aos-duration="2500"  data-aos-once="false">
-            <h2 class="experience__header">Experience</h2>
+            <h2 class="experience__header">Berufserfahrung</h2>
             <div class="experience__list">
                 <article class="experience__item" v-for="experience in allExperiences" :key="experience.fbID">
                     <h3 class="experience__item-header">{{experience.periodStart}} - {{experience.periodStart}}</h3>
@@ -29,15 +29,14 @@
 </script>
 
 <style scoped lang="scss">
+    @import "src/scss/mixins";
     .experience {
         padding: 30px 5.8333%;
         margin-top: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
-            color: #ffc400;
-            font-size: 48px;
-            margin-bottom: 40px;
+            @include section-header();
         }
 
         &__list {

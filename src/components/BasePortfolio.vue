@@ -1,6 +1,6 @@
 <template>
     <section id="portfolioSection" class="portfolio">
-        <h2 class="portfolio__header">Portfolio</h2>
+        <h2 class="portfolio__header">Projekte</h2>
         <div class="portfolio__list">
             <div
                     class="portfolio__list-item-container"
@@ -83,15 +83,18 @@
 </script>
 
 <style scoped lang="scss">
+    @import "src/scss/mixins";
+
     .portfolio {
         padding: 30px 5.8333%;
         margin-top: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
-            color: #ffc400;
-            font-size: 48px;
-            margin-bottom: 40px;
+            @include section-header();
+            /*color: #ffc400;*/
+            /*font-size: 48px;*/
+            /*margin-bottom: 40px;*/
         }
 
         &__list {
