@@ -4,6 +4,7 @@
         <BaseExperience></BaseExperience>
         <BaseSkill></BaseSkill>
         <BasePortfolio></BasePortfolio>
+        <BaseCertificates></BaseCertificates>
     </div>
 
 </template>
@@ -18,11 +19,14 @@
     import BaseExperience from "@/components/BaseExperience.vue";
     import BaseSkill from "@/components/BaseSkill.vue";
     import BasePortfolio from "@/components/BasePortfolio.vue";
+    import BaseCertificates from "@/components/BaseCertificates.vue";
     import Portfolio from "@/store/modules/portfolio";
+    import Certificate from "@/store/modules/certificate";
 
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
     const portfolioStore = getModule(Portfolio);
+    const certificateStore = getModule(Certificate)
 
 
     @Component({
@@ -30,7 +34,8 @@
             BaseHeader,
             BaseExperience,
             BaseSkill,
-            BasePortfolio
+            BasePortfolio,
+            BaseCertificates
         }
     })
     export default class Home extends Vue {
@@ -46,6 +51,7 @@
             experienceStore.fetchExperienceAction();
             skillStore.fetchSkills();
             portfolioStore.fetchPortfolio();
+            certificateStore.fetchCertificates();
         }
     }
 </script>

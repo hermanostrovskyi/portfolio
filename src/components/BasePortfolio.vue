@@ -131,10 +131,6 @@
                 z-index: 2;
                 padding: 20px;
 
-                &-container {
-
-                }
-
                 &-title {
                     margin: 0;
                     font-size: 30px;
