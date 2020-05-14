@@ -17,7 +17,9 @@
                     </div>
 
 
-                    <button @click="showImage(item)" class="portfolio__btn portfolio__list-item-info-btn">Project
+                    <button
+                            @click="showImage(item)"
+                            class="portfolio__btn portfolio__list-item-info-btn">Project
                         ansehen
                     </button>
                 </div>
@@ -87,21 +89,18 @@
 
     .portfolio {
         padding: 30px 5.8333%;
-        margin-top: 50px;
+        margin-bottom: 90px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
             @include section-header();
-            /*color: #ffc400;*/
-            /*font-size: 48px;*/
-            /*margin-bottom: 40px;*/
         }
 
         &__list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             grid-gap: 40px;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
 
             &-item-container {
                 cursor: pointer;
@@ -112,10 +111,7 @@
 
                 &:hover .portfolio__list-item-info {
                     display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    justify-items: stretch;
-                    align-items: end;
-                    animation: slit-in-horizontal 0.3s ease-out forwards;
+                    animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                 }
             }
 
@@ -136,8 +132,11 @@
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.6);
                 display: none;
+                align-items: end;
+                justify-items: stretch;
+                grid-template-columns: repeat(2, 1fr);
                 z-index: 2;
-                padding: 20px;
+                padding: 20px 20px 40px 20px;
 
                 &-title {
                     margin: 0;
@@ -149,21 +148,23 @@
                 &-description {
                     margin: 0;
                     color: #ffc400;
-                    font-size: 18px;
+                    font-size: 24px;
+                }
+
+                &-btn {
+                    justify-self: end;
+                    margin: 0 !important;
                 }
 
             }
         }
 
         &__btn {
-            background-color: #ffc400;
-            border-radius: 20px;
-            padding: 10px 30px;
-            outline: none;
-            color: black;
-            margin: 0 auto;
-            display: block;
+            @include btn();
+
         }
+
+
 
     }
 
@@ -179,20 +180,12 @@
         }
     }
 
-    @keyframes slit-in-horizontal {
+    @keyframes fade-in {
         0% {
-            -webkit-transform: translateZ(-800px) rotateX(90deg);
-            transform: translateZ(-800px) rotateX(90deg);
             opacity: 0;
         }
-        54% {
-            -webkit-transform: translateZ(-160px) rotateX(87deg);
-            transform: translateZ(-160px) rotateX(87deg);
-            opacity: 1;
-        }
         100% {
-            -webkit-transform: translateZ(0) rotateX(0);
-            transform: translateZ(0) rotateX(0);
+            opacity: 1;
         }
     }
 
