@@ -107,6 +107,7 @@
                     grid-template-columns: repeat(2, 1fr);
                     justify-items: stretch;
                     align-items: end;
+                    animation: slit-in-horizontal 0.3s ease-out forwards;
                 }
             }
 
@@ -173,5 +174,27 @@
             grid-row: 2;
         }
     }
+
+    @keyframes slit-in-horizontal {
+        0% {
+            -webkit-transform: translateZ(-800px) rotateX(90deg);
+            transform: translateZ(-800px) rotateX(90deg);
+            opacity: 0;
+        }
+        54% {
+            -webkit-transform: translateZ(-160px) rotateX(87deg);
+            transform: translateZ(-160px) rotateX(87deg);
+            opacity: 1;
+        }
+        100% {
+            -webkit-transform: translateZ(0) rotateX(0);
+            transform: translateZ(0) rotateX(0);
+        }
+    }
+
+
+
+
+
 
 </style>
