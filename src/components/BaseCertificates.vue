@@ -4,14 +4,15 @@
         <div class="certificate__list">
             <div class="certificate__list-item" v-for="certificate in allCertificates"
                  :key="certificate.fbID">
-                <div
-                        class="certificate__list-item-container"
-                >
+                <div class="certificate__list-item-container">
                     <img class="certificate__list-item-image"
                          :src="certificate.url"
                          :alt="certificate.title">
                     <div class="certificate__list-item-overlay">
-                        <v-btn @click="showImage(certificate)" color="#ffc400" fab>+</v-btn>
+                        <v-btn large class="certificate__list-item-overlay-btn" @click="showImage(certificate)"
+                               color="#ffc400" fab>
+                            <v-icon>mdi-magnify-plus-outline</v-icon>
+                        </v-btn>
                     </div>
                 </div>
 
@@ -24,22 +25,17 @@
         <v-dialog v-if="dialogCertificate"
                   @click:outside="onDialogClose"
                   v-model="dialog"
-                  max-width="800"
-        >
+                  max-width="800">
             <v-card>
-                <v-card-title class="headline">{{dialogCertificate.title}}</v-card-title>
                 <v-img
                         class="white--text align-end"
-                        :src="dialogCertificate.url"
-                >
+                        :src="dialogCertificate.url">
                 </v-img>
-
                 <v-card-actions>
                     <v-btn
                             color="green darken-1"
                             text
-                            @click="onDialogClose">
-                        Close
+                            @click="onDialogClose">Schließen
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -83,7 +79,8 @@
 
     .certificate {
         padding: 30px 5.8333%;
-        margin-top: 50px;
+        /*margin-top: 50px;*/
+        margin-bottom: 90px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
@@ -107,7 +104,7 @@
                         display: grid;
                         justify-items: center;
                         align-items: center;
-                        animation: slide-in-blurred-left 0.4s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+                        animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                     }
                 }
 
@@ -130,51 +127,42 @@
                     display: none;
                     z-index: 2;
                     padding: 20px;
+
+                    &-btn {
+                        font-size: 32px;
+                    }
                 }
 
                 &-info {
-                    margin-top: 20px;
+                    margin-top: 25px;
 
                     &-date {
                         font-style: italic;
-                        font-size: 18px;
-                        margin-bottom: 20px;
+                        font-size: 20px;
+                        line-height: 18px;
+                        margin-bottom: 0;
                         font-weight: bold;
                     }
 
                     &-title {
-                        font-size: 18px;
+                        font-size: 24px;
+                        line-height: 28px;
                         margin: 0;
                     }
                 }
             }
-
-
         }
-
-
-        @keyframes slide-in-blurred-left {
-            0% {
-                -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
-                transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
-                -webkit-transform-origin: 100% 50%;
-                transform-origin: 100% 50%;
-                -webkit-filter: blur(40px);
-                filter: blur(40px);
-                opacity: 0;
-            }
-            100% {
-                -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-                transform: translateX(0) scaleY(1) scaleX(1);
-                -webkit-transform-origin: 50% 50%;
-                transform-origin: 50% 50%;
-                -webkit-filter: blur(0);
-                filter: blur(0);
-                opacity: 1;
-            }
-        }
-
-
     }
+
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
 
 </style>
