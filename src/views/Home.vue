@@ -5,6 +5,7 @@
         <BaseSkill></BaseSkill>
         <BasePortfolio></BasePortfolio>
         <BaseCertificates></BaseCertificates>
+        <BaseFooter></BaseFooter>
     </div>
 
 </template>
@@ -20,6 +21,7 @@
     import BaseSkill from "@/components/BaseSkill.vue";
     import BasePortfolio from "@/components/BasePortfolio.vue";
     import BaseCertificates from "@/components/BaseCertificates.vue";
+    import BaseFooter from "@/components/BaseFooter.vue";
     import Portfolio from "@/store/modules/portfolio";
     import Certificate from "@/store/modules/certificate";
 
@@ -35,7 +37,8 @@
             BaseExperience,
             BaseSkill,
             BasePortfolio,
-            BaseCertificates
+            BaseCertificates,
+            BaseFooter
         }
     })
     export default class Home extends Vue {

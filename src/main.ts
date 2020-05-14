@@ -6,12 +6,15 @@ import vuetify from './plugins/vuetify';
 import Auth from "@/store/modules/auth";
 import {getModule} from "vuex-module-decorators";
 import VueFilterDateFormat from 'vue-filter-date-format';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {faDribbble, faXing, faInstagram} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-// import Skill from "@/store/modules/skill";
-// import {ISkill} from "@/interfaces/interfaces";
-// const skillStore = getModule(Skill);
+
+library.add(faDribbble, faXing, faInstagram);
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 const authStore = getModule(Auth);
 authStore.tryAutoLogin();
