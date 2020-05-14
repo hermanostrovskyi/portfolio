@@ -44,8 +44,6 @@
     @Component
     export default class BaseHeader extends Vue {
         isMenuActive: boolean = false;
-
-
     }
 </script>
 

@@ -2,16 +2,16 @@
     <section id="certificateSection" class="certificate">
         <h2 class="certificate__header">Zertifikate</h2>
         <div class="certificate__list">
-            <div class="certificate__list-item"  v-for="certificate in allCetrificates"
+            <div class="certificate__list-item" v-for="certificate in allCertificates"
                  :key="certificate.fbID">
                 <div
                         class="certificate__list-item-container"
-                       >
+                >
                     <img class="certificate__list-item-image"
                          :src="certificate.url"
                          :alt="certificate.title">
                     <div class="certificate__list-item-overlay">
-                        <v-btn color="#ffc400" fab>+</v-btn>
+                        <v-btn @click="showImage(certificate)" color="#ffc400" fab>+</v-btn>
                     </div>
                 </div>
 
@@ -21,6 +21,29 @@
                 </div>
             </div>
         </div>
+        <v-dialog v-if="dialogCertificate"
+                  @click:outside="onDialogClose"
+                  v-model="dialog"
+                  max-width="800"
+        >
+            <v-card>
+                <v-card-title class="headline">{{dialogCertificate.title}}</v-card-title>
+                <v-img
+                        class="white--text align-end"
+                        :src="dialogCertificate.url"
+                >
+                </v-img>
+
+                <v-card-actions>
+                    <v-btn
+                            color="green darken-1"
+                            text
+                            @click="onDialogClose">
+                        Close
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </section>
 </template>
 
@@ -35,17 +58,22 @@
     @Component
     export default class BaseCertificates extends Vue {
 
-        // dialog: boolean = false;
-        // dialogPortfolioItem: IPortfolioItem = null;
+        dialog: boolean = false;
+        dialogCertificate: ICertificate = null;
 
-        get allCetrificates(): ICertificate[] {
+        get allCertificates(): ICertificate[] {
             return certificateStore.allCertificates;
         }
 
-        // showImage(portfolioItem: IPortfolioItem) {
-        //     this.dialog = true;
-        //     this.dialogPortfolioItem = portfolioItem;
-        // }
+        onDialogClose(): void {
+            this.dialog = false;
+            this.dialogCertificate = null;
+        }
+
+        showImage(certificate: ICertificate) {
+            this.dialog = true;
+            this.dialogCertificate = certificate;
+        }
 
     }
 </script>
@@ -120,10 +148,6 @@
                     }
                 }
             }
-
-
-
-
 
 
         }

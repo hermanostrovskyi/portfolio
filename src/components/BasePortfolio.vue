@@ -26,9 +26,9 @@
         <button class="portfolio__btn">Alle anzeigen</button>
 
         <v-dialog v-if="dialogPortfolioItem"
-                @click:outside="dialog = false"
-                v-model="dialog"
-                max-width="800"
+                  @click:outside="dialog = false"
+                  v-model="dialog"
+                  max-width="800"
         >
             <v-card>
                 <v-card-title class="headline">{{dialogPortfolioItem.title}}</v-card-title>
@@ -42,7 +42,7 @@
                     <v-btn
                             color="green darken-1"
                             text
-                            @click="dialog = false">
+                            @click="onDialogClose">
                         Close
                     </v-btn>
                 </v-card-actions>
@@ -69,9 +69,14 @@
             return portfolioStore.allPortfolioItems;
         }
 
-        showImage(portfolioItem: IPortfolioItem) {
+        showImage(portfolioItem: IPortfolioItem): void {
             this.dialog = true;
             this.dialogPortfolioItem = portfolioItem;
+        }
+
+        onDialogClose(): void {
+            this.dialog = false;
+            this.dialogPortfolioItem = null;
         }
 
     }
@@ -187,10 +192,6 @@
             transform: translateZ(0) rotateX(0);
         }
     }
-
-
-
-
 
 
 </style>
