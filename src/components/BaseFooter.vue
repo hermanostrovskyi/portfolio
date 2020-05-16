@@ -11,7 +11,7 @@
                 <p class="footer__contacts-email-section-content">alnoirs3@gmail.com</p>
             </div>
             <div class="footer__contacts-logo">
-                <img class="footer__contacts-logo-image" src="@/assets/logo.png" alt="logo">
+                <img class="footer__contacts-logo-image" src="@/assets/logoFooter.png" alt="logo">
             </div>
             <div class="footer__contacts-socials">
                 <font-awesome-icon class="footer__contacts-socials-item" :icon="['fab', 'dribbble']"/>
@@ -46,6 +46,7 @@
             grid-template-columns: 2fr 1fr 2fr;
             color: white;
             background-color: black;
+            align-items: center;
             padding: 30px 5.8333%;
 
             &-phone-section {
@@ -89,7 +90,7 @@
                 grid-column: 2;
                 font-size: 36px;
                 display: grid;
-                gap: 20px;
+                gap: 60px;
                 justify-items: center;
                 grid-template-columns: repeat(3, 1fr);
 
@@ -103,13 +104,12 @@
             }
 
             &-logo {
-
-                max-width: 50px;
-                max-height: 50px;
+                max-width: 30px;
 
                 &-image {
+                    object-fit: cover;
                     width: 100%;
-                    height: auto;
+                    height: 100%;
                 }
 
 
@@ -150,8 +150,6 @@
         }
 
         .footer__contacts-logo {
-            max-height: 100%;
-            max-width: 100%;
             grid-column: 3/5;
             grid-row: 1;
         }
