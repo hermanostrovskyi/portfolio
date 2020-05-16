@@ -1,39 +1,35 @@
 <template>
-    <header class="main-header">
-        <nav class="main-nav">
-            <div class="main-nav-logo logo">
-                <a href="#" class="logo__link">
-                    <img src="@/assets/logo.png" alt="logo">
-                </a>
-            </div>
-            <v-btn icon @click="isMenuActive = true" class="main-nav__toggle">
-                <v-icon>mdi-menu</v-icon>
-            </v-btn>
-
-            <div class="overlay navigation" :class="{'overlay--active': isMenuActive}">
-                <v-btn icon @click="isMenuActive = false" class="closeBtn">
-                    <v-icon>mdi-close</v-icon>
+    <header class="header">
+        <div class="header__overlay" :class="{'header__overlay--active': isMenuActive}"></div>
+        <div class="header__container">
+            <nav class="header__navigation">
+                <div class="header__navigation-logo logo">
+                    <img class="logo__image" src="@/assets/logo.png" alt="logo">
+                </div>
+                <v-btn
+                        class="header__navigation-toggle" :class="{'header__navigation-toggle--active': isMenuActive}"
+                        icon
+                        @click="isMenuActive = !isMenuActive">
+                    <v-icon v-if="isMenuActive">mdi-close</v-icon>
+                    <v-icon v-else>mdi-menu</v-icon>
                 </v-btn>
+                <ul class="header__navigation-list" :class="{'header__navigation-list--active': isMenuActive}">
+                    <li class="header__navigation-list-item header__navigation-list-item--active">Home</li>
+                    <li class="header__navigation-list-item">Berufserfahrung</li>
+                    <li class="header__navigation-list-item">Skills</li>
+                    <li class="header__navigation-list-item">Projekte</li>
+                    <li class="header__navigation-list-item">Certificate</li>
+                </ul>
+            </nav>
+            <div class="header__info">
+                <p class="header__info-start">Hallo, ich bin</p>
+                <p class="header__info-name">Stella Notkina</p>
+                <p class="header__info-description">UI/UX Designerin</p>
+                <p class="header__info-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur
+                    cum doloremque expedita itaque rem!</p>
+                <button class="header__info-btn">Download CV</button>
             </div>
-            <ul class="main-nav__menu-list" :class="{'main-nav__menu-list--active': isMenuActive}">
-                <li class="main-nav__menu-item main-nav__menu-item--active">Home</li>
-                <li class="main-nav__menu-item">Berufserfahrung</li>
-                <li class="main-nav__menu-item">Skills</li>
-                <li class="main-nav__menu-item">Projekte</li>
-                <li class="main-nav__menu-item">Certificate</li>
-            </ul>
-
-        </nav>
-        <section class="moto">
-            <p class="moto__text-start">Hallo, ich bin</p>
-            <p class="moto__name">Stella Notkina</p>
-            <p class="moto__description">UI/UX Designerin</p>
-            <p class="moto__text-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur
-                cum doloremque expedita itaque rem!</p>
-            <button class="moto__btn">Download CV</button>
-        </section>
-
-
+        </div>
     </header>
 
 </template>
@@ -52,42 +48,51 @@
     $white: #fff;
     $black: #000;
 
-    .main-header {
+    .header {
         padding: 30px 5.8333%;
         background-color: $black;
+        display: grid;
+        color: white;
+        margin-bottom: 90px;
 
-        .overlay {
-            height: 100%;
+        &__overlay {
             width: 0;
+            height: 100%;
             position: fixed;
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: $yellow;
+            background-color: rgba(255, 196, 0, 1);
             overflow-y: auto;
             max-height: 100vh;
-            transition: 0.5s;
+            transition: 0.7s;
 
             &--active {
                 width: 100%;
             }
-
-            .closeBtn {
-                position: fixed;
-                z-index: 4;
-                top: 15px;
-                right: 45px;
-                font-size: 40px !important;
-            }
         }
 
-        .main-nav {
-            display: flex;
-            justify-content: space-between;
+        &__navigation {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             align-items: center;
-            margin-bottom: 60px;
 
-            &__toggle {
+            &-toggle {
+                justify-self: end;
+
+                &--active {
+                    position: fixed;
+                    animation: roll-in-blurred-left 0.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 66;
+
+                    i.v-icon {
+                        color: black !important;
+                    }
+                }
+
+
                 i.v-icon {
                     width: 40px;
                     height: 40px;
@@ -96,73 +101,62 @@
                 }
             }
 
-            &__menu-list {
-                display: none;
+            &-list {
                 margin: 0;
                 padding: 0;
                 width: 100%;
+                list-style: none;
+                display: none;
+                flex-direction: column;
+                justify-content: space-between;
+                font-size: 30px;
+                cursor: pointer;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 3;
 
+                &-item {
+                    text-align: center;
+                    padding: 20px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: darken(white, 10%);
+                    }
+                }
 
                 &--active {
                     display: flex;
-                    position: fixed;
-                    top: 40px;
-                    z-index: 3;
-                    left: 0;
-                    flex-direction: column;
-                    justify-content: space-around;
-                    transition: 0.5s;
                 }
-
-            }
-
-            &__menu-item {
-                font-size: 30px;
-                height: 100%;
-                text-align: center;
-                padding: 20px;
-                cursor: pointer;
-                list-style: none;
-                color: $white;
-            }
-
-
-            .logo {
-                max-width: 50px;
-
-                img {
-                    width: 100%;
-                    display: block;
-                    height: auto;
-                }
-
-                margin-right: 5%;
             }
 
 
         }
 
-        .moto {
+        &__info {
             color: $white;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
 
-            &__text-start {
+
+            &-start {
                 font-size: 18px;
                 line-height: 18px;
                 text-align: justify;
                 margin-bottom: 25px;
             }
 
-            &__text-end {
+            &-end {
                 font-size: 18px;
                 line-height: 26px;
                 margin-bottom: 20px;
                 text-align: right;
+                max-width: 500px;
             }
 
-            &__name {
+            &-name {
                 font-size: 48px;
                 line-height: 48px;
                 color: $yellow;
@@ -172,14 +166,15 @@
                 font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
             }
 
-            &__description {
+            &-description {
                 margin-bottom: 25px;
                 font-size: 30px;
                 line-height: 30px;
+
                 font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
             }
 
-            &__btn {
+            &-btn {
                 background-color: $yellow;
                 border-radius: 20px;
                 padding: 10px 30px;
@@ -188,48 +183,63 @@
                 max-width: 200px;
             }
         }
-
-
     }
 
-    @media (min-width: 768px) {
-        .main-header {
-            background: none;
+
+    @media (min-width: 1200px) {
+        .header {
             background-image: url("../assets/foto.png");
             background-repeat: no-repeat;
             background-position: 0 0;
             background-size: cover;
 
+            &__container {
+                max-width: 60%;
+            }
 
-            .overlay {
+            &__overlay {
                 display: none;
             }
 
+            &__navigation {
 
-            .main-nav__toggle {
-                display: none;
+                &-toggle {
+                    display: none;
+                }
+
+                &-list {
+                    display: inline-flex;
+                    justify-content: space-around;
+                    position: relative;
+                    flex-direction: row;
+
+
+                    &-item {
+                        font-size: 1.7vw;
+                        padding: 0;
+                        margin-left: 30px;
+                    }
+                }
             }
 
-            .main-nav__menu-list {
-                display: flex;
-                flex-direction: row;
-            }
-
-            .main-nav__menu-item {
-                font-size: 1.5vw;
-            }
-
-            .main-nav-logo {
-                width: 90px;
-                /*max-width: 90px;*/
-            }
-
-            .moto {
-                max-width: 50%;
-            }
         }
+    }
 
-
+    @keyframes roll-in-blurred-left {
+        0% {
+            -webkit-transform: translateX(-1000px) rotate(-720deg);
+            transform: translateX(-1000px) rotate(-720deg);
+            -webkit-filter: blur(50px);
+            filter: blur(50px);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: translateX(0) rotate(0deg);
+            transform: translateX(0) rotate(0deg);
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
     }
 
 
