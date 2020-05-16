@@ -44,5 +44,13 @@
         font-weight: normal;
         font-style: normal;
     }
+
+    @font-face {
+        font-family: 'Myriad Pro Bold';
+        src: local('Myriad Pro Bold'),
+        url('../src/assets/fonts/miryad/MyriadProBold.woff');
+        font-weight: 900;
+        font-style: normal;
+    }
 </style>
 

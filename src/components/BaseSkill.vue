@@ -3,7 +3,7 @@
         <h2 class="skill__header">Skills</h2>
         <div class="skill__list-container">
             <div class="skill__main-list">
-                <h3 class="skill__main-list-header">Main skills</h3>
+                <h3 class="skill__main-list-header">Fachgebiete</h3>
                 <article class="skill__item" v-for="skill in mainSkills" :key="skill.fbID">
                     <div class="skill__item-header-section">
                         <h3 class="skill__item-header">{{skill.name}}</h3>
@@ -19,7 +19,7 @@
                 </article>
             </div>
             <div class="skill__tools-list">
-                <h3 class="skill__tools-list-header">Tools</h3>
+                <h3 class="skill__tools-list-header">Design tools</h3>
                 <article class="skill__item" v-for="skill in toolsSkills" :key="skill.fbID">
                     <div class="skill__item-header-section">
                         <h3 class="skill__item-header">{{skill.name}}</h3>
@@ -68,7 +68,7 @@
 
     .skill {
         padding: 30px 5.8333%;
-        margin-top: 50px;
+        margin-bottom: 90px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
@@ -79,31 +79,43 @@
             display: grid;
             grid-template-columns:  repeat(auto-fit, minmax(250px, 1fr));
             column-gap: 10%;
+            align-items: start;
             row-gap: 50px;
         }
 
         &__main-list {
-            &-header {
-                font-size: 36px;
-            }
-
             display: grid;
             grid-template-columns: 1fr;
+            align-items: start;
             gap: 40px;
+
+
+            &-header {
+                font-size: 28px;
+                font-family: 'Myriad Pro Bold', 'Roboto', sans-serif;
+                text-transform: uppercase;
+
+            }
+
         }
 
         &__tools-list {
-            &-header {
-                font-size: 36px;
-            }
-
             display: grid;
             grid-template-columns: 1fr;
             gap: 40px;
+
+            &-header {
+                font-size: 28px;
+                font-family: 'Myriad Pro Bold', 'Roboto', sans-serif;
+                text-transform: uppercase;
+            }
         }
 
 
         &__item {
+            font-family: 'Myriad Pro', 'Roboto', sans-serif;
+            font-size: 28px;
+
 
             &-header-section {
                 display: grid;
@@ -115,11 +127,10 @@
             &-value {
                 color: #ffc400;
                 justify-self: right;
-                font-size: 20px;
             }
 
             &-header {
-                font-size: 28px;
+                font-weight: normal;
             }
 
             &-progressbar {
