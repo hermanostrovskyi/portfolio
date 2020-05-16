@@ -1,5 +1,5 @@
 <template>
-    <section id="certificateSection" class="certificate">
+    <section id="certificateSection" class="certificate" data-aos="fade-up" data-aos-duration="2500"  data-aos-once="false">
         <h2 class="certificate__header">Zertifikate</h2>
         <div class="certificate__list">
             <div class="certificate__list-item" v-for="certificate in allCertificates"

@@ -1,5 +1,5 @@
 <template>
-    <section id="portfolioSection" class="portfolio">
+    <section id="portfolioSection" class="portfolio" data-aos="fade-up" data-aos-duration="2500"  data-aos-once="false">
         <h2 class="portfolio__header">Projekte</h2>
         <div class="portfolio__list">
             <div
@@ -19,8 +19,7 @@
 
                     <button
                             @click="showImage(item)"
-                            class="portfolio__btn portfolio__list-item-info-btn">Project
-                        ansehen
+                            class="portfolio__btn portfolio__list-item-info-btn">Anschauen
                     </button>
                 </div>
             </div>
@@ -44,8 +43,7 @@
                     <v-btn
                             color="green darken-1"
                             text
-                            @click="onDialogClose">
-                        Close
+                            @click="onDialogClose">Schließen
                     </v-btn>
                 </v-card-actions>
             </v-card>

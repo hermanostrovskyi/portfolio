@@ -42,7 +42,8 @@
 
         &__contacts {
             display: grid;
-            gap: 20px;
+            row-gap: 20px;
+            grid-template-columns: 2fr 1fr 2fr;
             color: white;
             background-color: black;
             padding: 30px 5.8333%;
@@ -51,14 +52,15 @@
                 &-caption {
                     font-weight: bold;
                     font-style: italic;
-                    font-size: 22px;
+                    font-size: 16px;
                     margin: 0;
                 }
 
                 &-content {
                     color: #ffc400;
-                    font-size: 22px;
+                    font-size: 16px;
                     margin: 0;
+                    white-space: nowrap;
                 }
             }
 
@@ -69,7 +71,7 @@
 
                 &-caption {
                     font-weight: bold;
-                    font-size: 22px;
+                    font-size: 16px;
                     font-style: italic;
                     text-align: right;
                     margin: 0;
@@ -77,7 +79,7 @@
 
                 &-content {
                     color: #ffc400;
-                    font-size: 22px;
+                    font-size: 16px;
                     margin: 0;
                 }
             }
@@ -101,6 +103,16 @@
             }
 
             &-logo {
+
+                max-width: 50px;
+                max-height: 50px;
+
+                &-image {
+                    width: 100%;
+                    height: auto;
+                }
+
+
                 grid-row: 1;
                 grid-column: 2;
                 justify-self: center;
@@ -138,6 +150,8 @@
         }
 
         .footer__contacts-logo {
+            max-height: 100%;
+            max-width: 100%;
             grid-column: 3/5;
             grid-row: 1;
         }
