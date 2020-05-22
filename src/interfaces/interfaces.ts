@@ -43,6 +43,7 @@ export interface IPortfolioItem {
 
 export interface IExperience {
     fbID: string;
+    firm: string;
     place: string;
     position: string;
     responsibility: string;

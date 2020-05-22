@@ -8,8 +8,8 @@
         <div class="experience__list">
             <article class="experience__item" v-for="experience in allExperiences" :key="experience.fbID">
                 <h3 class="experience__item-header">{{experience.periodStart | formatDate }} - {{experience.periodEnd | formatDate}}</h3>
+                <p class="experience__item-place">{{experience.firm}}<span class="experience__item-country"> ({{experience.place}})</span></p>
                 <p class="experience__item-position"> {{experience.position}}</p>
-                <p class="experience__item-place">{{experience.place}}</p>
                 <p class="experience__item-description"> {{experience.responsibility}}</p>
             </article>
         </div>
@@ -79,29 +79,33 @@
                 line-height: 24px;
                 font-weight: bold;
                 font-size: 28px;
-                margin-bottom: 15px;
+                margin-bottom: 25px;
             }
 
             &-position {
                 font-weight: bold;
-                margin: 0 0 6px 0;
+                margin: 0;
                 padding: 0 30px;
-                font-size: 28px;
+                font-size: 22px;
                 line-height: 28px;
             }
             &-place {
                 font-weight: bold;
-                margin: 0;
+                margin-bottom: 20px;
                 padding: 0 30px;
-                font-size: 28px;
+                font-size: 22px;
                 line-height: 28px;
+            }
+
+            &-country {
+                font-weight: normal;
             }
 
 
             &-description {
-                margin: 0;
+                margin: -5px 0 0 0;
                 padding: 10px 30px;
-                font-size: 24px;
+                font-size: 22px;
                 line-height: 28px;
             }
         }
