@@ -20,6 +20,7 @@ export interface IAuthData {
 
 export interface ICertificate {
     fbID: string;
+    date: string;
     title: string;
     url: string;
     fullFirebasePath: string;

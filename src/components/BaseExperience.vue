@@ -25,14 +25,7 @@
 
     const experienceStore = getModule(Experience);
 
-    @Component({
-        filters: {
-            formatDate(dateValue: string): string {
-                const splittDate: string[] = dateValue.split('-');
-              return `${splittDate[1]}/${splittDate[0]}`;
-            }
-        }
-    })
+    @Component
     export default class BaseExperience extends Vue {
         get allExperiences(): IExperience[] {
             return experienceStore.allWorkExperiences;

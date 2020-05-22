@@ -14,6 +14,28 @@
                         </v-text-field>
                     </v-col>
                     <v-col cols="12">
+                        <v-menu
+                                ref="fromPeriodMenu"
+                                v-model="startPeriodMenu"
+                                :close-on-content-click="false"
+                                transition="scale-transition"
+                                offset-y
+                                max-width="290px"
+                                min-width="290px"
+                        >
+                            <template v-slot:activator="{ on }">
+                                <v-text-field
+                                        v-model="certificate.date"
+                                        label="Start"
+                                        prepend-icon="mdi-calendar"
+                                        v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker type="month" v-model="certificate.date" no-title
+                                           @input="startPeriodMenu = false"></v-date-picker>
+                        </v-menu>
+                    </v-col>
+                    <v-col cols="12">
                         <v-file-input
                                 label="File input"
                                 v-model="file"
@@ -47,6 +69,7 @@
     export default class DialogSkill extends Vue {
         @Prop() dialogProps: IDialogProps;
         file: File = null;
+        startPeriodMenu: boolean = false;
         certificate: ICertificate = null;
 
         close(): void {
@@ -54,7 +77,7 @@
         }
 
         submit(): void {
-            if(this.certificate.fullFirebasePath && !this.file) {
+            if (this.certificate.fullFirebasePath && !this.file) {
                 this.dialogProps.submit(this.certificate);
                 this.close();
                 return;
@@ -95,6 +118,7 @@
                 this.dialogProps.populateWith as ICertificate :
                 {
                     title: '',
+                    date: '',
                     url: '',
                     fbID: null,
                     fullFirebasePath: ''

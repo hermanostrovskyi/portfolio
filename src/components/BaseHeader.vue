@@ -1,5 +1,5 @@
 <template>
-    <header class="header">
+    <header id="home" class="header">
         <div class="header__wrapper">
             <nav class="header__navigation">
                 <div class="header__navigation-logo logo">
@@ -16,11 +16,11 @@
 
                 <div class="header__navigation-overlay" :class="{'header__navigation-overlay--active': isMenuActive}">
                     <ul class="header__navigation-list" :class="{'header__navigation-list--active': isMenuActive}">
-                        <li class="header__navigation-list-item header__navigation-list-item--active">Home</li>
-                        <li class="header__navigation-list-item">Berufserfahrung</li>
-                        <li class="header__navigation-list-item">Skills</li>
-                        <li class="header__navigation-list-item">Projekte</li>
-                        <li class="header__navigation-list-item">Certificate</li>
+                        <li class="header__navigation-list-item" @click="scrollToAnchor('#home')">Home</li>
+                        <li class="header__navigation-list-item" @click="scrollToAnchor('#experienceSection')">Berufserfahrung</li>
+                        <li class="header__navigation-list-item" @click="scrollToAnchor('#skillSection')">Skills</li>
+                        <li class="header__navigation-list-item" @click="scrollToAnchor('#portfolioSection')">Projekte</li>
+                        <li class="header__navigation-list-item" @click="scrollToAnchor('#certificateSection')">Certificate</li>
                     </ul>
                 </div>
             </nav>
@@ -42,10 +42,23 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
+    import {GoToOptions} from "vuetify/types/services/goto";
 
     @Component
     export default class BaseHeader extends Vue {
         isMenuActive: boolean = false;
+
+        scrollOptions: GoToOptions = {
+            duration: 500,
+            offset: 0,
+            easing: 'easeInOutCubic',
+        };
+
+
+        scrollToAnchor(anchor: string): void {
+            this.$vuetify.goTo(anchor, this.scrollOptions);
+            this.isMenuActive = false;
+        }
 
         onButtonToggle($event: Event): void {
             this.isMenuActive = !this.isMenuActive;

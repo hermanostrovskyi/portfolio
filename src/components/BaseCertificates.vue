@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="certificate__list-item-info">
-                    <p class="certificate__list-item-info-date">05/2017</p>
+                    <p class="certificate__list-item-info-date">{{certificate.date | formatDate}}</p>
                     <p class="certificate__list-item-info-title">{{certificate.title}}</p>
                 </div>
             </div>
