@@ -7,7 +7,7 @@
             ducimus eaque eius exercitationem fugit hic molestiae numquam odit.</p>
         <div class="experience__list">
             <article class="experience__item" v-for="experience in allExperiences" :key="experience.fbID">
-                <h3 class="experience__item-header">{{experience.periodStart}} - {{experience.periodStart}}</h3>
+                <h3 class="experience__item-header">{{experience.periodStart | formatDate }} - {{experience.periodEnd | formatDate}}</h3>
                 <p class="experience__item-position"> {{experience.position}}</p>
                 <p class="experience__item-place">{{experience.place}}</p>
                 <p class="experience__item-description"> {{experience.responsibility}}</p>
@@ -25,7 +25,14 @@
 
     const experienceStore = getModule(Experience);
 
-    @Component
+    @Component({
+        filters: {
+            formatDate(dateValue: string): string {
+                const splittDate: string[] = dateValue.split('-');
+              return `${splittDate[1]}/${splittDate[0]}`;
+            }
+        }
+    })
     export default class BaseExperience extends Vue {
         get allExperiences(): IExperience[] {
             return experienceStore.allWorkExperiences;

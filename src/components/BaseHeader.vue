@@ -217,8 +217,19 @@
                     }
 
                     &:hover {
-                        color: $black;
+
+
+                        @include desktop {
+                            color: inherit;
+                        }
+
+                        @include largeDesktop {
+                            color: inherit;
+                        }
                     }
+
+
+
                 }
 
 

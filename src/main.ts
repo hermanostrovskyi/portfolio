@@ -11,8 +11,6 @@ import {faDribbble, faXing, faInstagram} from "@fortawesome/free-brands-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
-
 library.add(faDribbble, faXing, faInstagram);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
