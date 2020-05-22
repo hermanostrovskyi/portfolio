@@ -75,7 +75,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "src/scss/mixins";
+    @import "../scss/mixins";
 
     .certificate {
         padding: 30px 5.8333%;

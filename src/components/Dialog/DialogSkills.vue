@@ -55,14 +55,6 @@
         skillData: ISkill = null;
         types: string[] = ['Main', 'Tools']
 
-        close(): void {
-            adminDialogStore.hideAdminDialog();
-        }
-
-        submit(): void {
-            this.dialogProps.submit(this.skillData);
-            this.close();
-        }
 
         get buttonLabel(): string {
             return this.dialogProps.mode === 'create' ? 'Save' : 'Update';

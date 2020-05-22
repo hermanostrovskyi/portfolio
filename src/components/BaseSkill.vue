@@ -64,7 +64,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import 'src/scss/mixins';
 
     .skill {
         padding: 30px 5.8333%;

@@ -34,12 +34,16 @@
 </script>
 
 <style scoped lang="scss">
-    @import "src/scss/mixins";
+    @import "../scss/mixins";
 
     .experience {
         padding: 30px 5.8333%;
         margin-bottom: 90px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+
+        @include desktop {
+            margin-top: -130px;
+        }
 
         &__header {
             @include section-header();
