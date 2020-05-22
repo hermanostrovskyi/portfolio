@@ -38,7 +38,7 @@
 
     .experience {
         padding: 30px 5.8333%;
-        margin-bottom: 90px;
+        margin-bottom: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         @include desktop {
@@ -47,11 +47,18 @@
 
         &__header {
             @include section-header();
+            @include desktop {
+                font-size: 58px;
+            }
+
+            @include largeDesktop {
+                font-size: 58px;
+            }
         }
 
 
         &__phrase {
-            font-size: 28px;
+            font-size: 22px;
             font-family: 'Myriad Pro', 'Roboto', sans-serif;
             margin-bottom: 40px;
 

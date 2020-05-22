@@ -87,18 +87,34 @@
 
     .portfolio {
         padding: 30px 5.8333%;
-        margin-bottom: 90px;
+        margin-bottom: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
             @include section-header();
+            @include desktop {
+                font-size: 58px;
+            }
+
+            @include largeDesktop {
+                font-size: 58px;
+            }
         }
 
         &__list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: 1fr;
+
             grid-gap: 40px;
             margin-bottom: 60px;
+
+            @include desktop {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+
+            @include largeDesktop {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
 
             &-item-container {
                 cursor: pointer;

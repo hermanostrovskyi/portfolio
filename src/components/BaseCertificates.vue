@@ -80,16 +80,32 @@
     .certificate {
         padding: 30px 5.8333%;
         /*margin-top: 50px;*/
-        margin-bottom: 90px;
+        margin-bottom: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
             @include section-header();
+            @include desktop {
+                font-size: 58px;
+            }
+
+            @include largeDesktop {
+                font-size: 58px;
+            }
         }
 
         &__list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 1fr;
+
+            @include desktop {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            @include largeDesktop {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
             grid-gap: 40px;
 
             &-item {

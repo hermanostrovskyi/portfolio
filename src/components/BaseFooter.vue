@@ -43,7 +43,7 @@
         &__contacts {
             display: grid;
             row-gap: 20px;
-            grid-template-columns: 2fr 1fr 2fr;
+            grid-template-columns: 4fr 2fr 4fr;
             color: white;
             background-color: black;
             align-items: center;
@@ -86,12 +86,13 @@
             }
 
             &-socials {
+                grid-column: 1 / span 3;
                 grid-row: 2;
-                grid-column: 2;
+                width: 100%;
+                justify-items: center;
                 font-size: 36px;
                 display: grid;
-                gap: 60px;
-                justify-items: center;
+                gap: 20px;
                 grid-template-columns: repeat(3, 1fr);
 
                 &-item {
@@ -104,7 +105,7 @@
             }
 
             &-logo {
-                max-width: 30px;
+                max-width: 20px;
 
                 &-image {
                     object-fit: cover;

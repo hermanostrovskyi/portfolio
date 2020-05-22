@@ -67,11 +67,18 @@
 
     .skill {
         padding: 30px 5.8333%;
-        margin-bottom: 90px;
+        margin-bottom: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 
         &__header {
             @include section-header();
+            @include desktop {
+                font-size: 58px;
+            }
+
+            @include largeDesktop {
+                font-size: 58px;
+            }
         }
 
         &__list-container {
@@ -125,11 +132,13 @@
 
             &-value {
                 color: #ffc400;
+                font-size: 22px;
                 justify-self: right;
             }
 
             &-header {
                 font-weight: normal;
+                font-size: 22px;
             }
 
             &-progressbar {
