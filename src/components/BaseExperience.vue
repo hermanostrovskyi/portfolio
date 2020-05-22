@@ -1,6 +1,6 @@
 <template>
     <section id="experienceSection" class="experience" data-aos-easing="ease-in-out" data-aos="fade-up"
-             data-aos-duration="2500" data-aos-once="false">
+             data-aos-duration="1000"  data-aos-once="true">
         <h2 class="experience__header">Berufserfahrung</h2>
         <p class="experience__phrase">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at
             autem consequuntur cumque

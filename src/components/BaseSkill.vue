@@ -1,5 +1,5 @@
 <template>
-    <section id="skillSection" class="skill"   data-aos-easing="ease-in-out" data-aos="fade-up" data-aos-duration="1500"  data-aos-once="false">
+    <section id="skillSection" class="skill"   data-aos-easing="ease-in-out" data-aos="fade-up" data-aos-duration="1000"  data-aos-once="true">
         <h2 class="skill__header">Skills</h2>
         <div class="skill__list-container">
             <div class="skill__main-list">

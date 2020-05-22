@@ -1,6 +1,5 @@
 <template>
     <v-app>
-        <router-link to="/admin">Go to Foo</router-link>
         <v-content>
             <router-view></router-view>
         </v-content>
