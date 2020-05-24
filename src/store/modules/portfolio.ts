@@ -37,7 +37,7 @@ class Portfolio extends VuexModule {
     }
 
     @Mutation
-    updatePortfolioItem(updatedPortfolioItem: IPortfolioItem): void {
+    public updatePortfolioItem(updatedPortfolioItem: IPortfolioItem): void {
         this.portfolio = this.portfolio.map((portfolioItem: IPortfolioItem) => portfolioItem.fbID === updatedPortfolioItem.fbID ? updatedPortfolioItem : portfolioItem);
     }
 

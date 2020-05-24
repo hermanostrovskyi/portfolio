@@ -3,11 +3,11 @@
         <v-layout row wrap>
             <v-flex xs12 sm6 md6 lg4 v-for="experienceRecord in allExperienceRecords" :key="experienceRecord.fbID">
                 <v-card>
-                    <v-card-title>{{experienceRecord.place}}</v-card-title>
-                    <v-card-subtitle>Period: {{experienceRecord.periodStart }} - {{experienceRecord.periodEnd  }}
-                    </v-card-subtitle>
+                    <v-card-title>{{experienceRecord.firm}}</v-card-title>
+                    <v-card-subtitle>Period: {{experienceRecord.periodStart }} - {{experienceRecord.periodEnd  }}</v-card-subtitle>
                     <v-divider></v-divider>
                     <v-container fluid>
+                        <p><span class="card-prop">Place: </span> {{experienceRecord.place}}</p>
                         <p><span class="card-prop">Position: </span> {{experienceRecord.position}}</p>
                         <p><span class="card-prop">Responsibility: </span> {{experienceRecord.responsibility}}</p>
                     </v-container>
@@ -46,16 +46,24 @@
         }
 
         deleteExperienceItem(fbID: string): void {
-            experienceStore.deleteExperienceAction(fbID);
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogDeleteConfirmation',
+                properties: {
+                    mode: 'deleteConfirmation',
+                    submit: experienceStore.deleteExperienceAction,
+                    data: fbID
+                }
+            });
         }
 
         onExperienceUpdate(experienceRecord: IExperience): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogExperience');
-            adminDialogStore.setDialogPropertiesAction({
-                mode: 'update',
-                populateWith: {...experienceRecord},
-                submit: experienceStore.updateExperienceAction
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogExperience',
+                properties: {
+                    mode: 'update',
+                    populateWith: {...experienceRecord},
+                    submit: experienceStore.updateExperienceAction
+                }
             });
         }
 

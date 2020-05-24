@@ -4,6 +4,7 @@
             <v-flex xs12 sm6 md6 lg4 v-for="certificate in allCertificates" :key="certificate.fbID">
                 <v-card>
                     <v-card-title>{{certificate.title}}</v-card-title>
+                    <v-card-subtitle>Date: {{certificate.date }}</v-card-subtitle>
                     <v-img :src="certificate.url"></v-img>
                     <v-divider></v-divider>
                     <v-card-actions>
@@ -38,16 +39,24 @@
         }
 
         onCertificateDelete(certificate: ICertificate): void {
-            certificateStore.deleteCertificateAction(certificate);
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogDeleteConfirmation',
+                properties: {
+                    mode: 'deleteConfirmation',
+                    submit: certificateStore.deleteCertificateAction,
+                    data: certificate
+                }
+            });
         }
 
         onCertificateUpdate(certificate: ICertificate): void {
-            adminDialogStore.showAdminDialog();
-            adminDialogStore.setDialogComponentAction('DialogCertificates');
-            adminDialogStore.setDialogPropertiesAction({
-                mode: 'update',
-                populateWith: {...certificate},
-                submit: certificateStore.updateCertificateAction
+            adminDialogStore.setDialogOptions({
+                componentName: 'DialogCertificates',
+                properties: {
+                    mode: 'update',
+                    populateWith: {...certificate},
+                    submit: certificateStore.updateCertificateAction
+                }
             });
         }
 

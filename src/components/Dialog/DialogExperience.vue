@@ -8,6 +8,12 @@
                 <v-row>
                     <v-col cols="12">
                         <v-text-field
+                                label="Firm*"
+                                v-model='experienceRecord.firm'
+                                required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field
                                 label="Place*"
                                 v-model='experienceRecord.place'
                                 required></v-text-field>
@@ -125,6 +131,7 @@
                 this.dialogProps.populateWith as IExperience :
                 {
                     fbID: null,
+                    firm: '',
                     place: '',
                     position: '',
                     responsibility: '',

@@ -1,6 +1,6 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators';
 import Store from '../index';
-import {IDialogProps} from "@/interfaces/interfaces";
+import {IDialogOptions, IDialogProps} from "@/interfaces/interfaces";
 
 @Module({
     dynamic: true,
@@ -49,18 +49,15 @@ class AdminDialog extends VuexModule {
     @Action
     public hideAdminDialog(): void {
         this.context.commit('changeDialogVisibility', false);
-        this.context.dispatch('setDialogPropertiesAction', null);
-        this.context.dispatch('setDialogComponentAction', null);
+        this.context.commit('setDialogComponent', null);
+        this.context.commit('setDialogProperties', null);
     }
 
     @Action
-    public setDialogComponentAction(name: string): void {
-        this.context.commit('setDialogComponent', name);
-    }
-
-    @Action
-    public setDialogPropertiesAction(props: IDialogProps): void {
-        this.context.commit('setDialogProperties', props);
+    public setDialogOptions(dialogOptions: IDialogOptions): void {
+        this.context.dispatch('showAdminDialog');
+        this.context.commit('setDialogComponent', dialogOptions.componentName);
+        this.context.commit('setDialogProperties', dialogOptions.properties);
     }
 
 }

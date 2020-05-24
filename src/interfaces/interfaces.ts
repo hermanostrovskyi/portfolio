@@ -20,6 +20,7 @@ export interface IAuthData {
 
 export interface ICertificate {
     fbID: string;
+    date: string;
     title: string;
     url: string;
     fullFirebasePath: string;
@@ -27,6 +28,7 @@ export interface ICertificate {
 
 export interface ISkill {
     fbID: string;
+    type: string;
     name: string;
     skillValue: number;
 }
@@ -41,6 +43,7 @@ export interface IPortfolioItem {
 
 export interface IExperience {
     fbID: string;
+    firm: string;
     place: string;
     position: string;
     responsibility: string;
@@ -51,6 +54,13 @@ export interface IExperience {
 
 export interface IDialogProps {
     mode: string;
-    submit: Function;
-    populateWith: ISkill | IExperience| ICertificate | IPortfolioItem;
+    submit?: Function;
+    populateWith?: ISkill | IExperience| ICertificate | IPortfolioItem;
+    data?: string | ICertificate | IPortfolioItem;
+}
+
+
+export interface IDialogOptions {
+    componentName: string;
+    properties: IDialogProps;
 }
