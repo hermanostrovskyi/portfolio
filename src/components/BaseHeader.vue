@@ -1,37 +1,43 @@
 <template>
     <header id="home" class="header">
         <div class="header__wrapper">
-            <nav class="header__navigation">
-                <div class="header__navigation-logo logo">
-                    <img class="logo__image" src="@/assets/logo.png" alt="logo">
+            <nav class="header__nav nav">
+                <div class="nav__logo">
+                    <img class="nav__logo-image" src="@/assets/logo.png" alt="logo">
                 </div>
+                <BaseBurger class="nav__toggler" @clicked="onBurgerClicked" />
 
-                <v-btn icon x-large
-                       class="header__navigation-toggle"
-                       :class="{'header__navigation-toggle--active': isMenuActive}"
-                       @click="onButtonToggle($event)">
-                    <v-icon v-if="isMenuActive">mdi-close</v-icon>
-                    <v-icon v-else>mdi-menu</v-icon>
-                </v-btn>
+<!--                <v-btn icon x-large @click="onButtonToggle()" class="nav__toggler">-->
+<!--                    <v-icon v-if="isMenuActive">mdi-close</v-icon>-->
+<!--                    <v-icon v-else>mdi-menu</v-icon>-->
+<!--                </v-btn>-->
 
-                <div class="header__navigation-overlay" :class="{'header__navigation-overlay--active': isMenuActive}">
-                    <ul class="header__navigation-list" :class="{'header__navigation-list--active': isMenuActive}">
-                        <li class="header__navigation-list-item" @click="scrollToAnchor('#home')">Home</li>
-                        <li class="header__navigation-list-item" @click="scrollToAnchor('#experienceSection')">Berufserfahrung</li>
-                        <li class="header__navigation-list-item" @click="scrollToAnchor('#skillSection')">Skills</li>
-                        <li class="header__navigation-list-item" @click="scrollToAnchor('#portfolioSection')">Projekte</li>
-                        <li class="header__navigation-list-item" @click="scrollToAnchor('#certificateSection')">Certificate</li>
-                    </ul>
-                </div>
+                <ul class="nav__list">
+                    <li class="nav__item" @click="scrollToAnchor('#home')">Home</li>
+                    <li class="nav__item" @click="scrollToAnchor('#experienceSection')">Berufserfahrung</li>
+                    <li class="nav__item" @click="scrollToAnchor('#skillSection')">Skills</li>
+                    <li class="nav__item" @click="scrollToAnchor('#portfolioSection')">Projekte</li>
+                    <li class="nav__item" @click="scrollToAnchor('#certificateSection')">Certificate</li>
+                </ul>
             </nav>
-            <div class="header__info">
-                <p class="header__info-start">Hallo, ich bin</p>
-                <p class="header__info-name">Stella Notkina</p>
-                <p class="header__info-description">UI/UX Designerin</p>
-                <p class="header__info-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
-                    consequatur
+
+
+            <div class="header__side-nav side-nav" :class="{'side-nav--active': isMenuActive}">
+                <ul class="side-nav__list">
+                    <li class="side-nav__item" @click="scrollToAnchor('#home')">Home</li>
+                    <li class="side-nav__item" @click="scrollToAnchor('#experienceSection')">Berufserfahrung</li>
+                    <li class="side-nav__item" @click="scrollToAnchor('#skillSection')">Skills</li>
+                    <li class="side-nav__item" @click="scrollToAnchor('#portfolioSection')">Projekte</li>
+                    <li class="side-nav__item" @click="scrollToAnchor('#certificateSection')">Certificate</li>
+                </ul>
+            </div>
+            <div class="header__intro intro">
+                <p class="intro__start">Hallo, ich bin</p>
+                <p class="intro__name">Stella Notkina</p>
+                <p class="intro__description">UI/UX Designerin</p>
+                <p class="intro__end">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur
                     cum doloremque expedita itaque rem!</p>
-                <button class="header__info-btn">Download CV</button>
+                <button class="intro__btn">Download CV</button>
             </div>
 
         </div>
@@ -43,10 +49,16 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
     import {GoToOptions} from "vuetify/types/services/goto";
+    import BaseBurger from "@/components/BaseBurger.vue";
 
-    @Component
+    @Component({
+        components: {
+            BaseBurger
+        }
+    })
     export default class BaseHeader extends Vue {
         isMenuActive: boolean = false;
+        toggleBtn: HTMLElement = null;
 
         scrollOptions: GoToOptions = {
             duration: 500,
@@ -60,14 +72,17 @@
             this.isMenuActive = false;
         }
 
-        onButtonToggle($event: Event): void {
-            this.isMenuActive = !this.isMenuActive;
-            const icon: HTMLElement = $event.target as HTMLElement;
-            const parentBtn: HTMLElement = icon.closest('.header__navigation-toggle') as HTMLElement;
-            parentBtn.classList.add('header__navigation-toggle--animate');
-            setTimeout(() => {
-                parentBtn.classList.remove('header__navigation-toggle--animate');
-            }, 600);
+        onBurgerClicked(isBurgerActive: boolean): void {
+            this.isMenuActive = !isBurgerActive;
+
+        }
+
+        created() {
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 1024) {
+                    this.isMenuActive = false;
+                }
+            });
         }
     }
 </script>
@@ -78,7 +93,6 @@
         background-color: $black;
         padding: 30px $horizontalPadding;
         color: $white;
-
 
         @include desktop {
             background-image: url("../assets/foto.png");
@@ -99,224 +113,248 @@
                 max-width: 70%;
             }
         }
+    }
 
 
-        &__navigation {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            align-items: center;
+    .nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+
+        @include desktop {
+            grid-template-columns: 2fr 8fr;
+            margin-bottom: 40px;
+        }
+
+        &__list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: none;
+            justify-content: space-between;
+            font-size: 30px;
+            cursor: pointer;
 
             @include desktop {
-                grid-template-columns: 2fr 8fr;
-                margin-bottom: 40px;
+                display: flex;
+                font-size: 18px;
             }
 
-            &-overlay {
-                padding-top: 40px;
-                width: 0;
-                height: 100%;
+            @include largeDesktop {
+                display: flex;
+                font-size: 22px;
+            }
+
+        }
+
+        &__toggler {
+            justify-self: end;
+
+            @include desktop {
+                display: none;
+            }
+
+/*            &--animate {
+
+                @include animation('rotate-center 0.5s ease-in-out both');
+            }
+
+            &--active {
                 position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                overflow-y: auto;
-                max-height: 100vh;
-                transition: 0.5s;
-                background-color: $yellowColor;
-
-                @include desktop {
-                    font-size: 18px;
-                    width: 100%;
-                    position: static;
-                    background-color: transparent;
-                    display: grid;
-                }
-
-                &--active {
-                    width: 100%;
-                }
-            }
-
-            &-toggle {
-                justify-self: end;
-
-                @include desktop {
-                    display: none;
-                }
-
-                &--animate {
-                    @include animation('rotate-center 0.5s ease-in-out both');
-                }
-
-                &--active {
-                    position: fixed;
-                    top: 75px;
-                    right: 25px;
-                    z-index: 66;
-
-                    i.v-icon {
-                        color: black !important;
-                    }
-                }
-
+                right: $horizontalPadding;
+                top: 50px;
+                z-index: 66;
 
                 i.v-icon {
-                    width: 40px;
-                    height: 40px;
-                    font-size: 40px;
-                    color: $yellowColor;
+                    color: black !important;
                 }
-            }
-
-            &-list {
-                margin: 0;
-                padding: 0;
-                list-style: none;
-                display: none;
-                flex-direction: column;
-                justify-content: space-between;
-                font-size: 30px;
-                cursor: pointer;
-                top: 0;
-                left: 0;
-                z-index: 3;
-
-                @include desktop {
-                    display: flex;
-                    position: static;
-                    flex-direction: row;
-                    font-size: 18px;
-                }
-
-                @include largeDesktop {
-                    display: flex;
-                    position: static;
-                    flex-direction: row;
-                    font-size: 22px;
-                }
-
-                &--active {
-                    display: block;
-                    position: relative;
-                    top: 0;
-                    left: 0;
-
-                    @include desktop {
-                        display: flex;
-                        position: static;
-                        flex-direction: row;
-                        font-size: 18px;
-                    }
-
-                    @include largeDesktop {
-                        display: flex;
-                        position: static;
-                        flex-direction: row;
-                        font-size: 22px;
-                    }
-                }
-
-                &-item {
-                    text-align: center;
-                    cursor: pointer;
-                    padding: 20px;
-
-                    @include desktop {
-                        padding: 0;
-                    }
-
-                    @include largeDesktop {
-                        padding: 0;
-                    }
-
-                    &:hover {
+            }*/
 
 
-                        @include desktop {
-                            color: inherit;
-                        }
-
-                        @include largeDesktop {
-                            color: inherit;
-                        }
-                    }
-
-
-
-                }
-
-
-            }
-        }
-
-
-        &__info {
-            color: $white;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-
-
-            &-start {
-                font-size: 18px;
-                line-height: 18px;
-                text-align: justify;
-                margin-bottom: 25px;
-            }
-
-            &-end {
-                font-size: 18px;
-                line-height: 26px;
-                margin-bottom: 20px;
-                text-align: right;
-                max-width: 500px;
-            }
-
-            &-name {
-                font-size: 48px;
-                line-height: 48px;
+            i.v-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 40px;
                 color: $yellowColor;
-                margin-bottom: 0;
-                text-transform: uppercase;
-                text-align: right;
-                font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
-            }
-
-            &-description {
-                margin-bottom: 25px;
-                font-size: 30px;
-                line-height: 30px;
-
-                font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
-            }
-
-            &-btn {
-                background-color: $yellowColor;
-                border-radius: 20px;
-                padding: 10px 30px;
-                outline: none;
-                color: $black;
-                max-width: 200px;
             }
         }
+    }
 
-        &__shape {
-            display: none;
-            position: absolute;
-            bottom: 0;
 
+    .side-nav {
+        padding-top: 40px;
+        width: 0;
+        height: 100%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        overflow-y: auto;
+        max-height: 100vh;
+        transition: 0.5s;
+        background-color: $yellowColor;
+
+        &--active {
             width: 100%;
-            height: 200px;
+        }
 
-            @include desktop {
-                display: block;
+
+        &__list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 30px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        &__item {
+            padding: 10px;
+            text-align: center;
+
+            &:hover,
+            &:active {
+                color: $black;
             }
         }
     }
 
-    .logo {
-        justify-self: start;
+
+    .intro {
+        color: $white;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+
+        &__start {
+            font-size: 18px;
+            line-height: 18px;
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+
+        &__end {
+            font-size: 18px;
+            line-height: 26px;
+            margin-bottom: 20px;
+            text-align: right;
+            max-width: 500px;
+        }
+
+        &__name {
+            font-size: 48px;
+            line-height: 48px;
+            color: $yellowColor;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            text-align: right;
+            font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+        }
+
+        &__description {
+            margin-bottom: 25px;
+            font-size: 30px;
+            line-height: 30px;
+
+            font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+        }
+
+        &__btn {
+            background-color: $yellowColor;
+            border-radius: 20px;
+            padding: 10px 30px;
+            outline: none;
+            color: $black;
+            max-width: 200px;
+        }
     }
+
+/*    .hidden {
+        visibility: hidden;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    !* remove blue outline *!
+    button:focus {
+        outline: 0;
+    }
+
+    .burger-button {
+        position: relative;
+        height: 30px;
+        width: 32px;
+        display: block;
+        z-index: 999;
+        border: 0;
+        border-radius: 0;
+        background-color: transparent;
+        pointer-events: all;
+        transition: transform .6s cubic-bezier(.165,.84,.44,1);
+    }
+
+    .burger-bar {
+        background-color: #130f40;
+        position: absolute;
+        top: 50%;
+        right: 6px;
+        left: 6px;
+        height: 2px;
+        width: auto;
+        margin-top: -1px;
+        transition: transform .6s cubic-bezier(.165,.84,.44,1),opacity .3s cubic-bezier(.165,.84,.44,1),background-color .6s cubic-bezier(.165,.84,.44,1);
+    }
+
+    .burger-bar--1 {
+        -webkit-transform: translateY(-6px);
+        transform: translateY(-6px);
+    }
+
+    .burger-bar--2 {
+        transform-origin: 100% 50%;
+        transform: scaleX(.8);
+    }
+
+    .burger-button:hover .burger-bar--2 {
+        transform: scaleX(1);
+    }
+
+    .no-touchevents .burger-bar--2:hover {
+        transform: scaleX(1);
+    }
+
+    .burger-bar--3 {
+        transform: translateY(6px);
+    }
+
+    #burger.active .burger-button {
+        transform: rotate(-180deg);
+    }
+
+    #burger.active .burger-bar {
+        background-color: #fff;
+    }
+
+    #burger.active .burger-bar--1 {
+        transform: rotate(45deg)
+    }
+
+    #burger.active .burger-bar--2 {
+        opacity: 0;
+    }
+
+    #burger.active .burger-bar--3 {
+        transform: rotate(-45deg)
+    }*/
+
+
 
     @include keyframes(rotate-center) {
         0% {
@@ -326,6 +364,4 @@
             transform: rotate(360deg);
         }
     }
-
-
 </style>
