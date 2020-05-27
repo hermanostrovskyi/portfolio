@@ -1,11 +1,16 @@
 <template>
     <div>
-        <BaseHeader></BaseHeader>
-        <BaseExperience></BaseExperience>
-        <BaseSkill></BaseSkill>
-        <BasePortfolio></BasePortfolio>
-        <BaseCertificates></BaseCertificates>
-        <BaseFooter></BaseFooter>
+        <BaseHeader/>
+        <BaseExperience/>
+        <BaseSkill/>
+        <BasePortfolio/>
+        <BaseCertificates/>
+        <BaseFooter/>
+        <v-fab-transition v-if="isScrolled">
+            <v-btn fab color="#ffc400" large bottom class="to-top-button" @click="scrollToTop">
+                <v-icon>mdi-chevron-up</v-icon>
+            </v-btn>
+        </v-fab-transition>
     </div>
 
 </template>
@@ -14,7 +19,6 @@
     import {Component, Vue} from 'vue-property-decorator'
     import {getModule} from "vuex-module-decorators";
     import Skill from "@/store/modules/skill";
-    import {IExperience, ISkill} from "@/interfaces/interfaces";
     import Experience from "@/store/modules/experience";
     import BaseHeader from "@/components/BaseHeader.vue";
     import BaseExperience from "@/components/BaseExperience.vue";
@@ -24,6 +28,7 @@
     import BaseFooter from "@/components/BaseFooter.vue";
     import Portfolio from "@/store/modules/portfolio";
     import Certificate from "@/store/modules/certificate";
+    import {GoToOptions} from "vuetify/types/services/goto";
 
     const skillStore = getModule(Skill);
     const experienceStore = getModule(Experience);
@@ -42,13 +47,18 @@
         }
     })
     export default class Home extends Vue {
-        get skills(): ISkill[] {
-            return skillStore.allSkills
+        isScrolled: boolean = false;
+        scrollOptions: GoToOptions = {
+            duration: 500,
+            offset: 0,
+            easing: 'easeInOutCubic',
+        };
+
+
+        scrollToTop(): void {
+            this.$vuetify.goTo('#home', this.scrollOptions);
         }
 
-        get experience(): IExperience[] {
-            return experienceStore.allWorkExperiences;
-        }
 
         beforeCreate() {
             experienceStore.fetchExperienceAction();
@@ -56,8 +66,21 @@
             portfolioStore.fetchPortfolio();
             certificateStore.fetchCertificates();
         }
+
+        created(): void {
+            window.addEventListener('scroll', () => {
+                this.isScrolled = window.pageYOffset > 300;
+            });
+        }
     }
 </script>
 
 
-<style lang="scss"></style>
+<style lang="scss">
+    .to-top-button {
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        z-index: 100;
+    }
+</style>
