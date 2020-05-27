@@ -79,7 +79,6 @@
 
     .certificate {
         padding: 30px 5.8333%;
-        /*margin-top: 50px;*/
         margin-bottom: 50px;
         font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
 

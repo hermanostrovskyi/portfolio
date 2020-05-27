@@ -7,10 +7,6 @@
                 </div>
                 <BaseBurger class="nav__toggler" @clicked="onBurgerClicked" />
 
-<!--                <v-btn icon x-large @click="onButtonToggle()" class="nav__toggler">-->
-<!--                    <v-icon v-if="isMenuActive">mdi-close</v-icon>-->
-<!--                    <v-icon v-else>mdi-menu</v-icon>-->
-<!--                </v-btn>-->
 
                 <ul class="nav__list">
                     <li class="nav__item" @click="scrollToAnchor('#home')">Home</li>
@@ -145,6 +141,20 @@
                 font-size: 22px;
             }
 
+        }
+
+        &__item {
+            &:hover {
+                color: $yellowColor;
+            }
+        }
+
+        &__toggler {
+            justify-self: end;
+
+            @include desktop {
+                display: none;
+            }
         }
     }
 

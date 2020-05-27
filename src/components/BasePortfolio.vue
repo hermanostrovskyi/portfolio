@@ -1,8 +1,9 @@
 <template>
-    <section id="portfolioSection" class="portfolio" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
+    <section id="portfolioSection" class="portfolio">
         <h2 class="portfolio__header">Projekte</h2>
         <div class="portfolio__list">
-            <div
+            <div data-aos-easing="ease-in-out" data-aos="fade-up"
+                 data-aos-duration="1000"  data-aos-once="true"
                     class="portfolio__list-item-container"
                     v-for="(item, index) in itemsToShow"
                     :key="item.fbID"
@@ -29,22 +30,13 @@
         <v-dialog v-if="dialogPortfolioItem"
                   @click:outside="dialog = false"
                   v-model="dialog"
-                  max-width="800"
-        >
+                  max-width="800">
             <v-card>
                 <v-card-title class="headline">{{dialogPortfolioItem.title}}</v-card-title>
-                <v-img
-                        class="white--text align-end"
-                        :src="dialogPortfolioItem.url"
-                >
-                </v-img>
+                <v-img class="white--text align-end" :src="dialogPortfolioItem.url"></v-img>
 
                 <v-card-actions>
-                    <v-btn
-                            color="green darken-1"
-                            text
-                            @click="onDialogClose">Schließen
-                    </v-btn>
+                    <v-btn color="green darken-1" text @click="onDialogClose">Schließen</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
