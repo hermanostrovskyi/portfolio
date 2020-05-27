@@ -146,38 +146,6 @@
             }
 
         }
-
-        &__toggler {
-            justify-self: end;
-
-            @include desktop {
-                display: none;
-            }
-
-/*            &--animate {
-
-                @include animation('rotate-center 0.5s ease-in-out both');
-            }
-
-            &--active {
-                position: fixed;
-                right: $horizontalPadding;
-                top: 50px;
-                z-index: 66;
-
-                i.v-icon {
-                    color: black !important;
-                }
-            }*/
-
-
-            i.v-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 40px;
-                color: $yellowColor;
-            }
-        }
     }
 
 
@@ -271,97 +239,6 @@
             outline: none;
             color: $black;
             max-width: 200px;
-        }
-    }
-
-/*    .hidden {
-        visibility: hidden;
-    }
-
-    button {
-        cursor: pointer;
-    }
-
-    !* remove blue outline *!
-    button:focus {
-        outline: 0;
-    }
-
-    .burger-button {
-        position: relative;
-        height: 30px;
-        width: 32px;
-        display: block;
-        z-index: 999;
-        border: 0;
-        border-radius: 0;
-        background-color: transparent;
-        pointer-events: all;
-        transition: transform .6s cubic-bezier(.165,.84,.44,1);
-    }
-
-    .burger-bar {
-        background-color: #130f40;
-        position: absolute;
-        top: 50%;
-        right: 6px;
-        left: 6px;
-        height: 2px;
-        width: auto;
-        margin-top: -1px;
-        transition: transform .6s cubic-bezier(.165,.84,.44,1),opacity .3s cubic-bezier(.165,.84,.44,1),background-color .6s cubic-bezier(.165,.84,.44,1);
-    }
-
-    .burger-bar--1 {
-        -webkit-transform: translateY(-6px);
-        transform: translateY(-6px);
-    }
-
-    .burger-bar--2 {
-        transform-origin: 100% 50%;
-        transform: scaleX(.8);
-    }
-
-    .burger-button:hover .burger-bar--2 {
-        transform: scaleX(1);
-    }
-
-    .no-touchevents .burger-bar--2:hover {
-        transform: scaleX(1);
-    }
-
-    .burger-bar--3 {
-        transform: translateY(6px);
-    }
-
-    #burger.active .burger-button {
-        transform: rotate(-180deg);
-    }
-
-    #burger.active .burger-bar {
-        background-color: #fff;
-    }
-
-    #burger.active .burger-bar--1 {
-        transform: rotate(45deg)
-    }
-
-    #burger.active .burger-bar--2 {
-        opacity: 0;
-    }
-
-    #burger.active .burger-bar--3 {
-        transform: rotate(-45deg)
-    }*/
-
-
-
-    @include keyframes(rotate-center) {
-        0% {
-            transform: rotate(0);
-        }
-        100% {
-            transform: rotate(360deg);
         }
     }
 </style>
