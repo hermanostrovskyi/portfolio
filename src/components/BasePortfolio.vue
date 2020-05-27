@@ -1,10 +1,10 @@
 <template>
-    <section id="portfolioSection" class="portfolio" data-aos="fade-up" data-aos-duration="1000"  data-aos-once="true">
+    <section id="portfolioSection" class="portfolio" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
         <h2 class="portfolio__header">Projekte</h2>
         <div class="portfolio__list">
             <div
                     class="portfolio__list-item-container"
-                    v-for="(item, index) in allPortfolioItems"
+                    v-for="(item, index) in itemsToShow"
                     :key="item.fbID"
                     :class="`portfolio__list-item-container--${index}`">
                 <img class="portfolio__list-item-image"
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <button class="portfolio__btn">Alle anzeigen</button>
+        <button class="portfolio__btn" @click="frameIndex++" v-if="!isAllItemsShown">Weiter anzeigen</button>
 
         <v-dialog v-if="dialogPortfolioItem"
                   @click:outside="dialog = false"
@@ -61,13 +61,23 @@
 
     @Component
     export default class BasePortfolio extends Vue {
-
         dialog: boolean = false;
         dialogPortfolioItem: IPortfolioItem = null;
+        itemsProFrame: number = 6;
+        frameIndex: number = 1;
+
+        get isAllItemsShown(): boolean {
+            return this.allPortfolioItems.length < this.frameIndex * this.itemsProFrame;
+        }
 
         get allPortfolioItems(): IPortfolioItem[] {
             return portfolioStore.allPortfolioItems;
         }
+
+        get itemsToShow(): IPortfolioItem[] {
+            return portfolioStore.allPortfolioItems.slice(0, this.frameIndex * this.itemsProFrame)
+        }
+
 
         showImage(portfolioItem: IPortfolioItem): void {
             this.dialog = true;
@@ -106,7 +116,7 @@
             grid-template-columns: 1fr;
 
             grid-gap: 40px;
-            margin-bottom: 60px;
+
 
             @include desktop {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -175,9 +185,8 @@
 
         &__btn {
             @include btn();
-
+            margin-top: 60px;
         }
-
 
 
     }

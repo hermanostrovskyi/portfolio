@@ -72,13 +72,7 @@
 
         &__header {
             @include section-header();
-            @include desktop {
-                font-size: 58px;
-            }
 
-            @include largeDesktop {
-                font-size: 58px;
-            }
         }
 
         &__list-container {
@@ -139,6 +133,7 @@
             &-header {
                 font-weight: normal;
                 font-size: 22px;
+                white-space: nowrap;
             }
 
             &-progressbar {

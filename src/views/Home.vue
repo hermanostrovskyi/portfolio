@@ -79,8 +79,17 @@
 <style lang="scss">
     .to-top-button {
         position: fixed;
-        right: 50px;
-        bottom: 50px;
+        right: 30px;
+        bottom: 30px;
         z-index: 100;
+        display: none;
+
+        @include desktop {
+            display: block;
+        }
+
+        @include largeDesktop {
+            display: block;
+        }
     }
 </style>

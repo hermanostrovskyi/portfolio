@@ -1,11 +1,20 @@
 @mixin section-header() {
   color: #ffc400;
-  font-size: 12vw;
+  font-size: 48px;
   line-height: 58px;
   font-weight: 400;
   margin-bottom: 30px;
   text-transform: uppercase;
   font-family: 'Myriad Pro Condensed', 'Myriad Pro', 'Roboto', sans-serif;
+
+  @include desktop {
+    font-size: 58px;
+  }
+
+  @include largeDesktop {
+    font-size: 58px;
+  }
+
 }
 
 
@@ -35,6 +44,12 @@
 
 @mixin largeDesktop {
   @media (min-width: $largeDesktop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) and  (max-width: $desktop){
     @content;
   }
 }
