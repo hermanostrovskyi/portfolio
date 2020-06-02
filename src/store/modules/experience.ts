@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {IExperience} from "@/interfaces/interfaces";
 import Store from '../index';
-import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
+import {generateID, getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 
 const dbExperience = getFirebaseDB().ref('data/experience');
 
@@ -50,7 +50,7 @@ class Experience extends VuexModule {
             .once('value')
             .then(snapshot => {
                 const experience: IExperience[] = retrieveData(snapshot.val()) as IExperience[];
-                if(experience) {
+                if (experience) {
                     this.context.commit('setWorkExperience', experience);
                 }
             })
@@ -78,6 +78,23 @@ class Experience extends VuexModule {
             .set(experience)
             .then(() => this.context.commit('updateExperience', experience));
     }
+
+    @Action
+    public updateExperienceDemoAction(experience: IExperience): void {
+        this.context.commit('updateExperience', experience);
+    }
+
+    @Action
+    public deleteExperienceDemoAction(fbID: string): void {
+        this.context.commit('deleteExperience', fbID);
+    }
+
+    @Action
+    public addExperienceDemoAction(experience: IExperience) {
+        const id = generateID();
+        this.context.commit('addExperience', {...experience, fbID: id});
+    }
+
 
 }
 

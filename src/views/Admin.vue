@@ -56,7 +56,7 @@
                 <v-toolbar-title>{{currentItem}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-btn  color="#ffc400" @click="onAddClick()">
+                <v-btn color="#ffc400" @click="onAddClick()">
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     Add new
                 </v-btn>
@@ -163,8 +163,7 @@
         }
 
         get isDemoUser(): boolean {
-            return authStore.userData.userId === '9K1JJLTrYJfRuorMSj4vqpc7YwU2';
-
+            return authStore.isDemoUser
         }
 
         get userName(): string {

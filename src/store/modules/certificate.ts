@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {ICertificate} from "@/interfaces/interfaces";
 import Store from '../index';
-import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
+import {generateID, getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 import firebase from "firebase";
 import DataSnapshot = firebase.database.DataSnapshot;
 
@@ -78,6 +78,22 @@ class Certificate extends VuexModule {
             .child(certificate.fbID)
             .set(certificate)
             .then(() => this.context.commit('updateCertificate', certificate));
+    }
+
+    @Action
+    public updateCertificateDemoAction(certificate: ICertificate): void {
+        this.context.commit('updateCertificate', certificate)
+    }
+
+    @Action
+    public deleteCertificateDemoAction(certificate: ICertificate): void {
+        this.context.commit('deleteCertificate', certificate.fbID);
+    }
+
+    @Action
+    public addCertificateDemoAction(certificate: ICertificate): void {
+        const id = generateID();
+        this.context.commit('addCertificate', {...certificate, fbID: id});
     }
 }
 

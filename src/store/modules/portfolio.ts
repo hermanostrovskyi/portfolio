@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {IPortfolioItem} from "@/interfaces/interfaces";
 import Store from '../index';
-import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
+import {generateID, getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 import firebase from "firebase";
 
 const dbPortfolio = getFirebaseDB().ref('data/portfolio');
@@ -46,7 +46,7 @@ class Portfolio extends VuexModule {
         dbPortfolio.once('value')
             .then(snapshot => {
                 const portfolio: IPortfolioItem[] = retrieveData(snapshot.val()) as IPortfolioItem[];
-                if(portfolio) {
+                if (portfolio) {
                     this.context.commit('setPortfolio', portfolio);
                 }
             })
@@ -78,7 +78,21 @@ class Portfolio extends VuexModule {
             .then(() => this.context.commit('updatePortfolioItem', portfolioItem));
     }
 
+    @Action
+    public updatePortfolioItemDemoAction(portfolioItem: IPortfolioItem): void {
+        this.context.commit('updatePortfolioItem', portfolioItem);
+    }
 
+    @Action
+    public deletePortfolioItemDemoAction(portfolioItem: IPortfolioItem): void {
+        this.context.commit('deletePortfolioItem', portfolioItem.fbID);
+    }
+
+    @Action
+    public addPortfolioItemDemoAction(portfolioItem: IPortfolioItem): void {
+        const id = generateID();
+        this.context.commit('addPortfolioItem', {...portfolioItem, fbID: id});
+    }
 }
 
 

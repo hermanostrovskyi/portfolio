@@ -30,6 +30,10 @@ class Auth extends VuexModule {
         return this.authData.idToken !== null
     }
 
+    get isDemoUser(): boolean {
+        return this.authData.userId === '9K1JJLTrYJfRuorMSj4vqpc7YwU2';
+    }
+
     get userData(): IAuthState {
         return this.authData;
     }
@@ -66,9 +70,7 @@ class Auth extends VuexModule {
         if (!token) {
             return;
         }
-        // if (isTokenExpired()) {
-        //     return;
-        // }
+
         const userId = getUserIdFromLocalStorage();
         this.context.commit('authUser', {token, userId});
     }

@@ -33,11 +33,13 @@
     import {Component, Vue} from 'vue-property-decorator';
     import {ISkill} from "@/interfaces/interfaces";
     import Skill from "@/store/modules/skill";
+    import Auth from "@/store/modules/auth";
     import AdminDialog from "@/store/modules/adminDialog";
     import {getModule} from "vuex-module-decorators";
 
     const skillStore = getModule(Skill);
     const adminDialogStore = getModule(AdminDialog);
+    const authStore = getModule(Auth)
 
     @Component
     export default class AdminSkills extends Vue {
@@ -51,7 +53,7 @@
                 componentName: 'DialogDeleteConfirmation',
                 properties: {
                     mode: 'deleteConfirmation',
-                    submit: skillStore.deleteSkillAction,
+                    submit: authStore.isDemoUser ? skillStore.deleteSkillDemoAction : skillStore.deleteSkillAction,
                     data: fbId
                 }
             });

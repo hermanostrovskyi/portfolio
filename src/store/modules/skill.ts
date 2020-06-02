@@ -1,7 +1,7 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import {ISkill} from "@/interfaces/interfaces";
 import Store from '../index';
-import {getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
+import {generateID, getFirebaseDB, retrieveData} from "@/helper/helperFunctions";
 
 
 const dbSkill = getFirebaseDB().ref('data/skill');
@@ -49,7 +49,7 @@ class Skill extends VuexModule {
         dbSkill.once('value')
             .then(snapshot => {
                 const skills: ISkill[] = retrieveData(snapshot.val()) as ISkill[];
-                if(skills) {
+                if (skills) {
                     this.context.commit('setSkills', skills);
                 }
             })
@@ -76,6 +76,22 @@ class Skill extends VuexModule {
             .child(fbID)
             .set(null)
             .then(() => this.context.commit('deleteSkill', fbID));
+    }
+
+    @Action
+    public deleteSkillDemoAction(fbID: string): void {
+        this.context.commit('deleteSkill', fbID);
+    }
+
+    @Action
+    public updateSkillDemoAction(skill: ISkill): void {
+        this.context.commit('updateSkill', skill);
+    }
+
+    @Action
+    public addSkillDemoAction(skill: ISkill): void {
+        const id = generateID();
+        this.context.commit('addSkill', {...skill, fbID: id});
     }
 }
 

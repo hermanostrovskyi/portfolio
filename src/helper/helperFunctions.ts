@@ -60,3 +60,7 @@ export function retrieveData(fetchedData: any): IExperience[] | ISkill[] | ICert
         return response;
     }
 }
+
+export function generateID(): string {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}

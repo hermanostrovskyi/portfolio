@@ -61,10 +61,19 @@
 
 
         beforeCreate() {
-            experienceStore.fetchExperienceAction();
-            skillStore.fetchSkills();
-            portfolioStore.fetchPortfolio();
-            certificateStore.fetchCertificates();
+           if(!experienceStore.allWorkExperiences.length) {
+               experienceStore.fetchExperienceAction();
+           }
+            if(!skillStore.allSkills.length) {
+                skillStore.fetchSkills();
+            }
+            if(!portfolioStore.allPortfolioItems.length) {
+                portfolioStore.fetchPortfolio();
+            }
+            if(!certificateStore.allCertificates.length) {
+                certificateStore.fetchCertificates();
+            }
+
         }
 
         created(): void {
