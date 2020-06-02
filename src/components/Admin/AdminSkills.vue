@@ -1,28 +1,29 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-                <v-flex  xs12 sm6 md6 lg4 v-for="skill in allSkills" :key="skill.fbID">
-                        <v-card>
-                            <v-card-title>{{skill.name}}</v-card-title>
-                            <v-container>
-                                <v-progress-linear color="#ffc400" class="progress-bar" rounded height="25px" :value="skill.skillValue">
-                                    <strong class="progress-title">{{skill.skillValue}} %</strong>
-                                </v-progress-linear>
-                            </v-container>
-                            <v-divider></v-divider>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
+            <v-flex xs12 sm6 md6 lg4 v-for="skill in allSkills" :key="skill.fbID">
+                <v-card>
+                    <v-card-title>{{skill.name}}</v-card-title>
+                    <v-container>
+                        <v-progress-linear color="#ffc400" class="progress-bar" rounded height="25px"
+                                           :value="skill.skillValue">
+                            <strong class="progress-title">{{skill.skillValue}} %</strong>
+                        </v-progress-linear>
+                    </v-container>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
 
-                                <v-btn fab small color="#d3d3d3" @click="pickUpdatedSkill(skill)">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
+                        <v-btn fab small color="#d3d3d3" @click="pickUpdatedSkill(skill)">
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
 
-                                <v-btn fab small color="error" @click="deleteSkill(skill.fbID)" >
-                                    <v-icon>mdi-delete</v-icon>
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                </v-flex>
+                        <v-btn fab small color="error" @click="deleteSkill(skill.fbID)">
+                            <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
         </v-layout>
     </v-container>
 
@@ -53,7 +54,9 @@
                 componentName: 'DialogDeleteConfirmation',
                 properties: {
                     mode: 'deleteConfirmation',
-                    submit: authStore.isDemoUser ? skillStore.deleteSkillDemoAction : skillStore.deleteSkillAction,
+                    submit: authStore.isDemoUser ?
+                        skillStore.deleteSkillDemoAction :
+                        skillStore.deleteSkillAction,
                     data: fbId
                 }
             });
@@ -65,13 +68,17 @@
                 properties: {
                     mode: 'update',
                     populateWith: {...updatedSkill},
-                    submit: skillStore.updateSkillAction
+                    submit: authStore.isDemoUser ?
+                        skillStore.updateSkillDemoAction :
+                        skillStore.updateSkillAction,
                 }
             });
         }
 
         created() {
-            skillStore.fetchSkills();
+            if(!skillStore.allSkills.length) {
+                skillStore.fetchSkills();
+            }
         }
     }
 </script>

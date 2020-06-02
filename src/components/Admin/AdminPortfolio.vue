@@ -34,9 +34,11 @@
     import Portfolio from "@/store/modules/portfolio";
     import {getModule} from "vuex-module-decorators";
     import AdminDialog from "@/store/modules/adminDialog";
+    import Auth from "@/store/modules/auth";
 
     const portfolioStore = getModule(Portfolio);
     const adminDialogStore = getModule(AdminDialog);
+    const authStore = getModule(Auth)
 
     @Component
     export default class AdminPortfolio extends Vue {
@@ -49,7 +51,9 @@
                 componentName: 'DialogDeleteConfirmation',
                 properties: {
                     mode: 'deleteConfirmation',
-                    submit: portfolioStore.deletePortfolioItemAction,
+                    submit: authStore.isDemoUser ?
+                        portfolioStore.deletePortfolioItemDemoAction :
+                        portfolioStore.deletePortfolioItemAction,
                     data: portfolioItem
                 }
             });
@@ -61,13 +65,17 @@
                 properties: {
                     mode: 'update',
                     populateWith: {...portfolioItem},
-                    submit: portfolioStore.updatePortfolioItemAction
+                    submit: authStore.isDemoUser ?
+                        portfolioStore.updatePortfolioItemDemoAction :
+                        portfolioStore.updatePortfolioItemAction
                 }
             });
         }
 
-        beforeCreate() {
-            portfolioStore.fetchPortfolio();
+        created() {
+            if(!portfolioStore.allPortfolioItems.length) {
+                portfolioStore.fetchPortfolio();
+            }
         }
     }
 </script>

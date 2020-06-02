@@ -1,10 +1,11 @@
 <template>
     <v-container fluid grid-list-lg>
         <v-layout row wrap>
-            <v-flex xs12 sm6 md6 lg4  v-for="experienceRecord in allExperienceRecords" :key="experienceRecord.fbID" >
-                <v-card  >
+            <v-flex xs12 sm6 md6 lg4 v-for="experienceRecord in allExperienceRecords" :key="experienceRecord.fbID">
+                <v-card>
                     <v-card-title>{{experienceRecord.firm}}</v-card-title>
-                    <v-card-subtitle>Period: {{experienceRecord.periodStart }} - {{experienceRecord.periodEnd  }}</v-card-subtitle>
+                    <v-card-subtitle>Period: {{experienceRecord.periodStart }} - {{experienceRecord.periodEnd }}
+                    </v-card-subtitle>
                     <v-divider></v-divider>
                     <v-container fluid>
                         <p><span class="card-prop">Place: </span> {{experienceRecord.place}}</p>
@@ -35,9 +36,11 @@
     import Experience from "@/store/modules/experience";
     import AdminDialog from "@/store/modules/adminDialog";
     import {getModule} from "vuex-module-decorators";
+    import Auth from "@/store/modules/auth";
 
     const experienceStore = getModule(Experience);
     const adminDialogStore = getModule(AdminDialog);
+    const authStore = getModule(Auth);
 
     @Component
     export default class AdminExperience extends Vue {
@@ -51,7 +54,9 @@
                 componentName: 'DialogDeleteConfirmation',
                 properties: {
                     mode: 'deleteConfirmation',
-                    submit: experienceStore.deleteExperienceAction,
+                    submit: authStore.isDemoUser ?
+                        experienceStore.deleteExperienceDemoAction :
+                        experienceStore.deleteExperienceAction,
                     data: fbID
                 }
             });
@@ -63,13 +68,17 @@
                 properties: {
                     mode: 'update',
                     populateWith: {...experienceRecord},
-                    submit: experienceStore.updateExperienceAction
+                    submit: authStore.isDemoUser ?
+                        experienceStore.updateExperienceDemoAction :
+                        experienceStore.updateExperienceAction
                 }
             });
         }
 
         created() {
-            experienceStore.fetchExperienceAction();
+            if(!experienceStore.allWorkExperiences.length) {
+                experienceStore.fetchExperienceAction();
+            }
         }
 
     }

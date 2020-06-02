@@ -28,9 +28,11 @@
     import Certificate from "@/store/modules/certificate";
     import {ICertificate} from "@/interfaces/interfaces";
     import AdminDialog from "@/store/modules/adminDialog";
+    import Auth from "@/store/modules/auth";
 
     const certificateStore = getModule(Certificate);
     const adminDialogStore = getModule(AdminDialog);
+    const authStore = getModule(Auth);
 
     @Component
     export default class AdminCertificates extends Vue {
@@ -43,7 +45,9 @@
                 componentName: 'DialogDeleteConfirmation',
                 properties: {
                     mode: 'deleteConfirmation',
-                    submit: certificateStore.deleteCertificateAction,
+                    submit: authStore.isDemoUser ?
+                        certificateStore.deleteCertificateDemoAction :
+                        certificateStore.deleteCertificateAction,
                     data: certificate
                 }
             });
@@ -55,13 +59,17 @@
                 properties: {
                     mode: 'update',
                     populateWith: {...certificate},
-                    submit: certificateStore.updateCertificateAction
+                    submit: authStore.isDemoUser ?
+                        certificateStore.updateCertificateDemoAction :
+                        certificateStore.updateCertificateAction
                 }
             });
         }
 
         created() {
-            certificateStore.fetchCertificates();
+            if(!certificateStore.allCertificates.length) {
+                certificateStore.fetchCertificates();
+            }
         }
 
 

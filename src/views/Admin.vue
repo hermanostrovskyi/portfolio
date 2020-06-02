@@ -174,19 +174,27 @@
         get addAction() {
             switch (this.currentItem) {
                 case 'Skills':
-                    return skillStore.addSkillAction;
+                    return this.isDemoUser ?
+                        skillStore.addSkillDemoAction :
+                        skillStore.addSkillAction;
                 case 'Experience':
-                    return experienceStore.addExperienceAction;
+                    return this.isDemoUser ?
+                        experienceStore.addExperienceDemoAction :
+                        experienceStore.addExperienceAction;
                 case 'Certificates':
-                    return certificateStore.addCertificateAction;
+                    return this.isDemoUser ?
+                        certificateStore.addCertificateDemoAction :
+                        certificateStore.addCertificateAction;
                 case 'Portfolio':
-                    return portfolioStore.addPortfolioItemAction;
+                    return this.isDemoUser ?
+                        portfolioStore.addPortfolioItemDemoAction :
+                        portfolioStore.addPortfolioItemAction;
                 default:
-                    return skillStore.addSkillAction;
+                    return this.isDemoUser ?
+                        skillStore.addSkillDemoAction :
+                        skillStore.addSkillAction;
             }
         }
-
-
     }
 </script>
 
