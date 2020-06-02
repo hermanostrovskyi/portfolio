@@ -53,7 +53,16 @@
     export default class DialogSkill extends Vue {
         @Prop() dialogProps: IDialogProps;
         skillData: ISkill = null;
-        types: string[] = ['Main', 'Tools']
+        types: string[] = ['Main', 'Tools'];
+
+        close(): void {
+            adminDialogStore.hideAdminDialog();
+        }
+
+        submit() {
+            this.dialogProps.submit(this.skillData);
+            this.close();
+        }
 
 
         get buttonLabel(): string {
