@@ -34,8 +34,8 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="submit">{{buttonLabel}}</v-btn>
+            <v-btn color="#000" text @click="close">Close</v-btn>
+            <v-btn color="#ffc400" text @click="submit">{{buttonLabel}}</v-btn>
         </v-card-actions>
     </v-card>
 

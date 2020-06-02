@@ -14,7 +14,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn fab small color="primary" @click="onPortfolioEdit(portfolioItem)">
+                        <v-btn fab small color="#d3d3d3" @click="onPortfolioEdit(portfolioItem)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 

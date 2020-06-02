@@ -9,7 +9,7 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn fab small color="primary" @click="onCertificateUpdate(certificate)">
+                        <v-btn fab small color="#d3d3d3" @click="onCertificateUpdate(certificate)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
                         <v-btn fab small color="error" @click="onCertificateDelete(certificate)">

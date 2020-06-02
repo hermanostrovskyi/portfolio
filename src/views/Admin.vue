@@ -24,7 +24,7 @@
                 <v-list-item
                         v-for="menuItem in menuItems"
                         :key="menuItem.title"
-                        @click="currentItem = menuItem.title"
+                        @click="onMenuClick(menuItem.title)"
                         link
                 >
                     <v-list-item-icon>
@@ -46,7 +46,7 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-app-bar app dark color="primary">
+        <v-app-bar app dark color="#000">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title>Admin Panel</v-toolbar-title>
         </v-app-bar>
@@ -56,7 +56,7 @@
                 <v-toolbar-title>{{currentItem}}</v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-btn color="primary" @click="onAddClick()">
+                <v-btn  color="#ffc400" @click="onAddClick()">
                     <v-icon left>mdi-plus-circle-outline</v-icon>
                     Add new
                 </v-btn>
@@ -132,6 +132,10 @@
             authStore.logout();
         }
 
+        onMenuClick(title: string): void {
+            this.currentItem = title;
+        }
+
         onAddClick() {
             adminDialogStore.setDialogOptions({
                 componentName: 'Dialog' + this.currentItem,
@@ -166,7 +170,6 @@
         get userName(): string {
             return this.isDemoUser ? '@Demouser' : '@Stella';
         }
-
 
 
         get addAction() {

@@ -5,15 +5,15 @@
                         <v-card>
                             <v-card-title>{{skill.name}}</v-card-title>
                             <v-container>
-                                <v-progress-linear class="progress-bar" rounded height="25px" :value="skill.skillValue">
-                                    <strong>{{skill.skillValue}} %</strong>
+                                <v-progress-linear color="#ffc400" class="progress-bar" rounded height="25px" :value="skill.skillValue">
+                                    <strong class="progress-title">{{skill.skillValue}} %</strong>
                                 </v-progress-linear>
                             </v-container>
                             <v-divider></v-divider>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
 
-                                <v-btn fab small color="primary" @click="pickUpdatedSkill(skill)">
+                                <v-btn fab small color="#d3d3d3" @click="pickUpdatedSkill(skill)">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
 
@@ -74,10 +74,11 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .progress-bar {
-        color: white;
+        color: $black;
     }
+
 
     .slide-enter {
         opacity: 0;
