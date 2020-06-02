@@ -3,10 +3,11 @@
         <v-navigation-drawer v-model="drawer" app>
             <v-list-item>
                 <v-list-item-avatar>
-                    <v-img src="@/assets/avatar.jpg"></v-img>
+                    <v-img v-if='!isDemoUser' src='@/assets/avatar.jpg'></v-img>
+                    <v-img v-else src='@/assets/dummyAvatar.png'></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                    <v-list-item-title>@Stella</v-list-item-title>
+                    <v-list-item-title>{{userName}}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
@@ -156,6 +157,17 @@
         get dialogProps(): IDialogProps {
             return adminDialogStore.dialogProps;
         }
+
+        get isDemoUser(): boolean {
+            return authStore.userData.userId === '9K1JJLTrYJfRuorMSj4vqpc7YwU2';
+
+        }
+
+        get userName(): string {
+            return this.isDemoUser ? '@Demouser' : '@Stella';
+        }
+
+
 
         get addAction() {
             switch (this.currentItem) {

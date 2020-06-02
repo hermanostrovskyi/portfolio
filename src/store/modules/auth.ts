@@ -30,6 +30,10 @@ class Auth extends VuexModule {
         return this.authData.idToken !== null
     }
 
+    get userData(): IAuthState {
+        return this.authData;
+    }
+
     @Mutation
     public authUser(authData: IAuthData) {
         this.authData.idToken = authData.token;
@@ -41,23 +45,6 @@ class Auth extends VuexModule {
         this.authData.idToken = this.authData.userId = null;
     }
 
-    // @Action
-    // public login(loginData: ILoginData): void {
-    //     const uri: string = getAuthUri();
-    //     axios.post(uri, {
-    //         email: loginData.email,
-    //         password: loginData.password,
-    //         returnSecureToken: true
-    //     })
-    //         .then(response => {
-    //             saveDataToLocalStorage(response);
-    //             this.context.commit('authUser', {token: response.data.idToken, userId: response.data.localId});
-    //             // dispatch('setLogoutTimer', response.data.expiresIn);
-    //             router.push('/admin');
-    //             console.log(response);
-    //         })
-    //         .catch(error => console.log(error))
-    // }
 
     @Action
     public login(loginData: ILoginData): void {

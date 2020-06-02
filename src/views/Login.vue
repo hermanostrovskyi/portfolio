@@ -22,8 +22,7 @@
                                     name="password"
                                     prepend-icon="mdi-lock"
                                     type="password"
-                                    v-model="loginData.password"
-                            />
+                                    v-model="loginData.password"/>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
