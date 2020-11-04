@@ -31,8 +31,7 @@
                 <p class="intro__start">Hallo, ich bin</p>
                 <p class="intro__name">Stella Notkina</p>
                 <p class="intro__description">UI/UX Designerin</p>
-                <p class="intro__end">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur
-                    cum doloremque expedita itaque rem!</p>
+                <p class="intro__end">Ich entwickele moderne und minimalistische UIs für Webseiten und Mobile Apps. Ich suche nach dem Job meines Traums!</p>
                 <button class="intro__btn">Download CV</button>
             </div>
 

@@ -2,9 +2,7 @@
     <section id="experienceSection" class="experience" data-aos-easing="ease-in-out" data-aos="fade-up"
              data-aos-duration="1000"  data-aos-once="true">
         <h2 class="experience__header">Berufserfahrung</h2>
-        <p class="experience__phrase">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at
-            autem consequuntur cumque
-            ducimus eaque eius exercitationem fugit hic molestiae numquam odit.</p>
+        <p class="experience__phrase">Ich habe mehr als 5 Jahre in verschiedenen Digital Agenturen gearbeitet. Ich habe außer UI/UX  Erfahrung in Grafische- Verpackungs Design und Fotografie gesammelt.</p>
         <div class="experience__list">
             <article class="experience__item" v-for="experience in allExperiences" :key="experience.fbID">
                 <h3 class="experience__item-header">{{experience.periodStart | formatDate }} - {{experience.periodEnd | formatDate}}</h3>
