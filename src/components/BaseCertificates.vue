@@ -58,8 +58,7 @@ export default class BaseCertificates extends Vue {
   dialogCertificate: ICertificate = null;
 
   get allCertificates(): ICertificate[] {
-    return certificateStore.allCertificates.sort((a, b) => a.date > b.date ? -1 : 1);
-
+    return certificateStore.allCertificates.sort((a: ICertificate, b: ICertificate): number => a.date > b.date ? -1 : 1);
   }
 
   onDialogClose(): void {
