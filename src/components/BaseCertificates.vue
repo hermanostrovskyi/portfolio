@@ -66,7 +66,8 @@ export default class BaseCertificates extends Vue {
     this.dialogCertificate = null;
   }
 
-  showImage(certificate: ICertificate) {
+  showImage(certificate: ICertificate
+  ) {
     this.dialog = true;
     this.dialogCertificate = certificate;
   }

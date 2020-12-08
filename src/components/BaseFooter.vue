@@ -14,9 +14,14 @@
                 <img class="footer__contacts-logo-image" src="@/assets/logoFooter.png" alt="logo">
             </div>
             <div class="footer__contacts-socials">
-                <font-awesome-icon class="footer__contacts-socials-item" :icon="['fab', 'dribbble']"/>
+<!--                <font-awesome-icon class="footer__contacts-socials-item" :icon="['fab', 'dribbble']"/>-->
+              <a href="https://www.instagram.com/stellochka006/" target="_blank">
                 <font-awesome-icon class="footer__contacts-socials-item" :icon="['fab', 'instagram']"/>
+              </a>
+              <a href="https://www.xing.com/profile/Stella_Notkina/cv " target="_blank">
                 <font-awesome-icon class="footer__contacts-socials-item" :icon="['fab', 'xing']"/>
+              </a>
+
             </div>
         </section>
         <section class="footer__copyright">
@@ -93,7 +98,11 @@
                 font-size: 36px;
                 display: grid;
                 gap: 20px;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
+
+              a {
+                color: white;
+              }
 
                 &-item {
                     cursor: pointer;
