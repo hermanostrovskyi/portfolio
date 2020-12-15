@@ -28,11 +28,11 @@
         </ul>
       </div>
       <div class="header__intro intro">
-        <p class="intro__start">Hallo, ich bin</p>
+        <p class="intro__start">Hallo, mein Name ist</p>
         <p class="intro__name">Stella Notkina</p>
         <p class="intro__description">UI/UX Designerin</p>
-        <p class="intro__end">Ich entwickele moderne und minimalistische UIs für Webseiten und Mobile Apps. Ich suche
-          nach dem Job meines Traums!</p>
+        <p class="intro__end">Ich entwickle moderne und minimalistische UIs für Webseiten und Mobile Apps und suche
+          nach dem Job meiner Träume!</p>
         <a class="intro__btn" href="./cv.pdf" target="_blank">Download CV</a>
       </div>
 
