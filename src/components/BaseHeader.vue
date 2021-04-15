@@ -9,7 +9,7 @@
 
 
         <ul class="nav__list">
-          <li class="nav__item" @click="scrollToAnchor('#home')">Home</li>
+          <li class="nav__item" @click="scrollToAnchor('#home')">Über mich</li>
           <li class="nav__item" @click="scrollToAnchor('#experienceSection')">Berufserfahrung</li>
           <li class="nav__item" @click="scrollToAnchor('#skillSection')">Skills</li>
           <li class="nav__item" @click="scrollToAnchor('#portfolioSection')">Projekte</li>
