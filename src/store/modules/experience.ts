@@ -20,6 +20,9 @@ class Experience extends VuexModule {
 
     @Mutation
     public setWorkExperience(workExperience: IExperience[]): void {
+        workExperience.sort((expA, expB): number => {
+            return expB.periodEnd > expA.periodEnd ? 1 : -1;
+        });
         this.workExperience = [...workExperience];
     }
 
