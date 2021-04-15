@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-flex xs12 sm6 md6 lg4 v-for="portfolioItem in portfolioItems" :key="portfolioItem.fbID">
                 <v-card>
-                    <v-card-title>{{portfolioItem.title}}</v-card-title>
+                    <v-card-title>{{portfolioItem.title}} - {{portfolioItem.prior}}</v-card-title>
                     <v-divider></v-divider>
                     <v-img height="300" :src="portfolioItem.url"></v-img>
                     <v-container fluid>

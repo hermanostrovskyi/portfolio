@@ -35,6 +35,7 @@ export interface ISkill {
 
 export interface IPortfolioItem {
     fbID: string;
+    prior: number;
     title: string;
     description: string;
     url: string;

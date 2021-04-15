@@ -22,11 +22,14 @@ class Portfolio extends VuexModule {
 
     @Mutation
     public addPortfolioItem(portfolioItem: IPortfolioItem): void {
-        this.portfolio.push(portfolioItem);
+        this.portfolio.unshift(portfolioItem);
     }
 
     @Mutation
     public setPortfolio(portfolio: IPortfolioItem[]): void {
+        portfolio.sort((portfolioItemA: IPortfolioItem, portfolioItemB: IPortfolioItem): number => {
+            return portfolioItemB.prior - portfolioItemA.prior;
+        })
         this.portfolio = [...portfolio];
     }
 
