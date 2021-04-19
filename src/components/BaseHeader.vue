@@ -9,7 +9,7 @@
 
 
         <ul class="nav__list">
-          <li class="nav__item" @click="scrollToAnchor('#home')">Über mich</li>
+          <li class="nav__item" @click="scrollToAnchor('#home')">Home</li>
           <li class="nav__item" @click="scrollToAnchor('#experienceSection')">Berufserfahrung</li>
           <li class="nav__item" @click="scrollToAnchor('#skillSection')">Skills</li>
           <li class="nav__item" @click="scrollToAnchor('#portfolioSection')">Projekte</li>
@@ -31,7 +31,7 @@
         <p class="intro__start">Hallo, mein Name ist</p>
         <p class="intro__name">Stella Notkina</p>
         <p class="intro__description">UI Designerin</p>
-        <p class="intro__end">Ich entwickle moderne und minimalistische UIs für Webseiten und Mobile Apps und bin offen für neue Projekte!</p>
+        <p class="intro__end">Ich entwickle moderne, minimalistische UIs für Webseiten, Mobile Apps und bin offen für neue Projekte!</p>
         <a class="intro__btn" href="./cv.pdf" target="_blank">Download CV</a>
       </div>
 
